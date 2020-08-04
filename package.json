@@ -1,7 +1,7 @@
 {
-  "name": "boilermaker",
+  "name": "SneakerDealer",
   "version": "2.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "Application facilitates selling of various sporswear.",
   "engines": {
     "node": "~12.11.1"
   },
