@@ -26,12 +26,8 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
-            {/* Only admins can view all users! (if not an admin, redirect to landing page*/}
-            {isAdmin ? (
-              <Route path="/users" component={AllUsers} />
-            ) : (
-              <Redirect to="/" />
-            )}
+            {/* Only admins can view all users! */}
+            {isAdmin && <Route path="/users" component={AllUsers} />}
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}

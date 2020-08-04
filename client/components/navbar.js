@@ -4,12 +4,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
-// const Navbar = ({handleClick, isLoggedIn, id}) => (
 const Navbar = props => {
-  // const isLoggedIn = props.isLoggedIn
-  // const handleClick = props.handleClick
-  // const userId = props.userId
-  // const isAdmin = props.isAdmin
   const {isLoggedIn, handleClick, userId, isAdmin} = props
 
   console.log('navbar props', props.userId)
