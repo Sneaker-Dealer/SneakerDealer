@@ -16,7 +16,7 @@ export class Cart extends React.Component {
     render() {
         <div>
             <h1>Cart:</h1>
-            {this.props.cart.map(item => <div>{item}</div>)}
+            {(this.props.cart)?this.props.cart.map(item => <div>{item}</div>):<div>Cart is Empty</div>}
         </div>
     }
 }
