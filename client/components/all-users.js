@@ -9,19 +9,27 @@ export class AllUsers extends React.Component {
   }
 
   render() {
-    console.log('PROPS', this.props)
-    console.log('USERS', this.props.users)
+    let users = this.props.users
+
     return (
       <div>
-        <h3>---- ALL USERS ----</h3>
+        <h3>All Users:</h3>
+        {users.length === 0 && <h3>No users available</h3>}
+
+        {users.map(user => {
+          return (
+            <div key={user.id}>
+              <p>Name: {user.name}</p>
+              <p>Email: {user.email}</p>
+            </div>
+          )
+        })}
       </div>
     )
   }
 }
 
 const mapState = state => {
-  console.log('STATE', state)
-
   return {
     users: state.users
   }
