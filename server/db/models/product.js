@@ -4,45 +4,45 @@ const db = require('../db')
 const Product = db.define('product', {
   name: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
   },
   style: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
   },
   manufacturer: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
   },
   description: {
-    type: Sequelize.TEXT
+    type: Sequelize.TEXT,
   },
   price: {
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
-      min: 0
-    }
+      min: 0,
+    },
   },
   photos: {
     type: Sequelize.ARRAY(Sequelize.STRING),
     validate: {
-      isUrl: true
+      isUrl: true,
     },
-    defaultValue: ['tbd']
+    defaultValue: ['tbd'],
   },
   inventory: {
     type: Sequelize.INTEGER,
     allowNull: false,
     defaultValue: 1,
     validate: {
-      min: 0
-    }
-  }
+      min: 0,
+    },
+  },
 })
 
 module.exports = Product
 
-Product.prototype.decrementInventory = function(num) {
+Product.prototype.decrementInventory = function (num) {
   this.inventory = Math.max(this.inventory - num, 0)
 }
