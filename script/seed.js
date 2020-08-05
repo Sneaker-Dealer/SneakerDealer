@@ -1,7 +1,9 @@
 'use strict'
 const {green, red} = require('chalk')
+const faker = require('faker')
 const db = require('../server/db')
 const {User, Product} = require('../server/db/models')
+const {commerce} = require('faker')
 
 const users = [
   {
@@ -80,12 +82,45 @@ const sneakers = [
 const seed = async () => {
   try {
     await db.sync({force: true})
-    await Promise.all(users.map((user) => User.create(user)))
-    await Promise.all(sneakers.map((sneaker) => Product.create(sneaker)))
+
+    for (let i = 0; i < 5; i++) {
+      await User.create({
+        name: faker.name.findName(),
+        email: faker.internet.email(),
+        password: faker.internet.password(),
+        isAdmin: faker.random.boolean(),
+        googleId: null,
+      })
+      await Product.create({
+        name: faker.commerce.productName(),
+        style: faker.commerce.productAdjective(),
+        manufacturer: faker.company.companyName(),
+        description: faker.lorem.paragraph(),
+        price: (+faker.commerce.price()).toFixed(0),
+        photos: [
+          faker.image.fashion(),
+          faker.image.fashion(),
+          faker.image.fashion(),
+        ],
+        inventory: 10,
+      })
+    }
+
+    //await Promise.all(sneakers.map((sneaker) => Product.create(sneaker)))
   } catch (err) {
     console.log(red(err))
   }
 }
+
+// const seed = async () => {
+//   try {
+//     await db.sync({force: true})
+//     await Promise.all(users.map((user) => User.create(user)))
+//     await Promise.all(sneakers.map((sneaker) => Product.create(sneaker)))
+//   } catch (err) {
+//     console.log(red(err))
+//   }
+// }
 
 // async function seed() {
 //   await db.sync({force: true})
