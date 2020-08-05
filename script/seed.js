@@ -107,8 +107,8 @@ const seed = async () => {
     }
 
     await Promise.all(users.map((user) => User.create(user)))
-
     await Promise.all(sneakers.map((sneaker) => Product.create(sneaker)))
+    
   } catch (err) {
     console.log(red(err))
   }
