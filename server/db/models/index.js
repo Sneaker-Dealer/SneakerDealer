@@ -18,9 +18,9 @@ const Product = require('./product')
  */
 
 Cart.belongsTo(User)
-User.hasOne(Cart)
-// Product.belongsToMany(Cart);
-// Cart.belongsToMany(Product);
+User.hasOne(Cart) // suggest the hasMany
+// Product.belongsToMany(Cart, { through: 'name_of_table'});
+// Cart.belongsToMany(Product, {...});
 
 module.exports = {
   User,

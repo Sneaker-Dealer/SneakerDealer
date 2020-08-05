@@ -83,6 +83,7 @@ const seed = async () => {
   try {
     await db.sync({force: true})
 
+    // Promise.all
     for (let i = 0; i < 5; i++) {
       await User.create({
         name: faker.name.findName(),
@@ -108,7 +109,9 @@ const seed = async () => {
 
     await Promise.all(users.map((user) => User.create(user)))
     await Promise.all(sneakers.map((sneaker) => Product.create(sneaker)))
-    
+
+    // add some carts/orders
+    // order items
   } catch (err) {
     console.log(red(err))
   }

@@ -11,12 +11,15 @@ const User = db.define('user', {
       isEmail: true
     }
   },
+  // split up into a first + last name fields
+  // create a virtual field, or some sort of getter to retrieve the full name
   name: {
     type: Sequelize.STRING,
     allowNull: false
   },
   isAdmin: {
     type: Sequelize.BOOLEAN
+    // SZ: defaultValue: false
   },
   password: {
     type: Sequelize.STRING,

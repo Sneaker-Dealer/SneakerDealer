@@ -18,6 +18,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:userId', async (req, res, next) => {
   try {
+    // giving back appropriate info -> even the user themselves don't need the password or salt given back to them
     const users = await User.findByPk(req.params.userId, {
       include: [Cart]
     })

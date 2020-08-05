@@ -4,6 +4,9 @@ const {isAdmin} = require('./gatekeeper')
 
 module.exports = router
 
+
+// Will merge sneakers into products
+
 // Get single product
 router.get('/:id', async (req, res, next) => {
   try {
