@@ -17,9 +17,11 @@ describe('All Users ', () => {
   const initialState = {
     users: [
       {id: 1, name: 'cody', email: 'cody@email.com'},
-      {id: 2, name: 'admin', email: 'admin@email.com'}
+      {id: 2, name: 'admin', email: 'admin@email.com'},
+      {id: 3, name: 'bob', email: 'bob@email.com'},
+      {id: 4, name: 'joe', email: 'joe@email.com'}
     ]
-  } //check this
+  }
 
   beforeEach(() => {
     mockAxios = new MockAdapter(axios)
@@ -37,7 +39,7 @@ describe('All Users ', () => {
       await store.dispatch(fetchAllUsers()) //dispatch thunk
       const actions = store.getActions()
       expect(actions[0].type).to.be.equal('GET_ALL_USERS')
-      expect(actions[0].users.length).to.be.equal(2)
+      expect(actions[0].users.length).to.be.equal(4)
     })
   })
 })
