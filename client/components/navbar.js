@@ -18,6 +18,7 @@ const Navbar = (props) => {
             <Link to="/cart">Cart</Link>
             {/* If admin, show view users option */}
             {isAdmin && <Link to="/users">View Users</Link>}
+            {isAdmin && <Link to="/add-product">Add Product</Link>}
             <a href="#" onClick={handleClick}>
               Logout
             </a>
