@@ -2,7 +2,10 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
+
 import {Login, Signup, UserHome, AllUsers} from './components'
+import Cart from './components/cart'
+
 import {me} from './store'
 
 /**
@@ -22,10 +25,14 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route path="/cart" component={Cart} /> 
+        {/*Remove before deploy for testing route when no user logged in */}
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
+            <Route path="/cart" component={Cart} />
+
             {/* Only admins can view all users! */}
             {isAdmin && <Route path="/users" component={AllUsers} />}
           </Switch>

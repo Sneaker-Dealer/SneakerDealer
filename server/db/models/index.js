@@ -1,4 +1,5 @@
 const User = require('./user')
+const Cart = require('./cart')
 const Product = require('./product')
 
 /**
@@ -14,6 +15,12 @@ const Product = require('./product')
  * for example, we can say: const {User} = require('../db/models')
  * instead of: const User = require('../db/models/user')
  */
+
+Cart.belongsTo(User)
+User.hasOne(Cart)
+// Product.belongsToMany(Cart);
+// Cart.belongsToMany(Product);
+
 module.exports = {
   User,
   Product,

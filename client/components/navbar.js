@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
+
 const Navbar = props => {
   const {isLoggedIn, handleClick, userId, isAdmin} = props
 
@@ -17,7 +18,7 @@ const Navbar = props => {
           <div>
             {/* The navbar will show these links after you log in */}
             <Link to="/home">Home</Link>
-            <Link to={`/cart/${userId}`}>View Cart</Link>
+            <Link to="/cart">Cart</Link>
             {/* If admin, show view users option */}
             {isAdmin && <Link to="/users">View Users</Link>}
             <a href="#" onClick={handleClick}>

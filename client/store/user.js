@@ -6,6 +6,7 @@ import history from '../history'
  */
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
+const GET_CART = 'GET_CART'
 
 /**
  * INITIAL STATE
@@ -17,6 +18,7 @@ const defaultUser = {}
  */
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
+const getCart = cart => ({type: GET_CART,cart})
 
 /**
  * THUNK CREATORS
@@ -56,15 +58,30 @@ export const logout = () => async dispatch => {
   }
 }
 
+export const fetchCart = (id) => {
+  return async (dispatch) => {
+    try {
+      const {data} = await axios.get(`/api/users/${id}`)
+      if (data){
+        dispatch(getCart(data.cart))
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 /**
  * REDUCER
  */
 export default function(state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
-      return action.user
+      return {...state,user: action.user}
     case REMOVE_USER:
       return defaultUser
+    case GET_CART:
+      return {...state,cart: action.cart}
     default:
       return state
   }
