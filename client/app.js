@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {Navbar, AllSneakers} from './components'
+import {Navbar, AllProducts} from './components'
 import Routes from './routes'
 
 const App = () => {
@@ -8,7 +8,7 @@ const App = () => {
     <div className="app container-fluid">
       <Navbar />
       <Routes />
-      <AllSneakers />
+      <AllProducts />
     </div>
   )
 }
