@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User,Cart} = require('../db/models')
+const {User, Cart} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -8,8 +8,7 @@ router.get('/', async (req, res, next) => {
       // explicitly select only the id and email fields - even though
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
-      attributes: ['id', 'email'],
-      include: Cart
+      attributes: ['id', 'email']
     })
     res.json(users)
   } catch (err) {
@@ -19,12 +18,11 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:userId', async (req, res, next) => {
   try {
-      const users = await User.findByPk(req.params.userId, {
-          include: [Cart]
-      })
-      res.json(users);
+    const users = await User.findByPk(req.params.userId, {
+      include: [Cart]
+    })
+    res.json(users)
+  } catch (err) {
+    next(err)
   }
-  catch (err) {
-      next(err)
-  }
-});
+})

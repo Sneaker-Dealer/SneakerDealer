@@ -16,10 +16,10 @@ const Product = require('./product')
  * instead of: const User = require('../db/models/user')
  */
 
-Cart.belongsTo(User);
-User.hasOne(Cart);
-Product.belongsToMany(Cart);
-Cart.belongsToMany(Product);
+Cart.belongsTo(User)
+User.hasOne(Cart)
+// Product.belongsToMany(Cart);
+// Cart.belongsToMany(Product);
 
 module.exports = {
   User

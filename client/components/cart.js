@@ -1,47 +1,57 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { fetchCart } from '../store/user'
+import {connect} from 'react-redux'
+import {fetchCart} from '../store/user'
+import {Link} from 'react-router-dom'
 
 /**
  * COMPONENT
  */
 
-export class Cart extends React.Component {
+class Cart extends React.Component {
+  componentDidMount() {
+    this.props.fetchCart(this.props.user.id)
+  }
 
-    componentDidMount() {
-        this.props.fetchCart(this.props.user.id)
-    }
-
-    render() {
-        <div>
-            <h1>Cart:</h1>
-            {(this.props.cart)?this.props.cart.map(item => <div>{item}</div>):<div>Cart is Empty</div>}
-        </div>
-    }
+  render() {
+    return (
+      <div>
+        <h1>Cart:</h1>
+        {this.props.cart ? (
+          this.props.cart.items.map(item => (
+            <Link to={`/products/${item.id}`} key={item.id}>
+              <div>{item.name}</div>
+            </Link>
+          ))
+        ) : (
+          <div>Cart is Empty</div>
+        )}
+      </div>
+    )
+  }
 }
 
 /**
  * CONTAINER
  */
 const mapState = state => {
-    return {
-        cart: state.cart,
-        user: state.user
-    }
+  return {
+    cart: state.cart,
+    user: state.user
+  }
 }
 
 const mapDispatch = dispatch => {
-    return {
-        fetchCart: (id) => dispatch(fetchCart(id))
-    }
+  return {
+    fetchCart: id => dispatch(fetchCart(id))
+  }
 }
 
-export default connect(mapState,mapDispatch)(Cart)
+export default connect(mapState, mapDispatch)(Cart)
 
 /**
  * PROP TYPES
  */
-UserHome.propTypes = {
-    email: PropTypes.string
-}
+// UserHome.propTypes = {
+//     email: PropTypes.string
+// }
