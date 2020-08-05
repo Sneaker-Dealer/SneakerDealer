@@ -4,13 +4,12 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
-
 const Navbar = props => {
   const {isLoggedIn, handleClick, userId, isAdmin} = props
 
   console.log('navbar props', props.userId)
   return (
-    <div>
+    <div id="navbar">
       <h1>SNEAKER DEALER</h1>
 
       <nav>

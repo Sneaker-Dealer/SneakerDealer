@@ -19,3 +19,33 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+img {
+  height: 300px;
+  width: 300px;
+}
+
+.app {
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+  color: white;
+}
+
+.allSneakers {
+  background-color: #53a2be;
+}
+
+.routes {
+  background-color: #53a2be;
+}
+
+.allPageSingleSneaker {
+  background-color: #1d84b5;
+  margin: 2rem;
+}
+
+#navbar {
+  background-color: #0a2239;
+  width: 100%;
+}

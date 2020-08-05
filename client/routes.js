@@ -18,9 +18,11 @@ class Routes extends Component {
 
   render() {
     const {isLoggedIn} = this.props
+
     const {isAdmin} = this.props
 
     return (
+      <div className="routes">
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
@@ -40,6 +42,8 @@ class Routes extends Component {
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
       </Switch>
+    </div>
+
     )
   }
 }

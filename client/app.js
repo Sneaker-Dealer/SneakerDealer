@@ -1,13 +1,14 @@
 import React from 'react'
 
-import {Navbar} from './components'
+import {Navbar, AllSneakers} from './components'
 import Routes from './routes'
 
 const App = () => {
   return (
-    <div>
+    <div className="app container-fluid">
       <Navbar />
       <Routes />
+      <AllSneakers />
     </div>
   )
 }
