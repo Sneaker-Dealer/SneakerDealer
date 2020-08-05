@@ -22,5 +22,6 @@ User.hasOne(Cart)
 // Cart.belongsToMany(Product);
 
 module.exports = {
-  User
+  User,
+  Product,
 }
