@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-import {Login, Signup, UserHome, AllUsers} from './components'
+import {Login, Signup, UserHome, AllUsers, AddProduct} from './components'
 import Cart from './components/cart'
 
 import {me} from './store'
@@ -35,6 +35,7 @@ class Routes extends Component {
 
               {/* Only admins can view all users! */}
               {isAdmin && <Route path="/users" component={AllUsers} />}
+              {isAdmin && <Route path="/add-product" component={AddProduct} />}
             </Switch>
           )}
           {/* Displays our Login component as a fallback */}
