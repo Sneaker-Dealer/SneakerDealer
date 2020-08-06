@@ -2,8 +2,8 @@
 const {green, red} = require('chalk')
 const faker = require('faker')
 const db = require('../server/db')
-const {User, Product} = require('../server/db/models')
-const {staticUsers, staticProducts} = require('./seedStaticData')
+const {User, Product, Cart} = require('../server/db/models')
+const {staticUsers, staticProducts, staticCarts} = require('./seedStaticData')
 
 const randomUsers = Array(10) // number of generated ramdom users, - change upon need
   .fill(undefined)
@@ -39,6 +39,7 @@ const seed = async () => {
     // joining static and randomized test data
     const usersToCreate = staticUsers.concat(randomUsers)
     const productsToCreate = staticProducts.concat(randomProducts)
+    const cartsToCreate = staticCarts
 
     // creating record in the database
     const createdUsers = await Promise.all(
@@ -47,10 +48,24 @@ const seed = async () => {
     const createdProducts = await Promise.all(
       productsToCreate.map((product) => Product.create(product))
     )
+    const createdCarts = await Promise.all(
+      cartsToCreate.map((cart) => Cart.create(cart))
+    )
+
+    const fillWithProducts = await Promise.all([
+      createdCarts[0].addProducts(createdProducts.slice(0, 5)),
+      createdCarts[1].addProducts(createdProducts.slice(6, 15)),
+      createdCarts[2].addProducts(createdProducts.slice(9, 20)),
+      createdCarts[3].addProducts(createdProducts.slice(15, 25)),
+    ])
 
     // logging seeding results in records created
     console.log(`seeded ${createdUsers.length} users`)
     console.log(`seeded ${createdProducts.length} products`)
+    console.log(`seeded ${createdCarts.length} carts`)
+    console.log(
+      `seeded ${fillWithProducts.length} out of ${createdCarts.length} carts with products`
+    )
   } catch (err) {
     console.log(red(err))
   }

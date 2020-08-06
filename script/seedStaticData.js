@@ -74,4 +74,12 @@ const staticProducts = [
   },
 ]
 
-module.exports = {staticUsers, staticProducts}
+const staticCarts = [
+  {status: 'CREATED'},
+  {status: 'PROCESSING'},
+  {status: 'CREATED'},
+  {status: 'CANCELLED'},
+  {status: 'COMPLETED'},
+]
+
+module.exports = {staticUsers, staticProducts, staticCarts}
