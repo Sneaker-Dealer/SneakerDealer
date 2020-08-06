@@ -41,7 +41,7 @@ const seed = async () => {
     const productsToCreate = staticProducts.concat(randomProducts)
     const cartsToCreate = staticCarts
 
-    // creating record in the database
+    // creating records in the database
     const createdUsers = await Promise.all(
       usersToCreate.map((user) => User.create(user))
     )
@@ -52,20 +52,28 @@ const seed = async () => {
       cartsToCreate.map((cart) => Cart.create(cart))
     )
 
-    const fillWithProducts = await Promise.all([
+    const fillCartWithProducts = await Promise.all([
       createdCarts[0].addProducts(createdProducts.slice(0, 5)),
       createdCarts[1].addProducts(createdProducts.slice(6, 15)),
       createdCarts[2].addProducts(createdProducts.slice(9, 20)),
       createdCarts[3].addProducts(createdProducts.slice(15, 25)),
     ])
 
+    const assignUserToCart = await Promise.all([
+      createdUsers[0].addCart(createdCarts[0]),
+      createdUsers[0].addCart(createdCarts[1]),
+      createdUsers[1].addCart(createdCarts[2]),
+      createdUsers[2].addCart(createdCarts[3]),
+      createdUsers[3].addCart(createdCarts[4]),
+    ])
     // logging seeding results in records created
     console.log(`seeded ${createdUsers.length} users`)
     console.log(`seeded ${createdProducts.length} products`)
     console.log(`seeded ${createdCarts.length} carts`)
     console.log(
-      `seeded ${fillWithProducts.length} out of ${createdCarts.length} carts with products`
+      `seeded ${fillCartWithProducts.length} out of ${createdCarts.length} carts with products`
     )
+    console.log(`seeded ${assignUserToCart.length} carts asigned to users`)
   } catch (err) {
     console.log(red(err))
   }
