@@ -7,6 +7,21 @@ const Cart = db.define('cart', {
     defaultValue: 'CREATED',
     allowNull: false,
   },
+  recipientName: {
+    type: Sequelize.STRING,
+  },
+  confirmationEmail: {
+    type: Sequelize.STRING,
+  },
+  recipientAddress: {
+    type: Sequelize.STRING,
+  },
+  recipientPhone: {
+    type: Sequelize.STRING,
+  },
+  specialInstructions: {
+    type: Sequelize.STRING,
+  },
 })
 
 module.exports = Cart

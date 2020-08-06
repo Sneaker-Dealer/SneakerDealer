@@ -26,10 +26,9 @@ const Product = db.define('product', {
   },
   photos: {
     type: Sequelize.ARRAY(Sequelize.STRING),
-    validate: {
-      isUrl: true,
-    },
-    defaultValue: ['tbd'],
+    defaultValue: [
+      'https://cdn1.vectorstock.com/i/1000x1000/33/75/shoes-running-pictogram-vector-12083375.jpg',
+    ],
   },
   inventory: {
     type: Sequelize.INTEGER,
