@@ -10,7 +10,7 @@ class AllProducts extends Component {
 
   render() {
     const products = this.props.products
-    console.log('PROPS', this.props)
+
     return (
       <div className="allSneakers row">
         {products.map((sneaker) => (
