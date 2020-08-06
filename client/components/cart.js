@@ -10,19 +10,23 @@ import {Link} from 'react-router-dom'
 
 class Cart extends React.Component {
   componentDidMount() {
-    this.props.fetchCart(this.props.user.id)
+    this.props.fetchCart(10)
   }
 
   render() {
+    // console.log("cart props in cart",this.props.cart.products_in_cart)
     return (
       <div>
-        <h1>Cart:</h1>
-        {this.props.user.id ? (
-          this.props.cart.product.map((item) => (
-            <Link to={`/products/${item.id}`} key={item.id}>
-              <img src={item.photos[0]}></img>
-              <div>{item.name}</div>
-            </Link>
+        <h2>Cart:</h2>
+        {this.props.cart.products_in_cart ? (
+          this.props.cart.products_in_cart.map((item) => (
+            <div key={item.id}>
+              <Link to={`/products/${item.id}`}>
+                <img src={item.photos[0]} />
+                <div>{item.name}</div>
+              </Link>
+              <h4>Quantity: {item.Product_Cart.quantity}</h4>
+            </div>
           ))
         ) : (
           <div>Cart is Empty</div>

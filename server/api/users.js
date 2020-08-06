@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {User, Cart, Product} = require('../db/models')
+const ProductCart = require('../db/models/product_cart')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -21,11 +22,13 @@ router.get('/:userId/cart', async (req, res, next) => {
     // const users = await User.findByPk(req.params.userId, {
     //   include: [Cart]
     // })
-    const userCart = await Cart.findOne({
+    const cart = await Cart.findOne({
       where: {userId: req.params.userId, status: 'CREATED'},
-      include: [Product],
+      // include: [{model: Product, as: 'product'}],
+      include: [{model: Product, as: 'products_in_cart'}],
     })
-    res.json(userCart)
+    console.log(cart)
+    res.json(cart)
   } catch (err) {
     next(err)
   }

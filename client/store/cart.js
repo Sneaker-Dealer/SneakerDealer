@@ -11,7 +11,7 @@ export const fetchCart = (id) => {
     try {
       const {data} = await axios.get(`/api/users/${id}/cart`)
       if (data) {
-        dispatch(getCart(data.cart))
+        dispatch(getCart(data))
       } else {
         dispatch(getCart({}))
       }
