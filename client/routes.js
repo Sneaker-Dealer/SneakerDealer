@@ -3,7 +3,14 @@ import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-import {Login, Signup, UserHome, AllUsers, AddProduct} from './components'
+import {
+  Login,
+  Signup,
+  UserHome,
+  AllUsers,
+  AddProduct,
+  AllProducts,
+} from './components'
 import Cart from './components/cart'
 
 import {me} from './store'
@@ -26,6 +33,7 @@ class Routes extends Component {
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
           <Route path="/cart" component={Cart} />
+          <Route exact path="/" component={AllProducts} />
           {/*Remove before deploy for testing route when no user logged in */}
           {isLoggedIn && (
             <Switch>
