@@ -19,6 +19,14 @@ class SingleProduct extends Component {
         <h4>{product.description}</h4>
         <h4>Manufacturer</h4>
         <h4>{product.manufacturer}</h4>
+        <button
+          type="button"
+          className="btn btn-secondary"
+          id="addToCart"
+          onClick={() => console.log('added to cart.')}
+        >
+          Add to cart
+        </button>
         <div>
           <h4>Photos</h4>
           <div>
