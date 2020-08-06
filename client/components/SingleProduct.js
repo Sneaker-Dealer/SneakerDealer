@@ -14,6 +14,21 @@ class SingleProduct extends Component {
       <div>
         <h3>Test Info For Single product</h3>
         <h4>{product.name}</h4>
+        <h4>{product.price}</h4>
+        <h4>Description</h4>
+        <h4>{product.description}</h4>
+        <h4>Manufacturer</h4>
+        <h4>{product.manufacturer}</h4>
+        <div>
+          <h4>Photos</h4>
+          <div>
+            {product.photos.map((photo) => (
+              <div key={photo}>
+                <img src={photo}></img>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     )
   }
