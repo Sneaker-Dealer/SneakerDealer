@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {fetchCart} from '../store/user'
+import {fetchCart} from '../store/cart'
 import {Link} from 'react-router-dom'
 
 /**
@@ -17,9 +17,10 @@ class Cart extends React.Component {
     return (
       <div>
         <h1>Cart:</h1>
-        {this.props.cart ? (
-          this.props.cart.items.map(item => (
+        {this.props.user.id ? (
+          this.props.cart.product.map((item) => (
             <Link to={`/products/${item.id}`} key={item.id}>
+              <img src={item.photos[0]}></img>
               <div>{item.name}</div>
             </Link>
           ))
@@ -34,16 +35,16 @@ class Cart extends React.Component {
 /**
  * CONTAINER
  */
-const mapState = state => {
+const mapState = (state) => {
   return {
     cart: state.cart,
-    user: state.user
+    user: state.user,
   }
 }
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
-    fetchCart: id => dispatch(fetchCart(id))
+    fetchCart: (id) => dispatch(fetchCart(id)),
   }
 }
 

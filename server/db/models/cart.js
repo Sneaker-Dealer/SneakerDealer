@@ -5,15 +5,18 @@ const Cart = db.define('cart', {
   status: {
     type: Sequelize.ENUM('CREATED', 'PROCESSING', 'CANCELLED', 'COMPLETED'),
     defaultValue: 'CREATED',
-    allowNull: false
+    allowNull: false,
   },
-  items: {
-    type: Sequelize.ARRAY(Sequelize.JSON),
-    allowNull: false
-  },
-  subTotal: {
-    type: Sequelize.INTEGER
-  }
 })
 
 module.exports = Cart
+
+//,
+// subTotal: {
+//   type: Sequelize.INTEGER
+// }
+
+// items: {
+//   type: Sequelize.ARRAY(Sequelize.JSON),
+//   allowNull: false
+// }

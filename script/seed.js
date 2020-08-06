@@ -2,7 +2,7 @@
 const {green, red} = require('chalk')
 const faker = require('faker')
 const db = require('../server/db')
-const {User, Product} = require('../server/db/models')
+const {User, Product, Cart} = require('../server/db/models')
 const {commerce} = require('faker')
 
 const users = [
@@ -79,6 +79,19 @@ const sneakers = [
   },
 ]
 
+const carts = [
+  {
+    status: 'CREATED',
+    userId: 10,
+    products: [3, 2],
+  },
+  {
+    status: 'CREATED',
+    userId: 11,
+    products: 5,
+  },
+]
+
 const seed = async () => {
   try {
     await db.sync({force: true})
@@ -108,7 +121,7 @@ const seed = async () => {
 
     await Promise.all(users.map((user) => User.create(user)))
     await Promise.all(sneakers.map((sneaker) => Product.create(sneaker)))
-    
+    await Promise.all(carts.map((cart) => Cart.create(cart)))
   } catch (err) {
     console.log(red(err))
   }
