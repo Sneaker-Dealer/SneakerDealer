@@ -1,5 +1,5 @@
 // this is controlled set of static data, which is being used during development
-
+//
 const staticUsers = [
   {
     name: 'Yosef Herskovitz',
