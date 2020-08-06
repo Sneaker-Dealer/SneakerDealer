@@ -2,7 +2,7 @@
 const {green, red} = require('chalk')
 const faker = require('faker')
 const db = require('../server/db')
-const {User, Product} = require('../server/db/models')
+const {User, Product, Cart, ProductCart} = require('../server/db/models')
 const {commerce} = require('faker')
 
 const users = [
@@ -79,6 +79,17 @@ const sneakers = [
   },
 ]
 
+const carts = [
+  {
+    status: 'CREATED',
+    userId: 10,
+  },
+  {
+    status: 'CREATED',
+    userId: 11,
+  },
+]
+
 const seed = async () => {
   try {
     await db.sync({force: true})
@@ -108,7 +119,58 @@ const seed = async () => {
 
     await Promise.all(users.map((user) => User.create(user)))
     await Promise.all(sneakers.map((sneaker) => Product.create(sneaker)))
-    
+    // const newProduct = await Product.findAll({ order: db.random(), limit: 1 })
+    // console.log("new product",newProduct)
+    await Promise.all(
+      carts.map((cart) => {
+        const newCart = Cart.create(cart)
+        // newCart.addProduct(newProduct);
+        // console.log("new cart",newCart)
+        return newCart
+        // newCart.addProduct(Product.findAll({ order: Sequelize.random(), limit: 1 }))
+        // newCart.addProduct(Product.findAll({ order: Sequelize.random(), limit: 1 }))
+      })
+    )
+    // await User.create({
+    //   name: faker.name.findName(),
+    //   email: 'testcart@test.com',
+    //   password: 'test123',
+    //   isAdmin: true,
+    //   googleId: null,
+    // })
+
+    // const newCart = await Cart.create({
+    //   status: 'CREATED',
+    //   userId: 12,
+    //   product: [{
+    //     name: faker.commerce.productName(),
+    //   style: faker.commerce.productAdjective(),
+    //   manufacturer: faker.company.companyName(),
+    //   description: faker.lorem.paragraph(),
+    //   price: (+faker.commerce.price()).toFixed(0),
+    //   photos: [
+    //     faker.image.fashion(),
+    //     faker.image.fashion(),
+    //     faker.image.fashion(),
+    //   ],
+    //   inventory: 10,
+    //   }]})
+
+    // const newtestProduct = await Product.create({
+    //   name: faker.commerce.productName(),
+    //   style: faker.commerce.productAdjective(),
+    //   manufacturer: faker.company.companyName(),
+    //   description: faker.lorem.paragraph(),
+    //   price: (+faker.commerce.price()).toFixed(0),
+    //   photos: [
+    //     faker.image.fashion(),
+    //     faker.image.fashion(),
+    //     faker.image.fashion(),
+    //   ],
+    //   inventory: 10,
+    // })
+    // console.log(Object.keys(newCart.__proto__));
+    // await newCart.addProduct(newtestProduct)
   } catch (err) {
     console.log(red(err))
   }
