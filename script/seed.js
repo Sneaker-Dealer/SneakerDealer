@@ -53,10 +53,10 @@ const seed = async () => {
     )
 
     const fillCartWithProducts = await Promise.all([
-      createdCarts[0].addProducts(createdProducts.slice(0, 5)),
-      createdCarts[1].addProducts(createdProducts.slice(6, 15)),
-      createdCarts[2].addProducts(createdProducts.slice(9, 20)),
-      createdCarts[3].addProducts(createdProducts.slice(15, 25)),
+      createdCarts[0].addProducts_in_cart(createdProducts.slice(0, 5)),
+      createdCarts[1].addProducts_in_cart(createdProducts.slice(6, 15)),
+      createdCarts[2].addProducts_in_cart(createdProducts.slice(9, 20)),
+      createdCarts[3].addProducts_in_cart(createdProducts.slice(15, 25)),
     ])
 
     const assignUserToCart = await Promise.all([
