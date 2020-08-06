@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchSingleProduct} from '../store/singleProduct'
+import {fetchSingleProduct} from '../store/single-product'
 import {Link} from 'react-router-dom'
 
 class SingleProduct extends Component {
@@ -10,9 +10,10 @@ class SingleProduct extends Component {
 
   render() {
     const {product} = this.props
+    console.log('prod>>>', product)
+
     return (
       <div>
-        <h3>Test Info For Single product</h3>
         <h4>{product.name}</h4>
         <h4>{product.price}</h4>
         <h4>Description</h4>
@@ -30,9 +31,9 @@ class SingleProduct extends Component {
         <div>
           <h4>Photos</h4>
           <div>
-            {product.photos.map((photo) => (
-              <div key={photo}>
-                <img src={photo}></img>
+            {(product.photos || []).map((photo, idx) => (
+              <div key={idx}>
+                <img src={photo} />
               </div>
             ))}
           </div>
@@ -50,7 +51,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchSingleStudent: (id) => dispatch(fetchSingleProduct(id)),
+    fetchSingleProduct: (id) => dispatch(fetchSingleProduct(id)),
   }
 }
 
