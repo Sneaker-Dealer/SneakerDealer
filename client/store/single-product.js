@@ -7,13 +7,13 @@ const GET_PRODUCT = 'GET_PRODUCT'
 export function getProduct(product) {
   return {
     type: GET_PRODUCT,
-    product
+    product,
   }
 }
 
 // Thunk Creator
-export const fetchSingleProduct = id => {
-  return async dispatch => {
+export const fetchSingleProduct = (id) => {
+  return async (dispatch) => {
     try {
       const {data} = await axios.get(`/api/products/${id}`)
       dispatch(getProduct(data))
@@ -32,3 +32,4 @@ export default function reducer(state = {}, action) {
       return state
   }
 }
+//

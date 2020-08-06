@@ -10,6 +10,7 @@ import {
   AllUsers,
   AddProduct,
   AllProducts,
+  SingleProduct,
 } from './components'
 import Cart from './components/cart'
 
@@ -34,6 +35,7 @@ class Routes extends Component {
           <Route path="/signup" component={Signup} />
           <Route path="/cart" component={Cart} />
           <Route exact path="/" component={AllProducts} />
+          <Route exact path="/products/:id" component={SingleProduct} />
           {/*Remove before deploy for testing route when no user logged in */}
           {isLoggedIn && (
             <Switch>
