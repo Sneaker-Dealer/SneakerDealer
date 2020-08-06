@@ -4,10 +4,8 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
-const Navbar = props => {
+const Navbar = (props) => {
   const {isLoggedIn, handleClick, userId, isAdmin} = props
-
-  console.log('navbar props', props.userId)
   return (
     <div id="navbar">
       <h1>SNEAKER DEALER</h1>
@@ -40,19 +38,19 @@ const Navbar = props => {
 /**
  * CONTAINER
  */
-const mapState = state => {
+const mapState = (state) => {
   return {
     isLoggedIn: !!state.user.id,
     userId: state.user.id,
-    isAdmin: !!state.user.isAdmin
+    isAdmin: !!state.user.isAdmin,
   }
 }
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
     handleClick() {
       dispatch(logout())
-    }
+    },
   }
 }
 
@@ -63,5 +61,5 @@ export default connect(mapState, mapDispatch)(Navbar)
  */
 Navbar.propTypes = {
   handleClick: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
+  isLoggedIn: PropTypes.bool.isRequired,
 }
