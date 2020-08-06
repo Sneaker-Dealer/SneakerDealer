@@ -20,11 +20,10 @@ export const fetchProducts = () => async (dispatch) => {
 }
 
 // thunk for adding product
-export const addProductThunk = () => async (dispatch) => {
+export const addProductThunk = (newProduct) => async (dispatch) => {
   try {
-    console.log('ADDING NEW PRODUCT >>>')
-    const {data} = await axios.post('/api/products')
-    dispatch(addProductThunk(data))
+    const {data} = await axios.post('/api/products', newProduct)
+    dispatch(addProduct(data))
   } catch (err) {
     console.log(err)
   }
@@ -36,7 +35,7 @@ export default function (state = defaultProducts, action) {
     case GET_PRODUCTS:
       return action.products
     case ADD_PRODUCT:
-      return {...state, ...action.newProduct}
+      return [...state, action.newProduct]
     default:
       return state
   }

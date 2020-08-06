@@ -13,6 +13,7 @@ class AddProduct extends React.Component {
       description: '',
       price: '',
       inventory: '',
+      photos: [],
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -44,6 +45,7 @@ class AddProduct extends React.Component {
       description,
       price,
       inventory,
+      photos: ['http://google.com'], //default photo for now
     }
 
     this.props.addProduct(newProduct)
@@ -117,9 +119,8 @@ class AddProduct extends React.Component {
 }
 
 const mapDispatch = (dispatch) => {
-  console.log('DISPATCHING >>>>>')
   return {
-    addProduct: () => dispatch(addProductThunk()),
+    addProduct: (newProduct) => dispatch(addProductThunk(newProduct)),
   }
 }
 
