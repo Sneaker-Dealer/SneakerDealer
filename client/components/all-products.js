@@ -13,7 +13,6 @@ class AllProducts extends Component {
     console.log('PROPS', this.props)
     return (
       <div className="allSneakers row">
-        {/* {this.state.sneakers.map((sneaker) => ( */}
         {products.map((sneaker) => (
           <div
             key={sneaker.id}
