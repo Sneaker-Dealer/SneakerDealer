@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {fetchCart, changeCart} from '../store/cart'
 import {Link} from 'react-router-dom'
@@ -47,7 +46,6 @@ class Cart extends React.Component {
   }
 
   render() {
-    // console.log("cart props in cart",this.props.cart.products_in_cart)
     return (
       <div>
         <h2>Cart:</h2>
@@ -106,10 +104,3 @@ const mapDispatch = (dispatch) => {
 }
 
 export default connect(mapState, mapDispatch)(Cart)
-
-/**
- * PROP TYPES
- */
-// UserHome.propTypes = {
-//     email: PropTypes.string
-// }

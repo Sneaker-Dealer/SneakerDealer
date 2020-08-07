@@ -26,7 +26,6 @@ export const fetchCart = (id) => {
 export const changeCart = (id, cart_id, product_id, quantity) => {
   return async (dispatch) => {
     try {
-      console.log(id)
       if (quantity > 0) {
         await axios.put(`/api/users/${id}/cart`, {
           cart_id,
@@ -34,8 +33,6 @@ export const changeCart = (id, cart_id, product_id, quantity) => {
           quantity,
         })
       } else {
-        console.log(cart_id)
-        console.log(product_id)
         await axios.delete(`/api/users/${id}/cart`, {
           data: {cart_id, product_id},
         })

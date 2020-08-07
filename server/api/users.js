@@ -19,12 +19,8 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:userId/cart', async (req, res, next) => {
   try {
-    // const users = await User.findByPk(req.params.userId, {
-    //   include: [Cart]
-    // })
     const cart = await Cart.findOne({
       where: {userId: req.params.userId, status: 'CREATED'},
-      // include: [{model: Product, as: 'product'}],
       include: [{model: Product, as: 'products_in_cart'}],
     })
     res.json(cart)
@@ -35,7 +31,6 @@ router.get('/:userId/cart', async (req, res, next) => {
 
 router.put('/:userId/cart', async (req, res, next) => {
   try {
-    console.log(req.body)
     const [, [cart]] = await ProductCart.update(
       {
         quantity: req.body.quantity,
