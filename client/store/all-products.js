@@ -1,7 +1,7 @@
 import axios from 'axios'
 // import history from '../history'
 
-const defaultProducts = {}
+const defaultProducts = []
 
 //Action Types
 const GET_PRODUCTS = 'GET_PRODUCTS'
@@ -51,6 +51,7 @@ export const deleteProductThunk = (id) => {
 }
 
 // reducer
+// export default function (state = defaultProducts, action) {
 export default function (state = defaultProducts, action) {
   switch (action.type) {
     case GET_PRODUCTS:
