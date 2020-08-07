@@ -27,7 +27,6 @@ router.get('/:userId/cart', async (req, res, next) => {
       // include: [{model: Product, as: 'product'}],
       include: [{model: Product, as: 'products_in_cart'}],
     })
-    console.log(cart)
     res.json(cart)
   } catch (err) {
     next(err)
@@ -36,10 +35,28 @@ router.get('/:userId/cart', async (req, res, next) => {
 
 router.put('/:userId/cart', async (req, res, next) => {
   try {
-    const users = await User.findByPk(req.params.userId, {
-      include: [Cart],
+    console.log(req.body)
+    const [, [cart]] = await ProductCart.update(
+      {
+        quantity: req.body.quantity,
+      },
+      {
+        returning: true,
+        where: {cart_id: req.body.cart_id, product_id: req.body.product_id},
+      }
+    )
+    res.json(cart)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.delete('/:userId/cart', async (req, res, next) => {
+  try {
+    await ProductCart.destroy({
+      where: {cart_id: req.body.cart_id, product_id: req.body.product_id},
     })
-    res.json(users)
+    res.status(204).end()
   } catch (err) {
     next(err)
   }
