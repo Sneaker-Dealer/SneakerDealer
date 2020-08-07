@@ -1,6 +1,7 @@
 //Admins can add a new product
 import React from 'react'
 import {fetchProducts} from '../store'
+import {fetchSingleProduct} from '../store/single-product'
 import {connect} from 'react-redux'
 
 class EditProduct extends React.Component {
@@ -22,6 +23,7 @@ class EditProduct extends React.Component {
 
   componentDidMount() {
     this.props.getProducts()
+    this.props.getSingleProduct(3) //hardcode data for testing
   }
 
   handleChange(event) {
@@ -34,9 +36,12 @@ class EditProduct extends React.Component {
     event.preventDefault()
   }
 
-  handleEditButton(event) {
-    event.preventDefault()
-    console.log('button clicked')
+  async handleEditButton(id) {
+    // event.preventDefault()
+    console.log('button clicked', id)
+    //TESTING SINGLE PRODUCT LINK with hard coded data
+    console.log('TESTING ---->', this.props.product)
+
     this.setState({
       name: 'a',
       style: 'b',
@@ -51,6 +56,7 @@ class EditProduct extends React.Component {
 
   render() {
     const products = this.props.products
+    console.log('THIS PROPS >>>', this.props)
 
     return (
       <div>
@@ -118,7 +124,15 @@ class EditProduct extends React.Component {
             return (
               <div key={product.id}>
                 <p>{product.name}</p>
-                <button onClick={this.handleEditButton} type="submit">
+                {/* <button onClick={this.handleEditButton} type="submit"> */}
+                {/* <button
+                  onClick={() => console.log('ID IS ', product.id)}
+                  type="submit"
+                > */}
+                <button
+                  onClick={() => this.handleEditButton(product.id)}
+                  type="button"
+                >
                   Edit
                 </button>
               </div>
@@ -133,11 +147,15 @@ class EditProduct extends React.Component {
 const mapState = (state) => {
   return {
     products: state.products,
+    product: state.product,
   }
 }
 
 const mapDispatch = (dispatch) => {
-  return {getProducts: () => dispatch(fetchProducts())}
+  return {
+    getProducts: () => dispatch(fetchProducts()),
+    getSingleProduct: (id) => dispatch(fetchSingleProduct(id)),
+  }
 }
 
 export default connect(mapState, mapDispatch)(EditProduct)
