@@ -11,8 +11,8 @@ class AddProduct extends React.Component {
       style: '',
       manufacturer: '',
       description: '',
-      price: '',
-      inventory: '',
+      price: 0,
+      inventory: 0,
       photos: '',
     }
     this.handleChange = this.handleChange.bind(this)
@@ -58,7 +58,7 @@ class AddProduct extends React.Component {
       manufacturer: '',
       description: '',
       price: 0,
-      inventory: '',
+      inventory: 0,
       photos: '',
     })
   }
