@@ -1,8 +1,6 @@
 import axios from 'axios'
 // import history from '../history'
 
-const defaultProducts = {}
-
 const GET_PRODUCTS = 'GET_PRODUCTS'
 const ADD_PRODUCT = 'ADD_PRODUCT'
 
@@ -30,7 +28,7 @@ export const addProductThunk = (newProduct) => async (dispatch) => {
 }
 
 // reducer
-export default function (state = defaultProducts, action) {
+export default function (state = [], action) {
   switch (action.type) {
     case GET_PRODUCTS:
       return action.products

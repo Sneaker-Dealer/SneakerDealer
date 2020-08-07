@@ -20,10 +20,10 @@ form div {
   display: inline-block;
 }
 
-img {
+/* img {
   height: 300px;
   width: 300px;
-}
+} */
 
 .app {
   width: 100%;
@@ -32,9 +32,9 @@ img {
   color: white;
 }
 
-.allSneakers {
+/* .allSneakers {
   background-color: #53a2be;
-}
+} */
 
 .routes {
   background-color: #53a2be;
@@ -43,9 +43,4 @@ img {
 .allPageSingleSneaker {
   background-color: #1d84b5;
   margin: 2rem;
-}
-
-#navbar {
-  background-color: #0a2239;
-  width: 100%;
 }
