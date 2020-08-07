@@ -17,7 +17,7 @@ class Cart extends React.Component {
 
   handleChange(item, event) {
     event.preventDefault()
-    const newQuantity = parseInt(event.target.value)
+    const newQuantity = parseInt(event.target.value, 10)
     item.inventory = newQuantity
   }
 
@@ -56,11 +56,10 @@ class Cart extends React.Component {
                 <img src={item.photos[0]} />
                 <div>{item.name}</div>
               </Link>
-              {/* <h4>Quantity: {item.Product_Cart.quantity}</h4> */}
               <form onSubmit={(event) => this.handleSubmit(item, event)}>
                 <label htmlFor="quantity">Quantity:</label>
                 <input
-                  name={item.id}
+                  name="quantity"
                   type="number"
                   defaultValue={item.Product_Cart.quantity}
                   onChange={(event) => this.handleChange(item, event)}
@@ -74,6 +73,7 @@ class Cart extends React.Component {
               >
                 Remove
               </button>
+              <hr />
             </div>
           ))
         ) : (

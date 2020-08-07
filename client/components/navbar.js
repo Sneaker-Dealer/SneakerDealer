@@ -8,7 +8,9 @@ const Navbar = (props) => {
   const {isLoggedIn, handleClick, userId, isAdmin} = props
   return (
     <div id="navbar">
-      <h1>SNEAKER DEALER</h1>
+      <Link to="/">
+        <h1>SNEAKER DEALER</h1>
+      </Link>
 
       <nav>
         {isLoggedIn ? (
@@ -28,6 +30,7 @@ const Navbar = (props) => {
             {/* The navbar will show these links before you log in */}
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
+            <Link to="/cart">Cart</Link>
           </div>
         )}
       </nav>
