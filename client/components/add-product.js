@@ -11,9 +11,9 @@ class AddProduct extends React.Component {
       style: '',
       manufacturer: '',
       description: '',
-      price: '',
-      inventory: '',
-      photos: [],
+      price: 0,
+      inventory: 0,
+      photos: '',
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -36,6 +36,7 @@ class AddProduct extends React.Component {
       description,
       price,
       inventory,
+      photos,
     } = this.state
 
     const newProduct = {
@@ -45,7 +46,7 @@ class AddProduct extends React.Component {
       description,
       price,
       inventory,
-      photos: ['http://google.com'], //default photo for now
+      photos: photos.split(', '),
     }
 
     this.props.addProduct(newProduct)
@@ -57,7 +58,8 @@ class AddProduct extends React.Component {
       manufacturer: '',
       description: '',
       price: 0,
-      inventory: '',
+      inventory: 0,
+      photos: '',
     })
   }
 
@@ -112,6 +114,14 @@ class AddProduct extends React.Component {
           value={this.state.inventory}
         />
 
+        <label htmlFor="photos">Image URL:</label>
+        <p>(Separate multiple URLs with a comma)</p>
+        <input
+          onChange={this.handleChange}
+          name="photos"
+          type="textArea"
+          value={this.state.photos}
+        />
         <button type="submit">Submit</button>
       </form>
     )
