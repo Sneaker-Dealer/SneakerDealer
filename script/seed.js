@@ -5,10 +5,18 @@ const db = require('../server/db')
 const {User, Product, Cart} = require('../server/db/models')
 const {staticUsers, staticProducts, staticCarts} = require('./seedStaticData')
 
+const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max))
+
+const randomStyle = () => {
+  const styles = ['CASUAL', 'BASKETBALL', 'RUNNING', 'VINTAGE', 'DESIGNER']
+  return styles[getRandomInt(5)]
+}
+
 const randomUsers = Array(10) // number of generated ramdom users, - change upon need
   .fill(undefined)
   .map(() => ({
-    name: faker.name.findName(),
+    firstName: faker.name.firstName(),
+    lastName: faker.name.lastName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
     isAdmin: faker.random.boolean(),
@@ -19,7 +27,7 @@ const randomProducts = Array(30) // number of generated ramdom products, - chang
   .fill(undefined)
   .map(() => ({
     name: faker.commerce.productName(),
-    style: faker.commerce.productAdjective(),
+    style: randomStyle(),
     manufacturer: faker.company.companyName(),
     description: faker.lorem.paragraph(),
     price: (+faker.commerce.price()).toFixed(0),

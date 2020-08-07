@@ -2,42 +2,48 @@
 //
 const staticUsers = [
   {
-    name: 'Yosef Herskovitz',
+    firstName: 'Yosef',
+    lastName: 'Herskovitz',
     email: 'yf@fs.com',
     password: 'bagel123',
     isAdmin: true,
     googleId: null,
   },
   {
-    name: 'Claudia Sinowato',
+    firstName: 'Claudia',
+    lastName: 'Sinowato',
     email: 'cs@fs.com',
     password: 'bagel456',
     isAdmin: true,
     googleId: null,
   },
   {
-    name: 'Richard Ke',
+    firstName: 'Richard',
+    lastName: 'Ke',
     email: 'rk@fs.com',
     password: 'bagel789',
     isAdmin: true,
     googleId: null,
   },
   {
-    name: 'Nik Cernomorsky',
+    firstName: 'Nik',
+    lastName: 'Cernomorsky',
     email: 'nc@fs.com',
     password: 'bagel012',
     isAdmin: true,
     googleId: null,
   },
   {
-    name: 'Admin',
+    firstName: 'Admin',
+    lastName: 'System',
     email: 'admin@admin.com',
     password: 'adminOMG123',
     isAdmin: true,
     googleId: null,
   },
   {
-    name: 'User',
+    firstName: 'User',
+    lastName: 'Default',
     email: 'user@user.com',
     password: 'userOMG123',
     isAdmin: false,
@@ -48,7 +54,7 @@ const staticUsers = [
 const staticProducts = [
   {
     name: 'Super Star',
-    style: 'comfy',
+    style: 'CASUAL',
     manufacturer: 'Reebok',
     description:
       "Athletic or casual rubber-soled shoes are called sneakers. ... You can also call sneakers tennis shoes, kicks, or running shoes, and if you're in Britain, you can call them trainers or plimsolls. Sneakers are made for exercise and sports, but they're also very popular everyday shoes because they're so comfortable.",
@@ -61,7 +67,7 @@ const staticProducts = [
   },
   {
     name: 'Super Star New Gen',
-    style: 'comfy+',
+    style: 'RUNNING',
     manufacturer: 'Reebok',
     description:
       "Different desc 1 - Athletic or casual rubber-soled shoes are called sneakers. ... You can also call sneakers tennis shoes, kicks, or running shoes, and if you're in Britain, you can call them trainers or plimsolls. Sneakers are made for exercise and sports, but they're also very popular everyday shoes because they're so comfortable.",

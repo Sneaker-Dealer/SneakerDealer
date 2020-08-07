@@ -11,9 +11,16 @@ const User = db.define('user', {
       isEmail: true,
     },
   },
-  name: {
+  firstName: {
     type: Sequelize.STRING,
     allowNull: false,
+  },
+  lastName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  name: {
+    type: Sequelize.STRING,
   },
   isAdmin: {
     type: Sequelize.BOOLEAN,
@@ -74,6 +81,12 @@ const setSaltAndPassword = (user) => {
   }
 }
 
+const setName = (user) => {
+  user.name = user.firstName + ' ' + user.lastName
+}
+
+User.beforeCreate(setName)
+User.beforeUpdate(setName)
 User.beforeCreate(setSaltAndPassword)
 User.beforeUpdate(setSaltAndPassword)
 User.beforeBulkCreate((users) => {

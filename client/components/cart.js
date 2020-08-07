@@ -10,7 +10,7 @@ import {Link} from 'react-router-dom'
 
 class Cart extends React.Component {
   componentDidMount() {
-    this.props.fetchCart(10)
+    this.props.fetchCart(1)
   }
 
   render() {

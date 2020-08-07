@@ -7,7 +7,14 @@ const Product = db.define('product', {
     allowNull: false,
   },
   style: {
-    type: Sequelize.STRING,
+    type: Sequelize.ENUM(
+      'CASUAL',
+      'BASKETBALL',
+      'RUNNING',
+      'VINTAGE',
+      'DESIGNER'
+    ),
+    defaultValue: 'CASUAL',
     allowNull: false,
   },
   manufacturer: {
