@@ -91,7 +91,6 @@ const Navbar = (props) => {
               </div>
             )}
           </nav>
-          <hr />
         </div>
       </Toolbar>
     </AppBar>

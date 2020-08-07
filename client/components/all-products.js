@@ -20,25 +20,22 @@ const AllProducts = (props) => {
   const {products} = props
   return (
     <div>
-      <Parallax
-        filter
-        image="https://www.zapatillukas.es/wp-content/uploads/2019/06/daniel-storek-1552081-unsplash-scaled.jpg"
-      >
+      <Parallax image="https://www.zapatillukas.es/wp-content/uploads/2019/06/daniel-storek-1552081-unsplash-scaled.jpg">
         <div className={classes.container}>
           <GridContainer>
             <GridItem>
               <div className={classes.brand}>
-                {/* <h1 className={classes.title}>SneakerDealer</h1>
+                <h1 className={classes.title}>SneakerDealer</h1>
                 <h3 className={classes.subtitle}>
                   The Ultimate Shoe Buying Experience
-                </h3> */}
+                </h3>
               </div>
             </GridItem>
           </GridContainer>
         </div>
       </Parallax>
       <div className="container">
-        <Paper elevation={3}>
+        <Paper elevation={4}>
           <div className="allSneakers row">
             {products.map((sneaker) => (
               <div

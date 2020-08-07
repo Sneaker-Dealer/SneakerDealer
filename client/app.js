@@ -11,8 +11,8 @@ const App = () => {
         brand="Material Kit React"
         color="transparent"
         changeColorOnScroll={{
-          height: 400,
-          color: 'white',
+          height: 250,
+          color: 'blue',
         }}
       />
       <Routes />
