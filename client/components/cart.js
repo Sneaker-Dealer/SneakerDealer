@@ -43,6 +43,7 @@ class Cart extends React.Component {
     console.log(this.props.user.id)
     // this.props.fetchCart(this.props.user.id)
     this.props.fetchCart(2)
+
   }
 
   render() {

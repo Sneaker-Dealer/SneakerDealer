@@ -17,10 +17,14 @@ const Navbar = (props) => {
           <div>
             {/* The navbar will show these links after you log in */}
             <Link to="/home">Home</Link>
-            <Link to="/cart">Cart</Link>
+            {/* <Link to="/cart">Cart</Link> */}
+            <Link to={`/cart/${userId}`}>Cart</Link>
+            <Link to="/">All Products</Link>
+
             {/* If admin, show view users option */}
             {isAdmin && <Link to="/users">View Users</Link>}
             {isAdmin && <Link to="/add-product">Add Product</Link>}
+            {isAdmin && <Link to="/edit-product">Edit Product</Link>}
             <a href="#" onClick={handleClick}>
               Logout
             </a>

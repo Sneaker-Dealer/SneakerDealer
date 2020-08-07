@@ -4,19 +4,16 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
 class AllProducts extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {sneakers: []}
-  }
-  async componentDidMount() {
-    await this.props.getProducts()
-    this.setState({sneakers: this.props.products})
+  componentDidMount() {
+    this.props.getProducts()
   }
 
   render() {
+    const products = this.props.products
+
     return (
       <div className="allSneakers row">
-        {this.state.sneakers.map((sneaker) => (
+        {products.map((sneaker) => (
           <div
             key={sneaker.id}
             className="allPageSingleSneaker col-4 col-sm justify-content-center"
