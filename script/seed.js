@@ -5,6 +5,7 @@ const db = require('../server/db')
 const {User, Product, Cart} = require('../server/db/models')
 const {staticUsers, staticProducts, staticCarts} = require('./seedStaticData')
 
+// helper functions for generating of style
 const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max))
 
 const randomStyle = () => {
