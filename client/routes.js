@@ -42,8 +42,6 @@ class Routes extends Component {
             <Switch>
               {/* Routes placed here are only available after logging in */}
               <Route path="/home" component={UserHome} />
-              <Route path="/cart" component={Cart} />
-
               {/* Only admins can view all users! */}
               {isAdmin && <Route path="/users" component={AllUsers} />}
               {isAdmin && <Route path="/add-product" component={AddProduct} />}
