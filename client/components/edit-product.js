@@ -8,6 +8,7 @@ class EditProduct extends React.Component {
   constructor() {
     super()
     this.state = {
+      productId: 0,
       name: '',
       style: '',
       manufacturer: '',
@@ -23,7 +24,6 @@ class EditProduct extends React.Component {
 
   componentDidMount() {
     this.props.getProducts()
-    this.props.getSingleProduct(3) //hardcode data for testing
   }
 
   handleChange(event) {
@@ -37,19 +37,19 @@ class EditProduct extends React.Component {
   }
 
   async handleEditButton(id) {
-    // event.preventDefault()
-    console.log('button clicked', id)
-    //TESTING SINGLE PRODUCT LINK with hard coded data
+    await this.props.getSingleProduct(id)
+    this.setState({productId: id})
     console.log('TESTING ---->', this.props.product)
 
+    let product = this.props.product
     this.setState({
-      name: 'a',
-      style: 'b',
-      manufacturer: 'c',
-      description: 'd',
-      price: 0,
-      inventory: 1,
-      photos: 'g',
+      name: product.name,
+      style: product.style,
+      manufacturer: product.manufacturer,
+      description: product.description,
+      price: product.price,
+      inventory: product.inventory,
+      photos: product.photos,
     })
     console.log('new state', this.state)
   }
