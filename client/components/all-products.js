@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
-import {fetchProducts} from '../store'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import React, { Component } from 'react'
+import { fetchProducts } from '../store'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 class AllProducts extends Component {
   componentDidMount() {
@@ -33,15 +33,17 @@ class AllProducts extends Component {
   //     </div>
   //   )
   // }
+  ///
+
 
   render() {
-    const {products} = this.props
+    const { products } = this.props
 
     return (
       <div className="blog-posts">
         <div
           className="page-header header-filter header-small"
-          style={{backgroundImage: `url("../resources/assets/img/all_v5.jpg")`}}
+          style={{ backgroundImage: `url("../resources/assets/img/all_v5.jpg")` }}
         >
           <div className="container">
             <div className="row">
@@ -56,7 +58,7 @@ class AllProducts extends Component {
             <div className="section">
               <div className="nav nav-bar">
                 <div>
-                  <h2 className="navbar-header" style={{textAlign: 'center'}}>
+                  <h2 className="navbar-header" style={{ textAlign: 'center' }}>
                     Currently Available
                   </h2>
                 </div>
@@ -68,7 +70,7 @@ class AllProducts extends Component {
                       <div>
                         <div
                           className="card card-raised card-background"
-                          style={{backgroundImage: `url(${product.photos[0]})`}}
+                          style={{ backgroundImage: `url(${product.photos[0]})` }}
                         >
                           <div className="card-content">
                             <Link
@@ -110,7 +112,7 @@ class AllProducts extends Component {
 }
 
 const mapDispatch = (dispatch) => {
-  return {getProducts: () => dispatch(fetchProducts())}
+  return { getProducts: () => dispatch(fetchProducts()) }
 }
 
 const mapState = (state) => {
