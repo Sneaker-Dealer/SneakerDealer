@@ -13,6 +13,17 @@ const randomStyle = () => {
   return styles[getRandomInt(5)]
 }
 
+// helper functions for generating of photos
+
+let photoSeq = 0
+
+const generatePhotoLink = () => {
+  if (photoSeq < 24) photoSeq++
+  else photoSeq = 1
+
+  return `../resources/assets/img/products_img/${photoSeq}.jpg`
+}
+
 const randomUsers = Array(10) // number of generated ramdom users, - change upon need
   .fill(undefined)
   .map(() => ({
@@ -32,11 +43,7 @@ const randomProducts = Array(30) // number of generated ramdom products, - chang
     manufacturer: faker.company.companyName(),
     description: faker.lorem.paragraph(),
     price: (+faker.commerce.price()).toFixed(0),
-    photos: [
-      faker.image.fashion(),
-      faker.image.fashion(),
-      faker.image.fashion(),
-    ],
+    photos: [generatePhotoLink()],
     inventory: 10,
   }))
 

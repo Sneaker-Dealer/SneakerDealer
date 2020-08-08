@@ -65,3 +65,25 @@
 ### Dependencies
 
 * sequelize update to 5.3.1 from 5.2.15
+
+
+
+
+======
+
+"husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "prettier --write",
+      "npm run lint-fix",
+      "git add"
+    ],
+    "*.{css,scss,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
