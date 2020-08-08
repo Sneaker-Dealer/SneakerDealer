@@ -1,13 +1,13 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import {auth} from '../store'
+import { auth } from '../store'
 
 /**
  * COMPONENT
  */
 const AuthForm = (props) => {
-  const {name, displayName, handleSubmit, error} = props
+  const { name, displayName, handleSubmit, error } = props
   console.log('loggin')
 
   // return (
@@ -50,6 +50,7 @@ const AuthForm = (props) => {
   //     <a href="/auth/google">{displayName} with Google</a>
   //   </div>
   // )
+  ///
   return (
     <div
       className="page-header header-filter"
@@ -66,7 +67,7 @@ const AuthForm = (props) => {
               <form className="form" onSubmit={handleSubmit} name={name}>
                 <div
                   className="header header-primary text-center"
-                  style={{display: 'block'}}
+                  style={{ display: 'block' }}
                 >
                   <h4 className="card-title">{displayName}</h4>
                   <div className="social-line">
@@ -130,7 +131,7 @@ const AuthForm = (props) => {
                     />
                   </div>
                 </div>
-                <div className="footer text-center" style={{display: 'block'}}>
+                <div className="footer text-center" style={{ display: 'block' }}>
                   <button type="submit">Submit</button>
                 </div>
                 {error && error.response && <div> {error.response.data} </div>}
