@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {Link, withRouter} from 'react-router-dom'
-import {logout} from '../store'
+import { connect } from 'react-redux'
+import { Link, withRouter } from 'react-router-dom'
+import { logout } from '../store'
 
 const Navbar = (props) => {
-  const {isLoggedIn, handleClick, userId, isAdmin} = props
+  const { isLoggedIn, handleClick, userId, isAdmin } = props
   // return (
 
   //   <nav className="navbar navbar-default navbar-transparent navbar-fixed-top navbar-color-on-scroll"
@@ -47,6 +47,7 @@ const Navbar = (props) => {
   //   </nav>
 
   // )
+  ///
 
   return (
     <nav
@@ -80,12 +81,12 @@ const Navbar = (props) => {
                 </a>
               </li>
             ) : (
-              <li>
-                <Link to="/login">
-                  <i className="material-icons">account_circle</i> Login
+                <li>
+                  <Link to="/login">
+                    <i className="material-icons">account_circle</i> Login
                 </Link>
-              </li>
-            )}
+                </li>
+              )}
 
             {isLoggedIn ? (
               isAdmin ? (
@@ -114,19 +115,19 @@ const Navbar = (props) => {
                   </ul>
                 </li>
               ) : (
-                <li>
-                  <Link to="/myaccount">
-                    <i className="material-icons">view_carousel</i> My Account
+                  <li>
+                    <Link to="/myaccount">
+                      <i className="material-icons">view_carousel</i> My Account
                   </Link>
-                </li>
-              )
+                  </li>
+                )
             ) : (
-              <li>
-                <Link to="/signup">
-                  <i className="material-icons">assignment</i> Sign Up
+                <li>
+                  <Link to="/signup">
+                    <i className="material-icons">assignment</i> Sign Up
                 </Link>
-              </li>
-            )}
+                </li>
+              )}
 
             <li>
               <Link to="/">
