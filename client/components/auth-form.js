@@ -170,26 +170,52 @@ const mapSignup = (state) => {
   }
 }
 
-const mapDispatch = (dispatch) => {
+// const mapDispatch = (dispatch) => {
+//   return {
+//     handleSubmit(evt) {
+//       evt.preventDefault()
+//       const formName = evt.target.name
+//       // const firstName = evt.target.firstName.value
+//       // const lastName = evt.target.lastName.value
+//       const email = evt.target.email.value
+//       const password = evt.target.password.value
+
+//       dispatch(auth(email, password, formName))
+
+//       //if SignUp
+//       // dispatch(addNewUser({firstName, lastName, email, password}))
+//     },
+//   }
+// }
+
+const mapDispatchLogin = (dispatch) => {
   return {
     handleSubmit(evt) {
       evt.preventDefault()
       const formName = evt.target.name
-      // const firstName = evt.target.firstName.value
-      // const lastName = evt.target.lastName.value
       const email = evt.target.email.value
       const password = evt.target.password.value
-
       dispatch(auth(email, password, formName))
-
-      //if SignUp
-      // dispatch(addNewUser({firstName, lastName, email, password}))
     },
   }
 }
 
-export const Login = connect(mapLogin, mapDispatch)(AuthForm)
-export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
+const mapDispatchSignUp = (dispatch) => {
+  return {
+    handleSubmit(evt) {
+      evt.preventDefault()
+      const firstName = evt.target.firstName.value
+      const lastName = evt.target.lastName.value
+      const email = evt.target.email.value
+      const password = evt.target.password.value
+      //dispatches the thunk to add a new user
+      dispatch(addNewUser({firstName, lastName, email, password}))
+    },
+  }
+}
+
+export const Login = connect(mapLogin, mapDispatchLogin)(AuthForm)
+export const Signup = connect(mapSignup, mapDispatchSignUp)(AuthForm)
 
 /**
  * PROP TYPES
