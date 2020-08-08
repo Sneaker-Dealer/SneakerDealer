@@ -1,13 +1,14 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import { auth } from '../store'
+import {auth} from '../store'
+import {addNewUser} from '../store'
 
 /**
  * COMPONENT
  */
 const AuthForm = (props) => {
-  const { name, displayName, handleSubmit, error } = props
+  const {name, displayName, handleSubmit, error} = props
   console.log('loggin')
 
   // return (
@@ -67,7 +68,7 @@ const AuthForm = (props) => {
               <form className="form" onSubmit={handleSubmit} name={name}>
                 <div
                   className="header header-primary text-center"
-                  style={{ display: 'block' }}
+                  style={{display: 'block'}}
                 >
                   <h4 className="card-title">{displayName}</h4>
                   <div className="social-line">
@@ -95,17 +96,19 @@ const AuthForm = (props) => {
                     </div>
                   )}
 
-                  <div className="input-group">
-                    <span className="input-group-addon">
-                      <i className="material-icons">face</i>
-                    </span>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="lastName"
-                      placeholder="Last Name..."
-                    />
-                  </div>
+                  {name !== 'login' && (
+                    <div className="input-group">
+                      <span className="input-group-addon">
+                        <i className="material-icons">face</i>
+                      </span>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="lastName"
+                        placeholder="Last Name..."
+                      />
+                    </div>
+                  )}
 
                   <div className="input-group">
                     <span className="input-group-addon">
@@ -131,7 +134,7 @@ const AuthForm = (props) => {
                     />
                   </div>
                 </div>
-                <div className="footer text-center" style={{ display: 'block' }}>
+                <div className="footer text-center" style={{display: 'block'}}>
                   <button type="submit">Submit</button>
                 </div>
                 {error && error.response && <div> {error.response.data} </div>}
@@ -167,7 +170,25 @@ const mapSignup = (state) => {
   }
 }
 
-const mapDispatch = (dispatch) => {
+// const mapDispatch = (dispatch) => {
+//   return {
+//     handleSubmit(evt) {
+//       evt.preventDefault()
+//       const formName = evt.target.name
+//       // const firstName = evt.target.firstName.value
+//       // const lastName = evt.target.lastName.value
+//       const email = evt.target.email.value
+//       const password = evt.target.password.value
+
+//       dispatch(auth(email, password, formName))
+
+//       //if SignUp
+//       // dispatch(addNewUser({firstName, lastName, email, password}))
+//     },
+//   }
+// }
+
+const mapDispatchLogin = (dispatch) => {
   return {
     handleSubmit(evt) {
       evt.preventDefault()
@@ -179,8 +200,22 @@ const mapDispatch = (dispatch) => {
   }
 }
 
-export const Login = connect(mapLogin, mapDispatch)(AuthForm)
-export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
+const mapDispatchSignUp = (dispatch) => {
+  return {
+    handleSubmit(evt) {
+      evt.preventDefault()
+      const firstName = evt.target.firstName.value
+      const lastName = evt.target.lastName.value
+      const email = evt.target.email.value
+      const password = evt.target.password.value
+      //dispatches the thunk to add a new user
+      dispatch(addNewUser({firstName, lastName, email, password}))
+    },
+  }
+}
+
+export const Login = connect(mapLogin, mapDispatchLogin)(AuthForm)
+export const Signup = connect(mapSignup, mapDispatchSignUp)(AuthForm)
 
 /**
  * PROP TYPES

@@ -1,13 +1,14 @@
 //Admins can add a new product
 import React from 'react'
 import {fetchProducts} from '../store'
-import {fetchSingleProduct} from '../store/single-product'
+import {fetchSingleProduct, updateSingleProduct} from '../store/single-product'
 import {connect} from 'react-redux'
 
 class EditProduct extends React.Component {
   constructor() {
     super()
     this.state = {
+      productId: 0,
       name: '',
       style: '',
       manufacturer: '',
@@ -23,7 +24,6 @@ class EditProduct extends React.Component {
 
   componentDidMount() {
     this.props.getProducts()
-    this.props.getSingleProduct(3) //hardcode data for testing
   }
 
   handleChange(event) {
@@ -32,24 +32,47 @@ class EditProduct extends React.Component {
     })
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault()
+
+    const updatedData = {}
+    //iterate over this.state to store the updated form data in a new object
+    for (const [key, value] of Object.entries(this.state)) {
+      if (key !== 'productId' && value !== '') {
+        updatedData[key] = value
+      }
+    }
+
+    await this.props.updateSingleProduct(this.state.productId, updatedData)
+
+    this.setState({
+      productId: 0,
+      name: '',
+      style: '',
+      manufacturer: '',
+      description: '',
+      price: 0,
+      inventory: 1,
+      photos: '',
+    })
+
+    await this.props.getProducts()
   }
 
   async handleEditButton(id) {
-    // event.preventDefault()
-    console.log('button clicked', id)
-    //TESTING SINGLE PRODUCT LINK with hard coded data
+    await this.props.getSingleProduct(id)
+    this.setState({productId: id})
     console.log('TESTING ---->', this.props.product)
 
+    let product = this.props.product
     this.setState({
-      name: 'a',
-      style: 'b',
-      manufacturer: 'c',
-      description: 'd',
-      price: 0,
-      inventory: 1,
-      photos: 'g',
+      name: product.name,
+      style: product.style,
+      manufacturer: product.manufacturer,
+      description: product.description,
+      price: product.price,
+      inventory: product.inventory,
+      photos: product.photos,
     })
     console.log('new state', this.state)
   }
@@ -124,11 +147,7 @@ class EditProduct extends React.Component {
             return (
               <div key={product.id}>
                 <p>{product.name}</p>
-                {/* <button onClick={this.handleEditButton} type="submit"> */}
-                {/* <button
-                  onClick={() => console.log('ID IS ', product.id)}
-                  type="submit"
-                > */}
+
                 <button
                   onClick={() => this.handleEditButton(product.id)}
                   type="button"
@@ -155,6 +174,8 @@ const mapDispatch = (dispatch) => {
   return {
     getProducts: () => dispatch(fetchProducts()),
     getSingleProduct: (id) => dispatch(fetchSingleProduct(id)),
+    updateSingleProduct: (id, updatedData) =>
+      dispatch(updateSingleProduct(id, updatedData)),
   }
 }
 
