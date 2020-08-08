@@ -1,7 +1,7 @@
 //Admins can add a new product
 import React from 'react'
 import {fetchProducts} from '../store'
-import {fetchSingleProduct} from '../store/single-product'
+import {fetchSingleProduct, updateSingleProduct} from '../store/single-product'
 import {connect} from 'react-redux'
 
 class EditProduct extends React.Component {
@@ -32,8 +32,31 @@ class EditProduct extends React.Component {
     })
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault()
+
+    const updatedData = {}
+    //iterate over this.state to store the updated form data in a new object
+    for (const [key, value] of Object.entries(this.state)) {
+      if (key !== 'productId' && value !== '') {
+        updatedData[key] = value
+      }
+    }
+
+    await this.props.updateSingleProduct(this.state.productId, updatedData)
+
+    this.setState({
+      productId: 0,
+      name: '',
+      style: '',
+      manufacturer: '',
+      description: '',
+      price: 0,
+      inventory: 1,
+      photos: '',
+    })
+
+    await this.props.getProducts()
   }
 
   async handleEditButton(id) {
@@ -124,11 +147,7 @@ class EditProduct extends React.Component {
             return (
               <div key={product.id}>
                 <p>{product.name}</p>
-                {/* <button onClick={this.handleEditButton} type="submit"> */}
-                {/* <button
-                  onClick={() => console.log('ID IS ', product.id)}
-                  type="submit"
-                > */}
+
                 <button
                   onClick={() => this.handleEditButton(product.id)}
                   type="button"
@@ -155,6 +174,8 @@ const mapDispatch = (dispatch) => {
   return {
     getProducts: () => dispatch(fetchProducts()),
     getSingleProduct: (id) => dispatch(fetchSingleProduct(id)),
+    updateSingleProduct: (id, updatedData) =>
+      dispatch(updateSingleProduct(id, updatedData)),
   }
 }
 
