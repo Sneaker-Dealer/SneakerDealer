@@ -136,7 +136,7 @@ class Cart extends React.Component {
                                 <small>&#36;</small>{item.price}
                               </td>
                               <td className="td-number">
-                                {item.quantity}
+                                {item.Product_Cart.quantity}
                                 <div className="btn-group">
                                   <button className="btn btn-round btn-info btn-xs" onClick={() => props.handleMinus(item)}> <i className="material-icons">remove</i> </button>
                                   <button className="btn btn-round btn-info btn-xs" onClick={() => props.handlePlus(item)}> <i className="material-icons">add</i> </button>
