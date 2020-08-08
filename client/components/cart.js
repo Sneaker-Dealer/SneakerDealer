@@ -1,7 +1,7 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {fetchCart, changeCart} from '../store/cart'
-import {Link} from 'react-router-dom'
+import { connect } from 'react-redux'
+import { fetchCart, changeCart } from '../store/cart'
+import { Link } from 'react-router-dom'
 
 /**
  * COMPONENT
@@ -43,6 +43,7 @@ class Cart extends React.Component {
     console.log(this.props.user.id)
     // this.props.fetchCart(this.props.user.id)
     this.props.fetchCart(2)
+
   }
 
   render() {
@@ -81,21 +82,22 @@ class Cart extends React.Component {
     //     )}
     //   </div>
     // )
-    console.log('cart props>>>', this.props)
-    const products = this.props.cart.products_in_cart
+
+    //=========
+    console.log('cart props>>>', this.props)  // why props are empty? why it is not fetching....
+    //=========
+    ///
+    //
+
+
+    const products = this.props.cart.products_in_cart;
     return (
-      <div className="signup-page">
-        <div
-          className="page-header header-filter"
-          style={{
-            backgroundImage: `url("../resources/assets/img/all_v3.jpg")`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'top center',
-          }}
-        >
+      <div className='signup-page'>
+        <div className="page-header header-filter" style={{ backgroundImage: `url("../resources/assets/img/all_v3.jpg")`, backgroundSize: "cover", backgroundPosition: "top center" }}>
           <div className="container">
             <div className="row">
               <div className="col-md-12">
+
                 <div className="card card-signup">
                   <div className="col-md-12">
                     <div className="table-responsive">
@@ -103,7 +105,7 @@ class Cart extends React.Component {
                         <thead>
                           <tr>
                             <th className="text-center"></th>
-                            <th>Product</th>
+                            <th >Product</th>
                             <th className="th-description">Manufacturer</th>
                             <th className="text-right">Price</th>
                             <th className="text-right">Qty</th>
@@ -112,94 +114,61 @@ class Cart extends React.Component {
                           </tr>
                         </thead>
                         <tbody>
-                          {[] &&
-                            products.map((item, index) => (
-                              <tr key={item.id}>
-                                <td>
-                                  <div className="img-container">
-                                    <Link to={`/products/${item.product.id}`}>
-                                      <img
-                                        src={item.product.photos[0]}
-                                        alt="..."
-                                      />
-                                    </Link>
-                                  </div>
-                                </td>
-                                <td className="td-name">
+                          {[] && products.map((item, index) => (
+                            <tr key={item.id}>
+                              <td>
+                                <div className="img-container">
                                   <Link to={`/products/${item.product.id}`}>
-                                    {item.product.name}
+                                    <img src={item.product.photos[0]} alt="..." />
                                   </Link>
-                                  <br />
-                                  <small>
-                                    from {item.product.manufacturer}
-                                  </small>
-                                </td>
-                                <td>{item.product.style}</td>
-                                <td className="td-number">
-                                  <small>&#36;</small>
-                                  {item.product.price}
-                                </td>
-                                <td className="td-number">
-                                  {item.quantity}
-                                  <div className="btn-group">
-                                    <button
-                                      className="btn btn-round btn-info btn-xs"
-                                      onClick={() => props.handleMinus(item)}
-                                    >
-                                      {' '}
-                                      <i className="material-icons">
-                                        remove
-                                      </i>{' '}
-                                    </button>
-                                    <button
-                                      className="btn btn-round btn-info btn-xs"
-                                      onClick={() => props.handlePlus(item)}
-                                    >
-                                      {' '}
-                                      <i className="material-icons">add</i>{' '}
-                                    </button>
-                                  </div>
-                                </td>
-                                <td className="td-number">
-                                  <small>&#36;</small>
-                                  {item.product.price * item.quantity}
-                                </td>
-                                <td className="td-actions">
-                                  <button
-                                    type="button"
-                                    rel="tooltip"
-                                    data-placement="left"
-                                    title="Remove item"
-                                    className="btn btn-simple"
-                                    onClick={() => props.handleDelete(item)}
-                                  >
-                                    <i className="material-icons">close</i>
-                                  </button>
-                                </td>
-                              </tr>
-                            ))}
+                                </div>
+                              </td>
+                              <td className="td-name">
+                                <Link to={`/products/${item.product.id}`}>
+                                  {item.product.name}
+                                </Link>
+                                <br /><small>from {item.product.manufacturer}</small>
+                              </td>
+                              <td>
+                                {item.product.style}
+                              </td>
+                              <td className="td-number">
+                                <small>&#36;</small>{item.product.price}
+                              </td>
+                              <td className="td-number">
+                                {item.quantity}
+                                <div className="btn-group">
+                                  <button className="btn btn-round btn-info btn-xs" onClick={() => props.handleMinus(item)}> <i className="material-icons">remove</i> </button>
+                                  <button className="btn btn-round btn-info btn-xs" onClick={() => props.handlePlus(item)}> <i className="material-icons">add</i> </button>
+                                </div>
+                              </td>
+                              <td className="td-number">
+                                <small>&#36;</small>{item.product.price * item.quantity}
+                              </td>
+                              <td className="td-actions">
+                                <button type="button" rel="tooltip" data-placement="left" title="Remove item" className="btn btn-simple" onClick={() => props.handleDelete(item)}>
+                                  <i className="material-icons">close</i>
+                                </button>
+                              </td>
+                            </tr>
+                          ))}
                           <tr>
-                            <td colSpan="2"></td>
-                            <td className="td-total">Total</td>
+                            <td colSpan="2">
+                            </td>
+                            <td className="td-total">
+                              Total
+                                          </td>
                             <td className="td-price">
-                              <small>$</small>
-                              {products
-                                .map((el) => el.product.price * el.quantity)
-                                .reduce((a, b) => a + b, 0)}
+                              <small>$</small>{products.map(el => el.product.price * el.quantity).reduce((a, b) => a + b, 0)}
                             </td>
                             <td colSpan="1" className="text-right">
-                              <Link to="/checkout">
-                                <button
-                                  type="button"
-                                  className="btn btn-info btn-round"
-                                >
-                                  Complete Purchase{' '}
-                                  <i className="material-icons">
-                                    keyboard_arrow_right
-                                  </i>
+                              <Link to='/checkout'>
+                                <button type="button" className="btn btn-info btn-round">
+                                  Complete Purchase <i className="material-icons">keyboard_arrow_right</i>
                                 </button>
                               </Link>
                             </td>
+
                           </tr>
                         </tbody>
                       </table>
@@ -212,6 +181,15 @@ class Cart extends React.Component {
         </div>
       </div>
     )
+
+
+
+
+
+
+
+
+
   }
 }
 
