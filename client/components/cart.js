@@ -118,22 +118,22 @@ class Cart extends React.Component {
                             <tr key={item.id}>
                               <td>
                                 <div className="img-container">
-                                  <Link to={`/products/${item.product.id}`}>
-                                    <img src={item.product.photos[0]} alt="..." />
+                                  <Link to={`/products/${item.id}`}>
+                                    <img src={item.photos[0]} alt="..." />
                                   </Link>
                                 </div>
                               </td>
                               <td className="td-name">
-                                <Link to={`/products/${item.product.id}`}>
-                                  {item.product.name}
+                                <Link to={`/products/${item.id}`}>
+                                  {item.name}
                                 </Link>
-                                <br /><small>from {item.product.manufacturer}</small>
+                                <br /><small>from {item.manufacturer}</small>
                               </td>
                               <td>
-                                {item.product.style}
+                                {item.style}
                               </td>
                               <td className="td-number">
-                                <small>&#36;</small>{item.product.price}
+                                <small>&#36;</small>{item.price}
                               </td>
                               <td className="td-number">
                                 {item.quantity}
@@ -143,7 +143,7 @@ class Cart extends React.Component {
                                 </div>
                               </td>
                               <td className="td-number">
-                                <small>&#36;</small>{item.product.price * item.quantity}
+                                <small>&#36;</small>{item.price * item.quantity}
                               </td>
                               <td className="td-actions">
                                 <button type="button" rel="tooltip" data-placement="left" title="Remove item" className="btn btn-simple" onClick={() => props.handleDelete(item)}>
@@ -159,7 +159,7 @@ class Cart extends React.Component {
                               Total
                                           </td>
                             <td className="td-price">
-                              <small>$</small>{products.map(el => el.product.price * el.quantity).reduce((a, b) => a + b, 0)}
+                              <small>$</small>{products.map(el => el.price * el.quantity).reduce((a, b) => a + b, 0)}
                             </td>
                             <td colSpan="1" className="text-right">
                               <Link to='/checkout'>
