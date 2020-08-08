@@ -184,7 +184,7 @@ const mapDispatch = (dispatch) => {
       dispatch(auth(email, password, firstName, lastName))
 
       //if SignUp
-      addNewUser({firstName, lastName, email, password})
+      dispatch(addNewUser({firstName, lastName, email, password}))
     },
   }
 }
