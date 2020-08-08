@@ -9,44 +9,136 @@ import {auth} from '../store'
 const AuthForm = (props) => {
   const {name, displayName, handleSubmit, error} = props
   console.log('loggin')
-  return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
-        {name === 'signup' && (
-          <React.Fragment>
-            <div>
-              <label htmlFor="firstName">
-                <small>First Name</small>
-              </label>
-              <input name="firstName" type="text" />
-            </div>
-            <div>
-              <label htmlFor="lastName">
-                <small>Last Name</small>
-              </label>
-              <input name="lastName" type="text" />
-            </div>
-          </React.Fragment>
-        )}
 
-        <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
+  // return (
+  //   <div>
+  //     <form onSubmit={handleSubmit} name={name}>
+  //       {name === 'signup' && (
+  //         <React.Fragment>
+  //           <div>
+  //             <label htmlFor="firstName">
+  //               <small>First Name</small>
+  //             </label>
+  //             <input name="firstName" type="text" />
+  //           </div>
+  //           <div>
+  //             <label htmlFor="lastName">
+  //               <small>Last Name</small>
+  //             </label>
+  //             <input name="lastName" type="text" />
+  //           </div>
+  //         </React.Fragment>
+  //       )}
+
+  //       <div>
+  //         <label htmlFor="email">
+  //           <small>Email</small>
+  //         </label>
+  //         <input name="email" type="text" />
+  //       </div>
+  //       <div>
+  //         <label htmlFor="password">
+  //           <small>Password</small>
+  //         </label>
+  //         <input name="password" type="password" />
+  //       </div>
+  //       <div>
+  //         <button type="submit">{displayName}</button>
+  //       </div>
+  //       {error && error.response && <div> {error.response.data} </div>}
+  //     </form>
+  //     <a href="/auth/google">{displayName} with Google</a>
+  //   </div>
+  // )
+  return (
+    <div
+      className="page-header header-filter"
+      style={{
+        backgroundImage: "url('../resources/assets/img/all_v1.jpg')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'top center',
+      }}
+    >
+      <div className="container">
+        <div className="row">
+          <div className="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+            <div className="card card-signup">
+              <form className="form" onSubmit={handleSubmit} name={name}>
+                <div
+                  className="header header-primary text-center"
+                  style={{display: 'block'}}
+                >
+                  <h4 className="card-title">{displayName}</h4>
+                  <div className="social-line">
+                    <a
+                      href="/auth/google"
+                      className="btn btn-just-icon btn-simple"
+                    >
+                      <i className="fa fa-google-plus"></i>
+                    </a>
+                  </div>
+                </div>
+                <p className="description text-center">Or</p>
+                <div className="card-content">
+                  {name !== 'login' && (
+                    <div className="input-group">
+                      <span className="input-group-addon">
+                        <i className="material-icons">face</i>
+                      </span>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="firstName"
+                        placeholder="First Name..."
+                      />
+                    </div>
+                  )}
+
+                  <div className="input-group">
+                    <span className="input-group-addon">
+                      <i className="material-icons">face</i>
+                    </span>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="lastName"
+                      placeholder="Last Name..."
+                    />
+                  </div>
+
+                  <div className="input-group">
+                    <span className="input-group-addon">
+                      <i className="material-icons">email</i>
+                    </span>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="email"
+                      placeholder="Email..."
+                    />
+                  </div>
+
+                  <div className="input-group">
+                    <span className="input-group-addon">
+                      <i className="material-icons">lock_outline</i>
+                    </span>
+                    <input
+                      type="password"
+                      placeholder="Password..."
+                      name="password"
+                      className="form-control"
+                    />
+                  </div>
+                </div>
+                <div className="footer text-center" style={{display: 'block'}}>
+                  <button type="submit">Submit</button>
+                </div>
+                {error && error.response && <div> {error.response.data} </div>}
+              </form>
+            </div>
+          </div>
         </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
-      <a href="/auth/google">{displayName} with Google</a>
+      </div>
     </div>
   )
 }
