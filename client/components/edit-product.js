@@ -5,15 +5,21 @@ import {fetchSingleProduct, updateSingleProduct} from '../store/single-product'
 import {connect} from 'react-redux'
 
 import {Grid} from '@material-ui/core'
-
 import PropTypes from 'prop-types'
 import TextField from '@material-ui/core/TextField'
 import {withStyles} from '@material-ui/core/styles'
-import FormHelperText from '@material-ui/core/FormHelperText'
 import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
+
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+import Typography from '@material-ui/core/Typography'
+import PlayArrowIcon from '@material-ui/icons/PlayArrow'
+import Button from '@material-ui/core/Button'
 
 const styles = (theme) => ({
   root: {
@@ -21,6 +27,15 @@ const styles = (theme) => ({
       margin: theme.spacing(1),
       width: '50ch',
     },
+  },
+  demo: {
+    backgroundColor: theme.palette.background.paper,
+  },
+  title: {
+    margin: theme.spacing(4, 0, 2),
+  },
+  listItemText: {
+    fontSize: '1em',
   },
 })
 
@@ -192,6 +207,9 @@ class EditProduct extends React.Component {
     return (
       <Grid container>
         <Grid item xs={12} sm={6}>
+          <Typography variant="h5" className={classes.title}>
+            Edit Product:
+          </Typography>
           <form onSubmit={this.handleSubmit} className={classes.root}>
             <TextField
               id="standard-helperText"
@@ -286,19 +304,32 @@ class EditProduct extends React.Component {
         </Grid>
 
         <Grid item xs={12} sm={6}>
+          <Typography variant="h5" className={classes.title}>
+            All Products:
+          </Typography>
+
           <div>
             {this.props.products.map((product) => {
               return (
-                <div key={product.id}>
-                  <p>{product.name}</p>
+                <List key={product.id}>
+                  <ListItem>
+                    <ListItemIcon>
+                      <PlayArrowIcon />
+                    </ListItemIcon>
+                    <ListItemText classes={{primary: classes.listItemText}}>
+                      <p>{product.name}</p>
+                    </ListItemText>
 
-                  <button
-                    onClick={() => this.handleEditButton(product.id)}
-                    type="button"
-                  >
-                    Edit
-                  </button>
-                </div>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      disableElevation
+                      onClick={() => this.handleEditButton(product.id)}
+                    >
+                      Edit
+                    </Button>
+                  </ListItem>
+                </List>
               )
             })}
           </div>
