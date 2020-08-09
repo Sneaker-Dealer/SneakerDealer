@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {fetchSingleProduct} from '../store/single-product'
 import {Link} from 'react-router-dom'
 import {fetchCart, addToCart} from '../store/cart'
+import { guestAddToCart } from '../store/guest-cart'
 
 class SingleProduct extends Component {
   constructor() {
@@ -22,7 +23,12 @@ class SingleProduct extends Component {
     // let result = this.props.cart.products_in_cart.filter((prod) => prod != item)
     // this.props.cart.products_in_cart = result
     // console.log(this.props.cart.products_in_cart)
-    this.props.addToCart(2, this.props.cart.id, item.id)
+    if(this.props.userId){
+      this.props.addToCart(2, this.props.cart.id, item.id)
+    }
+    else{
+      this.props.guestAddToCart(item)
+    }
   }
 
   //   render() {
@@ -130,6 +136,8 @@ const mapStateToProps = (state) => {
   return {
     product: state.product,
     cart: state.cart,
+    guestcart: state.guestcart,
+    userId: state.user.id
   }
 }
 
@@ -139,6 +147,7 @@ const mapDispatchToProps = (dispatch) => {
     fetchCart: (id) => dispatch(fetchCart(id)),
     addToCart: (userid, cartid, itemid) =>
       dispatch(addToCart(userid, cartid, itemid)),
+    guestAddToCart: (product) => dispatch(guestAddToCart(product))
   }
 }
 

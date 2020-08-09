@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { fetchCart, changeCart } from '../store/cart'
 import { Link } from 'react-router-dom'
+import { guestChangeCart } from '../store/guest-cart'
 
 /**
  * COMPONENT
@@ -10,33 +11,76 @@ import { Link } from 'react-router-dom'
 class Cart extends React.Component {
   constructor() {
     super()
-    this.handleClick = this.handleClick.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
+    // this.handleChange = this.handleChange.bind(this)
+    // this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleMinus = this.handleMinus.bind(this)
+    this.handlePlus = this.handlePlus.bind(this)
   }
 
-  handleChange(item, event) {
+  handleMinus(item, event) {
     event.preventDefault()
-    const newQuantity = parseInt(event.target.value, 10)
-    item.inventory = newQuantity
+    const newInventory = item.Product_Cart.quantity - 1
+    if (!this.props.userId) this.props.guestChangeCart(item, newInventory)
+    else {
+      console.log('Minus')
+      if (newInventory <= 0) {
+        let result = this.props.cart.products_in_cart.filter((prod) => prod != item)
+        this.props.cart.products_in_cart = result
+        this.props.changeCart(2, this.props.cart.id, item.id, 0)
+      }
+      else {
+        this.props.changeCart(2, this.props.cart.id, item.id, newInventory)
+      }
+    }
+
   }
 
-  handleSubmit(item, event) {
-    event.preventDefault()
-    const newInventory = item.inventory
-    // this.props.changeCart(this.props.user.id,this.props.cart.id,item.id,newInventory);
-    this.props.changeCart(2, this.props.cart.id, item.id, newInventory)
-    console.log('Quantity updated')
-  }
+  // this.props.changeCart(this.props.user.id,this.props.cart.id,item.id,newInventory);
 
-  handleClick(item, event) {
+handlePlus(item, event) {
+  event.preventDefault()
+  // this.props.changeCart(this.props.user.id,this.props.cart.id,item.id,newInventory);
+  const newInventory = item.Product_Cart.quantity + 1
+  if (newInventory <= item.inventory) {
+    if (this.props.userId) {
+      this.props.changeCart(2, this.props.cart.id, item.id, newInventory)
+    }
+    else {
+      this.props.guestChangeCart(item, newInventory)
+    }
+  }
+}
+
+
+  // handleChange(item, event) {
+  //   event.preventDefault()
+  //   const newQuantity = parseInt(event.target.value, 10)
+  //   item.inventory = newQuantity
+  // }
+
+  // handleSubmit(item, event) {
+  //   event.preventDefault()
+  //   const newInventory = item.inventory
+  //   // this.props.changeCart(this.props.user.id,this.props.cart.id,item.id,newInventory);
+  //   this.props.changeCart(2, this.props.cart.id, item.id, newInventory)
+  //   console.log('Quantity updated')
+  // }
+
+  handleDelete(item, event) {
     event.preventDefault()
     console.log('Quantity changed')
     // this.props.changeCart(this.props.user.id,this.props.cart.id,item.id,0);
-    let result = this.props.cart.products_in_cart.filter((prod) => prod != item)
-    this.props.cart.products_in_cart = result
+    if (this.props.userId) {
+      // let result = this.props.cart.products_in_cart.filter((prod) => prod != item)
+      // this.props.cart.products_in_cart = result
+      this.props.changeCart(2, this.props.cart.id, item.id, 0)
+    }
+    else {
+      this.props.guestChangeCart(item, 0)
+    }
+
     console.log(this.props.cart.products_in_cart)
-    this.props.changeCart(2, this.props.cart.id, item.id, 0)
   }
 
   componentDidMount() {
@@ -88,9 +132,14 @@ class Cart extends React.Component {
     //=========
     ///
     //
+    let products
+    if (this.props.userId) {
+      products = this.props.cart.products_in_cart;
+    }
+    else {
+      products = this.props.guestcart;
+    }
 
-
-    const products = this.props.cart.products_in_cart;
     return (
       <div className='signup-page'>
         <div className="page-header header-filter" style={{ backgroundImage: `url("../resources/assets/img/all_v3.jpg")`, backgroundSize: "cover", backgroundPosition: "top center" }}>
@@ -106,7 +155,7 @@ class Cart extends React.Component {
                           <tr>
                             <th className="text-center"></th>
                             <th >Product</th>
-                            <th className="th-description">Manufacturer</th>
+                            <th className="th-description">Style</th>
                             <th className="text-right">Price</th>
                             <th className="text-right">Qty</th>
                             <th className="text-right">Amount</th>
@@ -114,7 +163,7 @@ class Cart extends React.Component {
                           </tr>
                         </thead>
                         <tbody>
-                          {[] && products.map((item, index) => (
+                          {[] && products.map((item) => (
                             <tr key={item.id}>
                               <td>
                                 <div className="img-container">
@@ -138,15 +187,15 @@ class Cart extends React.Component {
                               <td className="td-number">
                                 {item.Product_Cart.quantity}
                                 <div className="btn-group">
-                                  <button className="btn btn-round btn-info btn-xs" onClick={() => props.handleMinus(item)}> <i className="material-icons">remove</i> </button>
-                                  <button className="btn btn-round btn-info btn-xs" onClick={() => props.handlePlus(item)}> <i className="material-icons">add</i> </button>
+                                  <button type="button" className="btn btn-round btn-info btn-xs" onClick={(event) => this.handleMinus(item, event)}> <i className="material-icons">remove</i> </button>
+                                  <button type="button" className="btn btn-round btn-info btn-xs" onClick={(event) => this.handlePlus(item, event)}> <i className="material-icons">add</i> </button>
                                 </div>
                               </td>
                               <td className="td-number">
-                                <small>&#36;</small>{item.price * item.quantity}
+                                <small>&#36;</small>{item.price * item.Product_Cart.quantity}
                               </td>
                               <td className="td-actions">
-                                <button type="button" rel="tooltip" data-placement="left" title="Remove item" className="btn btn-simple" onClick={() => props.handleDelete(item)}>
+                                <button type="button" rel="tooltip" data-placement="left" title="Remove item" className="btn btn-simple" onClick={(event) => this.handleDelete(item, event)}>
                                   <i className="material-icons">close</i>
                                 </button>
                               </td>
@@ -159,7 +208,7 @@ class Cart extends React.Component {
                               Total
                                           </td>
                             <td className="td-price">
-                              <small>$</small>{products.map(el => el.price * el.quantity).reduce((a, b) => a + b, 0)}
+                              <small>$</small>{products.map(el => el.price * el.Product_Cart.quantity).reduce((a, b) => a + b, 0)}
                             </td>
                             <td colSpan="1" className="text-right">
                               <Link to='/checkout'>
@@ -201,6 +250,7 @@ const mapState = (state) => {
     cart: state.cart,
     user: state.user,
     userId: state.user.id,
+    guestcart: state.guestcart
   }
 }
 
@@ -209,6 +259,7 @@ const mapDispatch = (dispatch) => {
     fetchCart: (id) => dispatch(fetchCart(id)),
     changeCart: (userid, cartid, itemid, quantity) =>
       dispatch(changeCart(userid, cartid, itemid, quantity)),
+    guestChangeCart: (product, quantity) => dispatch(guestChangeCart(product, quantity))
   }
 }
 
