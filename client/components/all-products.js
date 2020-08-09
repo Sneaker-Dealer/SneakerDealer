@@ -91,7 +91,8 @@ const AllProducts = (props) => {
                           className="card card-raised card-background"
                           style={imageStyle(product)}
                         >
-                          <div className="card-content">
+                          <div className="card-body ">
+                          <div className="card-content" style={{paddingTop: "0px"}}>
                             {/* this wasn't showing due to typo */}
                             {/* <Link
                               to={
@@ -104,19 +105,20 @@ const AllProducts = (props) => {
                               </h6>
                             </Link> */}
 
-                            <h3 className="card-title">{product.name}</h3>
-                            <p className="card-subtitle" style={{color: "white"}}>${product.price}</p>
-                            <p className="card-description">
+                            <h3 className="card-title" style={{marginBottom: "0px"}}>{product.name}</h3>
+                            <h5 className="card-pricing" style={{color: "white"}}>${product.price}</h5>
+                            <p className="card-description" style={{paddingTop: "1.7em"}}>
                               {product.description.length < 50
                                 ? product.description
                                 : product.description.slice(0, 50) + '...'}
                             </p>
                             <Link
-                              className="btn btn-danger btn-round"
+                              className="btn btn-danger btn-round "
                               to={'/products/' + product.id}
                             >
                               View Product
                             </Link>
+                          </div>
                           </div>
                         </div>
                       </div>
