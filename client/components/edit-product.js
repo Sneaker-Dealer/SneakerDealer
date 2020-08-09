@@ -18,10 +18,20 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import Typography from '@material-ui/core/Typography'
-import PlayArrowIcon from '@material-ui/icons/PlayArrow'
+import DeleteIcon from '@material-ui/icons/Delete'
 import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
+import EditIcon from '@material-ui/icons/Edit'
 import Paper from '@material-ui/core/Paper'
 import Box from '@material-ui/core/Box'
+
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableContainer from '@material-ui/core/TableContainer'
+import TableHead from '@material-ui/core/TableHead'
+import TablePagination from '@material-ui/core/TablePagination'
+import TableRow from '@material-ui/core/TableRow'
 
 const styles = (theme) => ({
   root: {
@@ -41,7 +51,19 @@ const styles = (theme) => ({
   listItemText: {
     fontSize: '1em',
   },
+  typography: {
+    fontFamily: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
+    fontSize: 14,
+  },
 })
+
+const tableColumns = [
+  {id: 'name', label: 'Name', minWidth: 100},
+  {id: 'style', label: 'Style', minWidth: 100},
+  {id: 'price', label: 'Price', minWidth: 60},
+  {id: 'edit', label: 'Edit', minWidth: 10},
+  {id: 'delete', label: 'Delete', minWidth: 10},
+]
 
 class EditProduct extends React.Component {
   constructor() {
@@ -207,164 +229,193 @@ class EditProduct extends React.Component {
   render() {
     const products = this.props.products
     const {classes} = this.props
+    console.log('CLASSES', classes)
 
     return (
-      <Grid
-        container
-        direction="row"
-        alignItems="center"
-        justify="center"
-        style={{paddingTop: '100px'}}
+      <div
+        style={{backgroundImage: `url("../resources/assets/img/all_v2.jpg")`}}
       >
-        <Paper elevation={3}>
-          <Box p={5}>
-            <Grid container direction="row">
-              <Grid item xs={12} sm={6}>
-                <Typography variant="h5" className={classes.title}>
-                  Edit Product:
-                </Typography>
-                <form onSubmit={this.handleSubmit} className={classes.root}>
-                  <TextField
-                    id="standard-helperText"
-                    name="name"
-                    label="Name"
-                    onChange={this.handleChange}
-                    value={this.state.name}
-                    inputProps={{style: {fontSize: 14}}}
-                    InputLabelProps={{style: {fontSize: 14}}}
-                  />
-
-                  <FormControl className={classes.formControl}>
-                    <InputLabel id="demo-simple-select-label">Style</InputLabel>
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      name="style"
-                      label="Style"
+        <Grid
+          container
+          direction="row"
+          alignItems="center"
+          justify="center"
+          style={{
+            paddingTop: '150px',
+          }}
+        >
+          <Paper elevation={3}>
+            <Box p={5}>
+              <Grid container direction="row">
+                <Grid item xs={12} sm={6}>
+                  <Typography variant="h5" className={classes.title}>
+                    Edit Product:
+                  </Typography>
+                  <form onSubmit={this.handleSubmit} className={classes.root}>
+                    <TextField
+                      id="standard-helperText"
+                      name="name"
+                      label="Name"
                       onChange={this.handleChange}
-                      value={this.state.style}
-                      //TO DO: CHANGE FONT SIZE
-                    >
-                      <MenuItem value={'CASUAL'}>CASUAL</MenuItem>
-                      <MenuItem value={'BASKETBALL'}>BASKETBALL</MenuItem>
-                      <MenuItem value={'RUNNING'}>RUNNING</MenuItem>
-                      <MenuItem value={'VINTAGE'}>VINTAGE</MenuItem>
-                      <MenuItem value={'DESIGNER'}>DESIGNER</MenuItem>
-                    </Select>
-                  </FormControl>
+                      value={this.state.name}
+                      // inputProps={{style: {fontSize: 14}}}
+                      // InputLabelProps={{style: {fontSize: 14}}}
+                    />
 
-                  <TextField
-                    id="standard-helperText"
-                    name="manufacturer"
-                    label="Manufacturer"
-                    onChange={this.handleChange}
-                    value={this.state.manufacturer}
-                    inputProps={{style: {fontSize: 14}}}
-                    InputLabelProps={{style: {fontSize: 14}}}
-                  />
+                    <FormControl className={classes.formControl}>
+                      <InputLabel id="demo-simple-select-label">
+                        Style
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        name="style"
+                        label="Style"
+                        onChange={this.handleChange}
+                        value={this.state.style}
+                        //TO DO: CHANGE FONT SIZE
+                      >
+                        <MenuItem value={'CASUAL'}>CASUAL</MenuItem>
+                        <MenuItem value={'BASKETBALL'}>BASKETBALL</MenuItem>
+                        <MenuItem value={'RUNNING'}>RUNNING</MenuItem>
+                        <MenuItem value={'VINTAGE'}>VINTAGE</MenuItem>
+                        <MenuItem value={'DESIGNER'}>DESIGNER</MenuItem>
+                      </Select>
+                    </FormControl>
 
-                  <TextField
-                    id="standard-helperText"
-                    name="description"
-                    label="Description"
-                    onChange={this.handleChange}
-                    value={this.state.description}
-                    inputProps={{style: {fontSize: 14}}}
-                    InputLabelProps={{style: {fontSize: 14}}}
-                  />
+                    <TextField
+                      id="standard-helperText"
+                      name="manufacturer"
+                      label="Manufacturer"
+                      onChange={this.handleChange}
+                      value={this.state.manufacturer}
+                      // inputProps={{style: {fontSize: 14}}}
+                      // InputLabelProps={{style: {fontSize: 14}}}
+                    />
 
-                  <TextField
-                    id="standard-number"
-                    name="price"
-                    label="Price"
-                    type="number"
-                    onChange={this.handleChange}
-                    value={this.state.price}
-                    InputLabelProps={{
-                      shrink: true,
-                      style: {fontSize: 14},
+                    <TextField
+                      id="standard-helperText"
+                      name="description"
+                      label="Description"
+                      onChange={this.handleChange}
+                      value={this.state.description}
+                      // inputProps={{style: {fontSize: 14}}}
+                      // InputLabelProps={{style: {fontSize: 14}}}
+                    />
+
+                    <TextField
+                      id="standard-number"
+                      name="price"
+                      label="Price"
+                      type="number"
+                      onChange={this.handleChange}
+                      value={this.state.price}
+                      InputLabelProps={{
+                        shrink: true,
+                        // style: {fontSize: 14},
+                      }}
+                      // inputProps={{style: {fontSize: 14}}}
+                    />
+
+                    <TextField
+                      id="standard-number"
+                      name="inventory"
+                      label="Inventory"
+                      type="number"
+                      onChange={this.handleChange}
+                      value={this.state.inventory}
+                      InputLabelProps={{
+                        shrink: true,
+                        // style: {fontSize: 14},
+                      }}
+                      // inputProps={{style: {fontSize: 14}}}
+                    />
+
+                    <TextField
+                      id="standard-helperText"
+                      name="photos"
+                      label="Photos"
+                      onChange={this.handleChange}
+                      value={this.state.photos}
+                      helperText="Separate URLs with a comma"
+                      // inputProps={{style: {fontSize: 14}}}
+                      // InputLabelProps={{style: {fontSize: 14}}}
+                    />
+
+                    <Button type="submit" className="btn btn-info btn-round">
+                      Submit
+                    </Button>
+                  </form>
+                </Grid>
+
+                <Grid item xs={12} sm={6}>
+                  <TableContainer
+                    className={classes.container}
+                    style={{
+                      padding: '20px',
                     }}
-                    inputProps={{style: {fontSize: 14}}}
-                  />
+                  >
+                    <Table stickyHeader aria-label="sticky table">
+                      <TableHead>
+                        <TableRow>
+                          {tableColumns.map((column) => (
+                            <TableCell
+                              key={column.id}
+                              align={column.align}
+                              style={{minWidth: column.minWidth}}
+                            >
+                              {column.label}
+                            </TableCell>
+                          ))}
+                        </TableRow>
+                      </TableHead>
 
-                  <TextField
-                    id="standard-number"
-                    name="inventory"
-                    label="Inventory"
-                    type="number"
-                    onChange={this.handleChange}
-                    value={this.state.inventory}
-                    InputLabelProps={{
-                      shrink: true,
-                      style: {fontSize: 14},
-                    }}
-                    inputProps={{style: {fontSize: 14}}}
-                  />
+                      <TableBody>
+                        {this.props.products.map((product) => {
+                          return (
+                            <TableRow key={product.id}>
+                              {tableColumns.map((column) => {
+                                const value = product[column.id]
+                                return (
+                                  <TableCell key={product.id + column.id}>
+                                    {typeof value === 'number'
+                                      ? '$ ' + value
+                                      : value}
 
-                  <TextField
-                    id="standard-helperText"
-                    name="photos"
-                    label="Photos"
-                    onChange={this.handleChange}
-                    value={this.state.photos}
-                    helperText="Separate URLs with a comma"
-                    inputProps={{style: {fontSize: 14}}}
-                    InputLabelProps={{style: {fontSize: 14}}}
-                  />
+                                    {column.id === 'edit' && (
+                                      <IconButton
+                                        onClick={() =>
+                                          this.handleEditButton(product.id)
+                                        }
+                                      >
+                                        <EditIcon />
+                                      </IconButton>
+                                    )}
 
-                  <Button type="submit" variant="contained" color="primary">
-                    Submit
-                  </Button>
-                </form>
+                                    {column.id === 'delete' && (
+                                      <IconButton
+                                      // onClick={() =>
+                                      //   this.handleEditButton(product.id)
+                                      // }
+                                      >
+                                        <DeleteIcon />
+                                      </IconButton>
+                                    )}
+                                  </TableCell>
+                                )
+                              })}
+                            </TableRow>
+                          )
+                        })}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </Grid>
               </Grid>
-
-              <Grid item xs={12} sm={6}>
-                <Typography variant="h5" className={classes.title}>
-                  All Products:
-                </Typography>
-
-                <div>
-                  {this.props.products.map((product) => {
-                    return (
-                      <div className={classes.root} key={product.id}>
-                        <List>
-                          <ListItem>
-                            <ListItemIcon>
-                              <PlayArrowIcon />
-                            </ListItemIcon>
-                            <ListItemText
-                              classes={{primary: classes.listItemText}}
-                            >
-                              <p>{product.name}</p>
-                            </ListItemText>
-                            <Button
-                              variant="contained"
-                              color="primary"
-                              disableElevation
-                              onClick={() => this.handleEditButton(product.id)}
-                            >
-                              Edit
-                            </Button>
-
-                            <Button
-                              variant="contained"
-                              color="secondary"
-                              disableElevation
-                              // onClick={} //delete function
-                            >
-                              Delete
-                            </Button>
-                          </ListItem>
-                        </List>
-                      </div>
-                    )
-                  })}
-                </div>
-              </Grid>
-            </Grid>
-          </Box>
-        </Paper>
-      </Grid>
+            </Box>
+          </Paper>
+        </Grid>
+      </div>
     )
   }
 }
