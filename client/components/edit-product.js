@@ -209,7 +209,13 @@ class EditProduct extends React.Component {
     const {classes} = this.props
 
     return (
-      <Grid container direction="row" alignItems="center" justify="center">
+      <Grid
+        container
+        direction="row"
+        alignItems="center"
+        justify="center"
+        style={{paddingTop: '100px'}}
+      >
         <Paper elevation={3}>
           <Box p={5}>
             <Grid container direction="row">
