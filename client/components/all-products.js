@@ -86,18 +86,20 @@ const AllProducts = (props) => {
                           style={{ backgroundImage: `url(${product.photos[0]})` }}
                         >
                           <div className="card-content">
-                            <Link
+                            {/* this wasn't showing due to typo */}
+                            {/* <Link
                               to={
                                 '/products/manufacturer/' + product.manufacturer
                               }
                             >
                               <h6 className="category text-info">
-                                {product.manufaturer}
+                                {product.manufacturer}
+                                 this wasnt showing due to typo
                               </h6>
-                            </Link>
+                            </Link> */}
 
                             <h3 className="card-title">{product.name}</h3>
-
+                            <p className="card-subtitle" style={{color: "white"}}>${product.price}</p>
                             <p className="card-description">
                               {product.description.length < 50
                                 ? product.description
