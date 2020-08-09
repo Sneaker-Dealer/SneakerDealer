@@ -2,13 +2,13 @@ import axios from 'axios'
 
 const GET_CART = 'GET_CART'
 const UPDATE_CART = 'UPDATE_CART'
-const ADD_PRODUCT = 'ADD_PRODUCT'
+// const ADD_PRODUCT = 'ADD_PRODUCT'
 
 const defaultCart = {}
 
 const getCart = (cart) => ({type: GET_CART, cart})
 const updateCart = (cart) => ({type: UPDATE_CART, cart})
-const addProduct = (cart) => ({type: ADD_PRODUCT, cart})
+// const addProduct = (cart) => ({type: ADD_PRODUCT, cart})
 
 export const fetchCart = (id) => {
   return async (dispatch) => {
@@ -73,8 +73,8 @@ export default function (state = defaultCart, action) {
       return action.cart
     case UPDATE_CART:
       return action.cart
-    case ADD_PRODUCT:
-      return action.cart
+    // case ADD_PRODUCT:
+    //   return action.cart
     default:
       return state
   }
