@@ -3,6 +3,28 @@ import React from 'react'
 import {addProductThunk} from '../store'
 import {connect} from 'react-redux'
 
+import PropTypes from 'prop-types'
+import TextField from '@material-ui/core/TextField'
+import {withStyles} from '@material-ui/core/styles'
+import FormHelperText from '@material-ui/core/FormHelperText'
+import FormControl from '@material-ui/core/FormControl'
+import InputLabel from '@material-ui/core/InputLabel'
+import MenuItem from '@material-ui/core/MenuItem'
+import Select from '@material-ui/core/Select'
+
+import {Grid} from '@material-ui/core'
+import {Container} from '@material-ui/core'
+import Paper from '@material-ui/core/Paper'
+
+const styles = (theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+      width: '100ch',
+    },
+  },
+})
+
 class AddProduct extends React.Component {
   constructor() {
     super()
@@ -63,65 +85,163 @@ class AddProduct extends React.Component {
     })
   }
 
+  // render() {
+  //   return (
+  //     <form onSubmit={this.handleSubmit}>
+  //       <label htmlFor="name">Product Name:</label>
+  //       <input
+  //         onChange={this.handleChange}
+  //         name="name"
+  //         type="text"
+  //         value={this.state.name}
+  //       />
+
+  //       <label htmlFor="style">Style:</label>
+  //       <input
+  //         onChange={this.handleChange}
+  //         name="style"
+  //         type="text"
+  //         value={this.state.style}
+  //       />
+
+  //       <label htmlFor="manufacturer">Manufacturer:</label>
+  //       <input
+  //         onChange={this.handleChange}
+  //         name="manufacturer"
+  //         type="text"
+  //         value={this.state.manufacturer}
+  //       />
+
+  //       <label htmlFor="description">Description:</label>
+  //       <input
+  //         onChange={this.handleChange}
+  //         name="description"
+  //         type="textArea"
+  //         value={this.state.description}
+  //       />
+
+  //       <label htmlFor="price">Price:</label>
+  //       <input
+  //         onChange={this.handleChange}
+  //         name="price"
+  //         type="number"
+  //         value={this.state.price}
+  //       />
+
+  //       <label htmlFor="inventory">Inventory:</label>
+  //       <input
+  //         onChange={this.handleChange}
+  //         name="inventory"
+  //         type="number"
+  //         value={this.state.inventory}
+  //       />
+
+  //       <label htmlFor="photos">Image URL:</label>
+  //       <p>(Separate multiple URLs with a comma)</p>
+  //       <input
+  //         onChange={this.handleChange}
+  //         name="photos"
+  //         type="textArea"
+  //         value={this.state.photos}
+  //       />
+  //       <button type="submit">Submit</button>
+  //     </form>
+  //   )
+  // }
+
   render() {
+    const {classes} = this.props
+
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label htmlFor="name">Product Name:</label>
-        <input
-          onChange={this.handleChange}
+      <form onSubmit={this.handleSubmit} className={classes.root}>
+        <TextField
+          id="standard-helperText"
           name="name"
-          type="text"
-          value={this.state.name}
+          label="Name"
+          onChange={this.handleChange}
+          defaultValue={this.state.name}
+          inputProps={{style: {fontSize: 14}}}
+          InputLabelProps={{style: {fontSize: 14}}}
         />
 
-        <label htmlFor="style">Style:</label>
-        <input
-          onChange={this.handleChange}
-          name="style"
-          type="text"
-          value={this.state.style}
-        />
+        <FormControl className={classes.formControl}>
+          <InputLabel id="demo-simple-select-label">Style</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            name="style"
+            label="Style"
+            onChange={this.handleChange}
+            defaultValue={this.state.style}
+            inputProps={{style: {fontSize: 14}}}
+          >
+            <MenuItem value={'CASUAL'}>CASUAL</MenuItem>
+            <MenuItem value={'BASKETBALL'}>BASKETBALL</MenuItem>
+            <MenuItem value={'RUNNING'}>RUNNING</MenuItem>
+            <MenuItem value={'VINTAGE'}>VINTAGE</MenuItem>
+            <MenuItem value={'DESIGNER'}>DESIGNER</MenuItem>
+          </Select>
+        </FormControl>
 
-        <label htmlFor="manufacturer">Manufacturer:</label>
-        <input
-          onChange={this.handleChange}
+        <TextField
+          id="standard-helperText"
           name="manufacturer"
-          type="text"
-          value={this.state.manufacturer}
+          label="Manufacturer"
+          onChange={this.handleChange}
+          defaultValue={this.state.manufacturer}
+          inputProps={{style: {fontSize: 14}}}
+          InputLabelProps={{style: {fontSize: 14}}}
         />
 
-        <label htmlFor="description">Description:</label>
-        <input
-          onChange={this.handleChange}
+        <TextField
+          id="standard-helperText"
           name="description"
-          type="textArea"
-          value={this.state.description}
+          label="Description"
+          onChange={this.handleChange}
+          defaultValue={this.state.description}
+          inputProps={{style: {fontSize: 14}}}
+          InputLabelProps={{style: {fontSize: 14}}}
         />
 
-        <label htmlFor="price">Price:</label>
-        <input
-          onChange={this.handleChange}
+        <TextField
+          id="standard-number"
           name="price"
+          label="Price"
           type="number"
-          value={this.state.price}
+          onChange={this.handleChange}
+          defaultValue={this.state.price}
+          InputLabelProps={{
+            shrink: true,
+            style: {fontSize: 14},
+          }}
+          inputProps={{style: {fontSize: 14}}}
         />
 
-        <label htmlFor="inventory">Inventory:</label>
-        <input
-          onChange={this.handleChange}
+        <TextField
+          id="standard-number"
           name="inventory"
+          label="Inventory"
           type="number"
-          value={this.state.inventory}
+          onChange={this.handleChange}
+          defaultValue={this.state.inventory}
+          InputLabelProps={{
+            shrink: true,
+            style: {fontSize: 14},
+          }}
+          inputProps={{style: {fontSize: 14}}}
         />
 
-        <label htmlFor="photos">Image URL:</label>
-        <p>(Separate multiple URLs with a comma)</p>
-        <input
-          onChange={this.handleChange}
+        <TextField
+          id="standard-helperText"
           name="photos"
-          type="textArea"
-          value={this.state.photos}
+          label="Photos"
+          onChange={this.handleChange}
+          defaultValue={this.state.photos}
+          helperText="Separate URLs with a comma"
+          inputProps={{style: {fontSize: 14}}}
+          InputLabelProps={{style: {fontSize: 14}}}
         />
+
         <button type="submit">Submit</button>
       </form>
     )
@@ -134,4 +254,8 @@ const mapDispatch = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatch)(AddProduct)
+AddProduct.propTypes = {
+  classes: PropTypes.object.isRequired,
+}
+
+export default connect(null, mapDispatch)(withStyles(styles)(AddProduct))
