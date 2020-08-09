@@ -1,44 +1,38 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import { fetchProducts } from '../store'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import { makeStyles } from '@material-ui/core/styles';
 
-class AllProducts extends Component {
-  componentDidMount() {
-    this.props.getProducts()
+const AllProducts = (props) => {
+  // using hook for state
+  const [style, setStyle] = useState("All")
+
+  // same as component did mount
+  useEffect(() => {
+    props.getProducts()
+  }, [])
+
+  const handleChange = evt => {
+    setStyle(evt.target.value)
   }
 
-  // render() {
-  //   const products = this.props.products
-
-  //   return (
-  //     <div className="allSneakers row">
-  //       {products.map((sneaker) => (
-  //         <div
-  //           key={sneaker.id}
-  //           className="allPageSingleSneaker col-4 col-sm justify-content-center"
-  //         >
-  //           <Link to={`/products/${sneaker.id}`}>
-  //             <img src={sneaker.photos[0]} className=" img-thumbnail" />
-  //             <h3>{sneaker.name}</h3>
-  //             <div>
-  //               Manufacture: {sneaker.manufacturer} <p />
-  //               Style: {sneaker.style} <p />
-  //               Price: {sneaker.price} <p />
-  //               Units in Stock: {sneaker.inventory}
-  //             </div>
-  //           </Link>
-  //         </div>
-  //       ))}
-  //     </div>
-  //   )
-  // }
-  ///
-
-
-  render() {
-    const { products } = this.props
-
+    const { products } = props
+    const useStyles = makeStyles((theme) => ({
+      formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+        float: 'right'
+      },
+      selectEmpty: {
+        marginTop: theme.spacing(2),
+      },
+    }));
+    const classes = useStyles();
     return (
       <div className="blog-posts">
         <div
@@ -61,10 +55,29 @@ class AllProducts extends Component {
                   <h2 className="navbar-header" style={{ textAlign: 'center' }}>
                     Currently Available
                   </h2>
+                  <FormControl variant="outlined" className={classes.formControl}>
+                    <InputLabel id="demo-simple-select-outlined-label">Style</InputLabel>
+                      <Select
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        value={style}
+                        onChange={handleChange}
+                        label="Style"
+                      >
+                        <MenuItem value="All">
+                          <em>All</em>
+                        </MenuItem>
+                        <MenuItem value='BASKETBALL'>Basketball</MenuItem>
+                        <MenuItem value='CASUAL'>Casual</MenuItem>
+                        <MenuItem value='RUNNING'>Running</MenuItem>
+                        <MenuItem value='VINTAGE'>Vintage</MenuItem>
+                        <MenuItem value='DESIGNER'>Designer</MenuItem>
+                      </Select>
+                  </FormControl>
                 </div>
               </div>
               <div className="row">
-                {products.map((product) => {
+                {products.filter(product => product.style === style || style === 'All').map((product) => {
                   return (
                     <div className="col-md-4" key={product.id}>
                       <div>
@@ -109,7 +122,6 @@ class AllProducts extends Component {
       </div>
     )
   }
-}
 
 const mapDispatch = (dispatch) => {
   return { getProducts: () => dispatch(fetchProducts()) }
