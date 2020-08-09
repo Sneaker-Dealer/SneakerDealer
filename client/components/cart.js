@@ -11,36 +11,47 @@ import { guestChangeCart } from '../store/guest-cart'
 class Cart extends React.Component {
   constructor() {
     super()
-    this.handleDelete= this.handleDelete.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
     // this.handleChange = this.handleChange.bind(this)
     // this.handleSubmit = this.handleSubmit.bind(this)
     this.handleMinus = this.handleMinus.bind(this)
     this.handlePlus = this.handlePlus.bind(this)
   }
 
-  handleMinus(item, event){
+  handleMinus(item, event) {
     event.preventDefault()
-    const newInventory = item.Product_Cart.quantity-1
-    if(newInventory <= 0){
-      let result = this.props.cart.products_in_cart.filter((prod) => prod != item)
-      this.props.cart.products_in_cart = result
+    const newInventory = item.Product_Cart.quantity - 1
+    if (!this.props.userId) this.props.guestChangeCart(item, newInventory)
+    else {
+      console.log('Minus')
+      if (newInventory <= 0) {
+        let result = this.props.cart.products_in_cart.filter((prod) => prod != item)
+        this.props.cart.products_in_cart = result
+        this.props.changeCart(2, this.props.cart.id, item.id, 0)
+      }
+      else {
+        this.props.changeCart(2, this.props.cart.id, item.id, newInventory)
+      }
     }
-    else{
-      item.Product_Cart.quantity = newInventory
-    }
-    // this.props.changeCart(this.props.user.id,this.props.cart.id,item.id,newInventory);
-    this.props.changeCart(2, this.props.cart.id, item.id, newInventory)
+
   }
 
-  handlePlus(item, event){
-    event.preventDefault()
-    // this.props.changeCart(this.props.user.id,this.props.cart.id,item.id,newInventory);
-    const newInventory = item.Product_Cart.quantity+1
-    if(newInventory <= item.inventory){
+  // this.props.changeCart(this.props.user.id,this.props.cart.id,item.id,newInventory);
+
+handlePlus(item, event) {
+  event.preventDefault()
+  // this.props.changeCart(this.props.user.id,this.props.cart.id,item.id,newInventory);
+  const newInventory = item.Product_Cart.quantity + 1
+  if (newInventory <= item.inventory) {
+    if (this.props.userId) {
       this.props.changeCart(2, this.props.cart.id, item.id, newInventory)
-      item.Product_Cart.quantity = newInventory
+    }
+    else {
+      this.props.guestChangeCart(item, newInventory)
     }
   }
+}
+
 
   // handleChange(item, event) {
   //   event.preventDefault()
@@ -60,10 +71,16 @@ class Cart extends React.Component {
     event.preventDefault()
     console.log('Quantity changed')
     // this.props.changeCart(this.props.user.id,this.props.cart.id,item.id,0);
-    let result = this.props.cart.products_in_cart.filter((prod) => prod != item)
-    this.props.cart.products_in_cart = result
+    if (this.props.userId) {
+      // let result = this.props.cart.products_in_cart.filter((prod) => prod != item)
+      // this.props.cart.products_in_cart = result
+      this.props.changeCart(2, this.props.cart.id, item.id, 0)
+    }
+    else {
+      this.props.guestChangeCart(item, 0)
+    }
+
     console.log(this.props.cart.products_in_cart)
-    this.props.changeCart(2, this.props.cart.id, item.id, 0)
   }
 
   componentDidMount() {
@@ -116,13 +133,13 @@ class Cart extends React.Component {
     ///
     //
     let products
-    if(this.props.userId){
+    if (this.props.userId) {
       products = this.props.cart.products_in_cart;
     }
-    else{
+    else {
       products = this.props.guestcart;
     }
-    
+
     return (
       <div className='signup-page'>
         <div className="page-header header-filter" style={{ backgroundImage: `url("../resources/assets/img/all_v3.jpg")`, backgroundSize: "cover", backgroundPosition: "top center" }}>

@@ -43,7 +43,7 @@ export default function (state = defaultCart, action) {
         // case GET_CART:
         //     return action.guestcart
         case UPDATE_GUEST_CART:
-            return [...state, action.product]
+            return [...state.filter(product => product != action.product), action.product]
         case REMOVE_GUEST_PRODUCT:
             return [...state.filter(product => product != action.product)]
         default:
