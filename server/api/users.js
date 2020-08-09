@@ -32,6 +32,7 @@ router.get('/:userId/cart', async (req, res, next) => {
     const cart = await Cart.findOne({
       where: {userId: req.params.userId, status: 'CREATED'},
       include: [{model: Product, as: 'products_in_cart'}],
+      // order: [[Product, 'createdDate', 'ASC' ]]
     })
     res.json(cart)
   } catch (err) {

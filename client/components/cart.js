@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { fetchCart, changeCart } from '../store/cart'
 import { Link } from 'react-router-dom'
+import { guestChangeCart } from '../store/guest-cart'
 
 /**
  * COMPONENT
@@ -114,9 +115,14 @@ class Cart extends React.Component {
     //=========
     ///
     //
-
-
-    const products = this.props.cart.products_in_cart;
+    let products
+    if(this.props.userId){
+      products = this.props.cart.products_in_cart;
+    }
+    else{
+      products = this.props.guestcart;
+    }
+    
     return (
       <div className='signup-page'>
         <div className="page-header header-filter" style={{ backgroundImage: `url("../resources/assets/img/all_v3.jpg")`, backgroundSize: "cover", backgroundPosition: "top center" }}>
@@ -132,7 +138,7 @@ class Cart extends React.Component {
                           <tr>
                             <th className="text-center"></th>
                             <th >Product</th>
-                            <th className="th-description">Manufacturer</th>
+                            <th className="th-description">Style</th>
                             <th className="text-right">Price</th>
                             <th className="text-right">Qty</th>
                             <th className="text-right">Amount</th>
@@ -227,6 +233,7 @@ const mapState = (state) => {
     cart: state.cart,
     user: state.user,
     userId: state.user.id,
+    guestcart: state.guestcart
   }
 }
 
@@ -235,6 +242,7 @@ const mapDispatch = (dispatch) => {
     fetchCart: (id) => dispatch(fetchCart(id)),
     changeCart: (userid, cartid, itemid, quantity) =>
       dispatch(changeCart(userid, cartid, itemid, quantity)),
+    guestChangeCart: (product, quantity) => dispatch(guestChangeCart(product, quantity))
   }
 }
 
