@@ -31,7 +31,13 @@ const AllProducts = (props) => {
       selectEmpty: {
         marginTop: theme.spacing(2),
       },
+
     }));
+    const imageStyle = (product) => ({
+      backgroundImage: `url(${product.photos[0]})`,
+      width: "100%",
+      height: "280px",
+    })
     const classes = useStyles();
     return (
       <div className="blog-posts">
@@ -79,11 +85,11 @@ const AllProducts = (props) => {
               <div className="row">
                 {products.filter(product => product.style === style || style === 'All').map((product) => {
                   return (
-                    <div className="col-md-4" key={product.id}>
-                      <div>
+                    <div className="col-md-4"  key={product.id}>
+                      <div className="card-block">
                         <div
                           className="card card-raised card-background"
-                          style={{ backgroundImage: `url(${product.photos[0]})` }}
+                          style={imageStyle(product)}
                         >
                           <div className="card-content">
                             {/* this wasn't showing due to typo */}
