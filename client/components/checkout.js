@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {fetchCart, changeCart} from '../store/cart'
+import {fetchCart, newCart} from '../store/cart'
 import {newGuestCart} from '../store/guest-cart'
 
 class CheckoutPage extends React.Component {
@@ -170,7 +170,8 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     fetchCart: (id) => dispatch(fetchCart(id)),
-    newGuestCart: (guestcart) => dispatch(newGuestCart(guestcart))
+    newGuestCart: (guestcart) => dispatch(newGuestCart(guestcart)),
+    newCart: (userid,cartid) => newCart(userid,cartid)
   }
 }
 
