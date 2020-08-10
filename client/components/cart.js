@@ -33,7 +33,6 @@ class Cart extends React.Component {
         this.props.changeCart(this.props.userId, this.props.cart.id, item.id, newInventory)
       }
     }
-
   }
 
   // this.props.changeCart(this.props.user.id,this.props.cart.id,item.id,newInventory);
@@ -85,7 +84,9 @@ handlePlus(item, event) {
 
   componentDidMount() {
     console.log(this.props.user.id)
-    this.props.fetchCart(this.props.userId)
+    if (this.props.userId) {
+      this.props.fetchCart(this.props.userId)
+    }
     // this.props.fetchCart(2)
 
   }
