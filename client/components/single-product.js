@@ -13,7 +13,9 @@ class SingleProduct extends Component {
 
   componentDidMount() {
     this.props.fetchSingleProduct(this.props.match.params.id)
-    this.props.fetchCart(2)
+    if(this.props.userId){
+      this.props.fetchCart(this.props.userId)
+    }
   }
 
   handleClick(item, event) {
@@ -24,10 +26,19 @@ class SingleProduct extends Component {
     // this.props.cart.products_in_cart = result
     // console.log(this.props.cart.products_in_cart)
     if(this.props.userId){
-      this.props.addToCart(2, this.props.cart.id, item.id)
+      this.props.addToCart(this.props.userId, this.props.cart.id, item.id)
     }
     else{
-      this.props.guestAddToCart(item)
+      let checkItem = {}
+      for (let i = 0; i < this.props.guestcart.length; i++){
+        if(this.props.guestcart[i].id == this.props.product.id){
+          checkItem = this.props.guestcart[i]
+        }
+      }
+      console.log(Object.entries(checkItem).length === 0)
+      if (Object.entries(checkItem).length === 0){
+        this.props.guestAddToCart(item)
+      }
     }
   }
 

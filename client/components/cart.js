@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { fetchCart, changeCart } from '../store/cart'
+import { fetchCart, changeCart, newCart } from '../store/cart'
 import { Link } from 'react-router-dom'
 import { guestChangeCart } from '../store/guest-cart'
 
@@ -16,6 +16,7 @@ class Cart extends React.Component {
     // this.handleSubmit = this.handleSubmit.bind(this)
     this.handleMinus = this.handleMinus.bind(this)
     this.handlePlus = this.handlePlus.bind(this)
+    this.handleCheckout = this.handleCheckout.bind(this)
   }
 
   handleMinus(item, event) {
@@ -27,13 +28,12 @@ class Cart extends React.Component {
       if (newInventory <= 0) {
         let result = this.props.cart.products_in_cart.filter((prod) => prod != item)
         this.props.cart.products_in_cart = result
-        this.props.changeCart(2, this.props.cart.id, item.id, 0)
+        this.props.changeCart(this.props.userId, this.props.cart.id, item.id, 0)
       }
       else {
-        this.props.changeCart(2, this.props.cart.id, item.id, newInventory)
+        this.props.changeCart(this.props.userId, this.props.cart.id, item.id, newInventory)
       }
     }
-
   }
 
   // this.props.changeCart(this.props.user.id,this.props.cart.id,item.id,newInventory);
@@ -44,7 +44,7 @@ handlePlus(item, event) {
   const newInventory = item.Product_Cart.quantity + 1
   if (newInventory <= item.inventory) {
     if (this.props.userId) {
-      this.props.changeCart(2, this.props.cart.id, item.id, newInventory)
+      this.props.changeCart(this.props.userId, this.props.cart.id, item.id, newInventory)
     }
     else {
       this.props.guestChangeCart(item, newInventory)
@@ -74,7 +74,7 @@ handlePlus(item, event) {
     if (this.props.userId) {
       // let result = this.props.cart.products_in_cart.filter((prod) => prod != item)
       // this.props.cart.products_in_cart = result
-      this.props.changeCart(2, this.props.cart.id, item.id, 0)
+      this.props.changeCart(this.props.userId, this.props.cart.id, item.id, 0)
     }
     else {
       this.props.guestChangeCart(item, 0)
@@ -83,10 +83,23 @@ handlePlus(item, event) {
     console.log(this.props.cart.products_in_cart)
   }
 
+  handleCheckout(event) {
+    event.preventDefault()
+    if(this.props.userId){
+      this.props.newCart(this.props.userId,this.props.cart.id)
+    }
+    else{
+      console.log('please login')
+    }
+    
+  }
+
   componentDidMount() {
     console.log(this.props.user.id)
-    // this.props.fetchCart(this.props.user.id)
-    this.props.fetchCart(2)
+    if (this.props.userId) {
+      this.props.fetchCart(this.props.userId)
+    }
+    // this.props.fetchCart(2)
 
   }
 
@@ -212,7 +225,7 @@ handlePlus(item, event) {
                             </td>
                             <td colSpan="1" className="text-right">
                               <Link to='/checkout'>
-                                <button type="button" className="btn btn-info btn-round">
+                                <button type="button" className="btn btn-info btn-round" onClick={this.handleCheckout}>
                                   Complete Purchase <i className="material-icons">keyboard_arrow_right</i>
                                 </button>
                               </Link>
@@ -259,7 +272,8 @@ const mapDispatch = (dispatch) => {
     fetchCart: (id) => dispatch(fetchCart(id)),
     changeCart: (userid, cartid, itemid, quantity) =>
       dispatch(changeCart(userid, cartid, itemid, quantity)),
-    guestChangeCart: (product, quantity) => dispatch(guestChangeCart(product, quantity))
+    guestChangeCart: (product, quantity) => dispatch(guestChangeCart(product, quantity)),
+    newCart: (id,cartid) => dispatch(newCart(id,cartid)),
   }
 }
 

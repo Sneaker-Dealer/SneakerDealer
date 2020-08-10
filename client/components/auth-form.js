@@ -1,8 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import {auth} from '../store'
-import {addNewUser} from '../store'
+import {auth, addNewUser} from '../store'
+import history from '../history'
 
 /**
  * COMPONENT
@@ -210,6 +210,7 @@ const mapDispatchSignUp = (dispatch) => {
       const password = evt.target.password.value
       //dispatches the thunk to add a new user
       dispatch(addNewUser({firstName, lastName, email, password}))
+      history.push('/login')
     },
   }
 }

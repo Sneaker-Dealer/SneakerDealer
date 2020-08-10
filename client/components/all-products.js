@@ -7,6 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
+import {fetchCart} from '../store/cart'
 
 const AllProducts = (props) => {
   // using hook for state
@@ -15,6 +16,9 @@ const AllProducts = (props) => {
   // same as component did mount
   useEffect(() => {
     props.getProducts()
+    if(props.userId){
+      props.fetchCart(props.userId)
+    }
   }, [])
 
   const handleChange = evt => {
@@ -124,12 +128,17 @@ const AllProducts = (props) => {
   }
 
 const mapDispatch = (dispatch) => {
-  return { getProducts: () => dispatch(fetchProducts()) }
+  return {
+    getProducts: () => dispatch(fetchProducts()),
+    fetchCart: (id) => dispatch(fetchCart(id)),
+  }
 }
 
 const mapState = (state) => {
   return {
     products: state.products,
+    cart: state.cart,
+    userId: state.user.id
   }
 }
 

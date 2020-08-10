@@ -77,7 +77,7 @@ const seed = async () => {
 
     const assignUserToCart = await Promise.all([
       createdUsers[0].addCart(createdCarts[0]),
-      createdUsers[0].addCart(createdCarts[1]),
+      createdUsers[4].addCart(createdCarts[1]),
       createdUsers[1].addCart(createdCarts[2]),
       createdUsers[2].addCart(createdCarts[3]),
       createdUsers[3].addCart(createdCarts[4]),
