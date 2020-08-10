@@ -225,7 +225,7 @@ handlePlus(item, event) {
                             </td>
                             <td colSpan="1" className="text-right">
                               <Link to='/checkout'>
-                                <button type="button" className="btn btn-info btn-round" onClick={this.handleCheckout}>
+                                <button type="button" className="btn btn-info btn-round">
                                   Complete Purchase <i className="material-icons">keyboard_arrow_right</i>
                                 </button>
                               </Link>
