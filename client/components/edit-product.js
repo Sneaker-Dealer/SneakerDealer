@@ -45,21 +45,18 @@ const styles = (theme) => ({
   title: {
     margin: theme.spacing(4, 0, 2),
   },
-  listItemText: {
-    fontSize: '1em',
-  },
-  typography: {
-    fontFamily: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
-    fontSize: 14,
+  itemText: {
+    fontSize: '.9em',
+    fontWeight: 100,
   },
 })
 
 const tableColumns = [
-  {id: 'name', label: 'Name', minWidth: 100},
-  {id: 'style', label: 'Style', minWidth: 100},
-  {id: 'price', label: 'Price', minWidth: 60},
-  {id: 'edit', label: 'Edit', minWidth: 10},
-  {id: 'delete', label: 'Delete', minWidth: 10},
+  {id: 'name', label: 'NAME', minWidth: 100},
+  {id: 'style', label: 'STYLE', minWidth: 100},
+  {id: 'price', label: 'PRICE', minWidth: 60},
+  {id: 'edit', label: 'EDIT', minWidth: 10},
+  {id: 'delete', label: 'DELETE', minWidth: 10},
 ]
 
 class EditProduct extends React.Component {
@@ -233,7 +230,10 @@ class EditProduct extends React.Component {
 
     return (
       <div
-        style={{backgroundImage: `url("../resources/assets/img/all_v2.jpg")`}}
+        style={{
+          backgroundImage: `url("../resources/assets/img/all_v2.jpg")`,
+          marginBottom: '-5000x',
+        }}
       >
         <Grid
           container
@@ -242,24 +242,28 @@ class EditProduct extends React.Component {
           justify="center"
           style={{
             paddingTop: '150px',
+            paddingBottom: '100px',
           }}
         >
           <Paper elevation={3}>
             <Box p={5}>
               <Grid container direction="row">
                 <Grid item xs={12} sm={6}>
-                  <Typography variant="h5" className={classes.title}>
-                    Edit Product:
+                  <Typography
+                    variant="h5"
+                    className={classes.title}
+                    style={{fontWeight: 100}}
+                  >
+                    EDIT PRODUCT
                   </Typography>
                   <form onSubmit={this.handleSubmit} className={classes.root}>
                     <TextField
-                      id="standard-helperText"
                       name="name"
                       label="Name"
                       onChange={this.handleChange}
                       value={this.state.name}
-                      // inputProps={{style: {fontSize: 14}}}
-                      // InputLabelProps={{style: {fontSize: 14}}}
+                      InputProps={{className: classes.itemText}}
+                      InputLabelProps={{className: classes.itemText}}
                     />
 
                     <FormControl className={classes.formControl}>
@@ -271,6 +275,7 @@ class EditProduct extends React.Component {
                         id="demo-simple-select"
                         name="style"
                         label="Style"
+                        style={{fontSize: 12, fontWeight: 100}}
                         onChange={this.handleChange}
                         value={this.state.style}
                         //TO DO: CHANGE FONT SIZE
@@ -289,8 +294,8 @@ class EditProduct extends React.Component {
                       label="Manufacturer"
                       onChange={this.handleChange}
                       value={this.state.manufacturer}
-                      // inputProps={{style: {fontSize: 14}}}
-                      // InputLabelProps={{style: {fontSize: 14}}}
+                      InputProps={{className: classes.itemText}}
+                      InputLabelProps={{className: classes.itemText}}
                     />
 
                     <TextField
@@ -299,8 +304,8 @@ class EditProduct extends React.Component {
                       label="Description"
                       onChange={this.handleChange}
                       value={this.state.description}
-                      // inputProps={{style: {fontSize: 14}}}
-                      // InputLabelProps={{style: {fontSize: 14}}}
+                      InputProps={{className: classes.itemText}}
+                      InputLabelProps={{className: classes.itemText}}
                     />
 
                     <TextField
@@ -312,9 +317,9 @@ class EditProduct extends React.Component {
                       value={this.state.price}
                       InputLabelProps={{
                         shrink: true,
-                        // style: {fontSize: 14},
+                        className: classes.itemText,
                       }}
-                      // inputProps={{style: {fontSize: 14}}}
+                      InputProps={{className: classes.itemText}}
                     />
 
                     <TextField
@@ -326,9 +331,9 @@ class EditProduct extends React.Component {
                       value={this.state.inventory}
                       InputLabelProps={{
                         shrink: true,
-                        // style: {fontSize: 14},
+                        className: classes.itemText,
                       }}
-                      // inputProps={{style: {fontSize: 14}}}
+                      InputProps={{className: classes.itemText}}
                     />
 
                     <TextField
@@ -338,8 +343,8 @@ class EditProduct extends React.Component {
                       onChange={this.handleChange}
                       value={this.state.photos}
                       helperText="Separate URLs with a comma"
-                      // inputProps={{style: {fontSize: 14}}}
-                      // InputLabelProps={{style: {fontSize: 14}}}
+                      InputProps={{className: classes.itemText}}
+                      InputLabelProps={{className: classes.itemText}}
                     />
 
                     <Button type="submit" className="btn btn-info btn-round">
@@ -349,12 +354,7 @@ class EditProduct extends React.Component {
                 </Grid>
 
                 <Grid item xs={12} sm={6}>
-                  <TableContainer
-                    className={classes.container}
-                    style={{
-                      padding: '20px',
-                    }}
-                  >
+                  <TableContainer style={{padding: '20px'}}>
                     <Table stickyHeader aria-label="sticky table">
                       <TableHead>
                         <TableRow>
@@ -362,10 +362,11 @@ class EditProduct extends React.Component {
                             <TableCell
                               key={column.id}
                               align={column.align}
-                              style={{minWidth: column.minWidth}}
+                              className={classes.itemText}
                             >
                               {column.label}
                             </TableCell>
+                            // <th key={column.id}>{column.label}</th>
                           ))}
                         </TableRow>
                       </TableHead>
@@ -377,7 +378,10 @@ class EditProduct extends React.Component {
                               {tableColumns.map((column) => {
                                 const value = product[column.id]
                                 return (
-                                  <TableCell key={product.id + column.id}>
+                                  <TableCell
+                                    key={product.id + column.id}
+                                    className={classes.itemText}
+                                  >
                                     {typeof value === 'number'
                                       ? '$ ' + value
                                       : value}
