@@ -55,6 +55,40 @@ router.post('/:userId/cart', async (req, res, next) => {
   }
 })
 
+router.put('/:userId/cart/checkout', async (req, res, next) => {
+  try {
+    console.log(req.body.cart_id)
+    const [, [cart]] = await Cart.update(
+      {
+        status: 'PROCESSING',
+      },
+      {
+        returning: true,
+        where: {id: req.body.cart_id},
+      }
+    )
+    res.json(cart)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.post('/:userId/cart/new', async (req, res, next) => {
+  try {
+    const cart = await Cart.create({
+      status: "CREATED",
+    })
+    const user = await User.findOne({
+      where: {id: req.params.userId},
+      attributes: ['id', 'name', 'email'],
+    })
+    user.addCart(cart)
+    res.json(cart)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.put('/:userId/cart', async (req, res, next) => {
   try {
     const [, [cart]] = await ProductCart.update(

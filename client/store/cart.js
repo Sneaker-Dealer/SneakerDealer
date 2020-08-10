@@ -1,4 +1,5 @@
 import axios from 'axios'
+import history from '../history'
 
 const GET_CART = 'GET_CART'
 const UPDATE_CART = 'UPDATE_CART'
@@ -35,6 +36,7 @@ export const addToCart = (id, cart_id, product_id) => {
       } else {
         dispatch(updateCart({}))
       }
+      history.push('/cart')
     } catch (error) {
       console.log(error)
     }
@@ -61,6 +63,24 @@ export const changeCart = (id, cart_id, product_id, quantity) => {
       } else {
         dispatch(updateCart({}))
       }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const newCart = (id, cart_id) => {
+  return async (dispatch) => {
+    try {
+      await axios.put(`/api/users/${id}/cart/checkout`,{cart_id})
+      await axios.post(`/api/users/${id}/cart/new`)
+      const {data} = await axios.get(`/api/users/${id}/cart`)
+      if (data) {
+        dispatch(getCart(data))
+      } else {
+        dispatch(getCart({}))
+      }
+      history.push('/')
     } catch (error) {
       console.log(error)
     }

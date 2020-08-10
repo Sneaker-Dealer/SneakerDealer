@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { fetchCart, changeCart } from '../store/cart'
+import { fetchCart, changeCart, newCart } from '../store/cart'
 import { Link } from 'react-router-dom'
 import { guestChangeCart } from '../store/guest-cart'
 
@@ -16,6 +16,7 @@ class Cart extends React.Component {
     // this.handleSubmit = this.handleSubmit.bind(this)
     this.handleMinus = this.handleMinus.bind(this)
     this.handlePlus = this.handlePlus.bind(this)
+    this.handleCheckout = this.handleCheckout.bind(this)
   }
 
   handleMinus(item, event) {
@@ -80,6 +81,17 @@ handlePlus(item, event) {
     }
 
     console.log(this.props.cart.products_in_cart)
+  }
+
+  handleCheckout(event) {
+    event.preventDefault()
+    if(this.props.userId){
+      this.props.newCart(this.props.userId,this.props.cart.id)
+    }
+    else{
+      console.log('please login')
+    }
+    
   }
 
   componentDidMount() {
@@ -213,7 +225,7 @@ handlePlus(item, event) {
                             </td>
                             <td colSpan="1" className="text-right">
                               <Link to='/checkout'>
-                                <button type="button" className="btn btn-info btn-round">
+                                <button type="button" className="btn btn-info btn-round" onClick={this.handleCheckout}>
                                   Complete Purchase <i className="material-icons">keyboard_arrow_right</i>
                                 </button>
                               </Link>
@@ -260,7 +272,8 @@ const mapDispatch = (dispatch) => {
     fetchCart: (id) => dispatch(fetchCart(id)),
     changeCart: (userid, cartid, itemid, quantity) =>
       dispatch(changeCart(userid, cartid, itemid, quantity)),
-    guestChangeCart: (product, quantity) => dispatch(guestChangeCart(product, quantity))
+    guestChangeCart: (product, quantity) => dispatch(guestChangeCart(product, quantity)),
+    newCart: (id,cartid) => dispatch(newCart(id,cartid)),
   }
 }
 

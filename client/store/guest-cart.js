@@ -1,3 +1,5 @@
+import history from '../history'
+
 const defaultCart = []
 
 // const GET_CART = 'GET_CART'
@@ -17,6 +19,7 @@ export const guestAddToCart = (product) => {
             let addedProduct = product
             addedProduct = { ...product, Product_Cart: { quantity: 1 } }
             dispatch(addProduct(addedProduct))
+            history.push('/cart')
         } catch (error) {
             console.log(error)
         }
