@@ -132,20 +132,21 @@ const Navbar = (props) => {
                         Users
                       </Link>
                     </li>
-                    <li>
+                    {/* <li>
                       <Link to="/myaccount">
                         <i className="material-icons">account_circle</i> My
                         Account
                       </Link>
-                    </li>
+                    </li> */}
                   </ul>
                 </li>
               ) : (
-                <li>
-                  <Link to="/myaccount">
-                    <i className="material-icons">view_carousel</i> My Account
-                  </Link>
-                </li>
+                // <li>
+                //   <Link to="/myaccount">
+                //     <i className="material-icons">view_carousel</i> My Account
+                //   </Link>
+                // </li>
+                console.log()
               )
             ) : (
               <li>

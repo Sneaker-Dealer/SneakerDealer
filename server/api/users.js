@@ -21,6 +21,8 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     const user = await User.create(req.body)
+    const cart = await Cart.create({status: 'CREATED'})
+    user.addCart(cart)
     res.status(201).send(user)
   } catch (error) {
     next(error)
