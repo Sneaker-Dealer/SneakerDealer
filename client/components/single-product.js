@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleProduct} from '../store/single-product'
-import {Link} from 'react-router-dom'
 import {fetchCart, addToCart} from '../store/cart'
 import { guestAddToCart } from '../store/guest-cart'
 
@@ -20,11 +19,6 @@ class SingleProduct extends Component {
 
   handleClick(item, event) {
     event.preventDefault()
-    console.log('added to cart')
-    // this.props.changeCart(this.props.user.id,this.props.cart.id,item.id,0);
-    // let result = this.props.cart.products_in_cart.filter((prod) => prod != item)
-    // this.props.cart.products_in_cart = result
-    // console.log(this.props.cart.products_in_cart)
     if(this.props.userId){
       this.props.addToCart(this.props.userId, this.props.cart.id, item.id)
     }
@@ -35,47 +29,11 @@ class SingleProduct extends Component {
           checkItem = this.props.guestcart[i]
         }
       }
-      console.log(Object.entries(checkItem).length === 0)
       if (Object.entries(checkItem).length === 0){
         this.props.guestAddToCart(item)
       }
     }
   }
-
-  //   render() {
-  //     const {product} = this.props
-  //     console.log('prod>>>', product)
-
-  //     return (
-  //       <div>
-  //         <h4>{product.name}</h4>
-  //         <h4>{product.price}</h4>
-  //         <h4>Description</h4>
-  //         <h4>{product.description}</h4>
-  //         <h4>Manufacturer</h4>
-  //         <h4>{product.manufacturer}</h4>
-  //         <button
-  //           type="button"
-  //           className="btn btn-secondary"
-  //           id="addToCart"
-  //           onClick={(event) => this.handleClick(product, event)}
-  //         >
-  //           Add to cart
-  //         </button>
-  //         <div>
-  //           <h4>Photos</h4>
-  //           <div>
-  //             {(product.photos || []).map((photo, idx) => (
-  //               <div key={idx}>
-  //                 <img src={photo} />
-  //               </div>
-  //             ))}
-  //           </div>
-  //         </div>
-  //       </div>
-  //     )
-  //   }
-  // }
 
   render() {
     const {product} = this.props

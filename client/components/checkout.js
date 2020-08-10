@@ -1,7 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
 import {fetchCart, newCart} from '../store/cart'
 import {newGuestCart} from '../store/guest-cart'
 
@@ -24,14 +22,12 @@ class CheckoutPage extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.user.id)
     if (this.props.userId) {
       this.props.fetchCart(this.props.userId)
     }
   }
 
   render() {
-    // const cart = this.props.cart.products_in_cart
     let cart
     if (this.props.userId) {
       cart = this.props.cart.products_in_cart;
@@ -39,8 +35,6 @@ class CheckoutPage extends React.Component {
     else {
       cart = this.props.guestcart;
     }
-
-    console.log(cart)
 
     return (
       <div
@@ -52,7 +46,6 @@ class CheckoutPage extends React.Component {
         }}
       >
         <div id="contactUsMap" className="big-map"></div>
-
         <div className="main main-raised contact-content">
           <div className="container">
             <h2 className="title">Complete Your Purchase</h2>
@@ -102,7 +95,7 @@ class CheckoutPage extends React.Component {
                       className="form-control"
                     />
                   </div>
-
+                  
                   <div className="form-group label-floating">
                     <label className="control-label">Confirmation Email</label>
                     <input

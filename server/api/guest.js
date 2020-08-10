@@ -4,7 +4,6 @@ module.exports = router
 
 router.post('/cart', async (req, res, next) => {
     try {
-        console.log(req.body)
         const cart = await Cart.create({
             status: 'PROCESSING',
             guestCart: req.body.guestcart
