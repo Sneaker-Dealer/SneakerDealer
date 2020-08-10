@@ -1,4 +1,5 @@
 import history from '../history'
+import axios from 'axios'
 
 const defaultCart = []
 
@@ -7,11 +8,13 @@ const UPDATE_GUEST_CART = 'UPDATE_GUEST_CART'
 // const ADD_PRODUCT = 'ADD_PRODUCT'
 const REMOVE_GUEST_PRODUCT = 'REMOVE_GUEST_PRODUCT'
 const ADD_GUEST_PRODUCT = 'ADD_GUEST_PRODUCT'
+const NEW_GUEST_CART = 'NEW_GUEST_CART'
 
 // const getCart = (cart) => ({ type: GET_CART, cart })
 const updateCart = (product) => ({ type: UPDATE_GUEST_CART, product })
 const removeProduct = (product) => ({ type: REMOVE_GUEST_PRODUCT, product })
-const addProduct = (product) => ({type: ADD_GUEST_PRODUCT, product})
+const addProduct = (product) => ({ type: ADD_GUEST_PRODUCT, product })
+const newCart = () => ({type: NEW_GUEST_CART})
 
 export const guestAddToCart = (product) => {
     return (dispatch) => {
@@ -43,6 +46,18 @@ export const guestChangeCart = (product, quantity) => {
     }
 }
 
+export const newGuestCart = (guestcart) => {
+    return async (dispatch) => {
+        try {
+            await axios.post(`/api/guest/cart`,{guestcart})
+            dispatch(newCart())
+            history.push('/')
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
 export default function (state = defaultCart, action) {
     switch (action.type) {
         // case GET_CART:
@@ -58,6 +73,8 @@ export default function (state = defaultCart, action) {
             })]
         case REMOVE_GUEST_PRODUCT:
             return [...state.filter(product => product != action.product)]
+        case NEW_GUEST_CART:
+            return defaultCart
         default:
             return state
     }

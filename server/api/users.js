@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const {User, Cart, Product} = require('../db/models')
 const ProductCart = require('../db/models/product_cart')
+const {isSelf} = require('./gatekeeper')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -29,7 +30,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.get('/:userId/cart', async (req, res, next) => {
+router.get('/:userId/cart' , async (req, res, next) => {
   try {
     const cart = await Cart.findOne({
       where: {userId: req.params.userId, status: 'CREATED'},
@@ -54,6 +55,19 @@ router.post('/:userId/cart', async (req, res, next) => {
     next(err)
   }
 })
+
+// router.post('/guest/cart', async (req, res, next) => {
+//   try {
+//     console.log(req.body)
+//     const cart = await Cart.create({
+//       status: 'PROCESSING',
+//       guestcart: req.body.guestcart
+//     })
+//     res.json(cart)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
 
 router.put('/:userId/cart/checkout', async (req, res, next) => {
   try {

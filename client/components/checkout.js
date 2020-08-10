@@ -3,16 +3,44 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {fetchCart, changeCart} from '../store/cart'
+import {newGuestCart} from '../store/guest-cart'
 
 class CheckoutPage extends React.Component {
+
+  constructor() {
+    super()
+    this.handleCheckout = this.handleCheckout.bind(this)
+  }
+
+  handleCheckout(event) {
+    event.preventDefault()
+    if(this.props.userId){
+      this.props.newCart(this.props.userId,this.props.cart.id)
+    }
+    else{
+      this.props.newGuestCart(this.props.guestcart)
+    }
+    
+  }
+
   componentDidMount() {
     console.log(this.props.user.id)
-    // this.props.fetchCart(this.props.user.id)
-    this.props.fetchCart(2)
+    if (this.props.userId) {
+      this.props.fetchCart(this.props.userId)
+    }
   }
 
   render() {
-    const cart = this.props.cart
+    // const cart = this.props.cart.products_in_cart
+    let cart
+    if (this.props.userId) {
+      cart = this.props.cart.products_in_cart;
+    }
+    else {
+      cart = this.props.guestcart;
+    }
+
+    console.log(cart)
 
     return (
       <div
@@ -30,25 +58,25 @@ class CheckoutPage extends React.Component {
             <h2 className="title">Complete Your Purchase</h2>
             <div className="row">
               <div className="col-md-4">
-                {([] || cart).map((element) => (
+                {cart.map((element) => (
                   <div
                     key={element.id}
                     className="info info-horizontal icon icon-primary"
                   >
                     <div className="material-icons">
                       <img
-                        src={element.product.photos[0]}
+                        src={element.photos[0]}
                         alt="..."
                         width="150"
                       />
                     </div>
                     <div className="description">
-                      <h4 className="info-title">{element.product.name}</h4>
+                      <h4 className="info-title">{element.name}</h4>
                       <p>
-                        Manufacturer: {element.product.breeder} <br />
-                        Style: {element.product.breed} <br />
-                        Quantity: {element.quantity} <br />
-                        Subtotal: ${element.product.price * element.quantity}
+                        Manufacturer: {element.manufacturer} <br />
+                        Style: {element.style} <br />
+                        Quantity: {element.Product_Cart.quantity} <br />
+                        Subtotal: ${element.price * element.Product_Cart.quantity}
                       </p>
                     </div>
                   </div>
@@ -61,7 +89,7 @@ class CheckoutPage extends React.Component {
                   <br />
                 </p>
                 <form
-                  onSubmit={(e) => handleSubmit(e, props.user.id, props.cart)}
+                  onSubmit={this.handleCheckout}
                   role="form"
                   id="contact-form"
                   method="post"
@@ -142,6 +170,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     fetchCart: (id) => dispatch(fetchCart(id)),
+    newGuestCart: (guestcart) => dispatch(newGuestCart(guestcart))
   }
 }
 
