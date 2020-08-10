@@ -171,7 +171,7 @@ const mapDispatch = (dispatch) => {
   return {
     fetchCart: (id) => dispatch(fetchCart(id)),
     newGuestCart: (guestcart) => dispatch(newGuestCart(guestcart)),
-    newCart: (userid,cartid) => newCart(userid,cartid)
+    newCart: (userid,cartid) => dispatch(newCart(userid,cartid))
   }
 }
 

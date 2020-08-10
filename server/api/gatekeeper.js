@@ -6,7 +6,9 @@ function isAdmin(req, res, next) {
 }
 
 function isSelf(req, res, next) {
-  if (req.params.userId === req.user.id) return next()
+  console.log("req.params.userId",req.params.userId)
+  console.log("req.user.dataValues.id",req.user.dataValues.id)
+  if (req.params.userId == req.user.dataValues.id) return next()
   res.redirect('/')
 }
 
