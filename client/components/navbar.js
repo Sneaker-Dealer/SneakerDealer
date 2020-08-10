@@ -127,6 +127,12 @@ const Navbar = (props) => {
                       </Link>
                     </li>
                     <li>
+                      <Link to="/users">
+                        <i className="material-icons">account_balance</i> All
+                        Users
+                      </Link>
+                    </li>
+                    <li>
                       <Link to="/myaccount">
                         <i className="material-icons">account_circle</i> My
                         Account
