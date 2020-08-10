@@ -1,29 +1,56 @@
 //Admins can add a new product
 import React from 'react'
-import {addProductThunk} from '../store'
+import {addProductThunk, fetchProducts} from '../store'
 import {connect} from 'react-redux'
-
 import PropTypes from 'prop-types'
-import TextField from '@material-ui/core/TextField'
-import {withStyles} from '@material-ui/core/styles'
-import FormHelperText from '@material-ui/core/FormHelperText'
-import FormControl from '@material-ui/core/FormControl'
-import InputLabel from '@material-ui/core/InputLabel'
-import MenuItem from '@material-ui/core/MenuItem'
-import Select from '@material-ui/core/Select'
 
-import {Grid} from '@material-ui/core'
-import {Container} from '@material-ui/core'
-import Paper from '@material-ui/core/Paper'
+import {
+  Grid,
+  TextField,
+  withStyles,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography,
+  Button,
+  Paper,
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from '@material-ui/core'
 
 const styles = (theme) => ({
   root: {
     '& > *': {
       margin: theme.spacing(1),
-      width: '100ch',
+      width: '50ch',
+      display: 'flex',
+      flexWrap: 'wrap',
     },
   },
+  demo: {
+    backgroundColor: theme.palette.background.paper,
+  },
+  title: {
+    margin: theme.spacing(4, 0, 2),
+  },
+  itemText: {
+    fontSize: '.9em',
+    fontWeight: 100,
+  },
 })
+
+const tableColumns = [
+  {id: 'id', label: 'ID', minWidth: 60},
+  {id: 'name', label: 'NAME', minWidth: 100},
+  {id: 'style', label: 'STYLE', minWidth: 100},
+  {id: 'price', label: 'PRICE', minWidth: 60},
+]
 
 class AddProduct extends React.Component {
   constructor() {
@@ -41,13 +68,17 @@ class AddProduct extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
+  componentDidMount() {
+    this.props.getProducts()
+  }
+
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value,
     })
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault()
 
     //get the user input for the following fields from the local state
@@ -71,7 +102,7 @@ class AddProduct extends React.Component {
       photos: photos.split(', '),
     }
 
-    this.props.addProduct(newProduct)
+    await this.props.addProduct(newProduct)
 
     //reset the fields
     this.setState({
@@ -83,6 +114,8 @@ class AddProduct extends React.Component {
       inventory: 0,
       photos: '',
     })
+
+    await this.props.getProducts()
   }
 
   // render() {
@@ -153,103 +186,187 @@ class AddProduct extends React.Component {
     const {classes} = this.props
 
     return (
-      <form onSubmit={this.handleSubmit} className={classes.root}>
-        <TextField
-          id="standard-helperText"
-          name="name"
-          label="Name"
-          onChange={this.handleChange}
-          defaultValue={this.state.name}
-          inputProps={{style: {fontSize: 14}}}
-          InputLabelProps={{style: {fontSize: 14}}}
-        />
-
-        <FormControl className={classes.formControl}>
-          <InputLabel id="demo-simple-select-label">Style</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            name="style"
-            label="Style"
-            onChange={this.handleChange}
-            defaultValue={this.state.style}
-            inputProps={{style: {fontSize: 14}}}
-          >
-            <MenuItem value={'CASUAL'}>CASUAL</MenuItem>
-            <MenuItem value={'BASKETBALL'}>BASKETBALL</MenuItem>
-            <MenuItem value={'RUNNING'}>RUNNING</MenuItem>
-            <MenuItem value={'VINTAGE'}>VINTAGE</MenuItem>
-            <MenuItem value={'DESIGNER'}>DESIGNER</MenuItem>
-          </Select>
-        </FormControl>
-
-        <TextField
-          id="standard-helperText"
-          name="manufacturer"
-          label="Manufacturer"
-          onChange={this.handleChange}
-          defaultValue={this.state.manufacturer}
-          inputProps={{style: {fontSize: 14}}}
-          InputLabelProps={{style: {fontSize: 14}}}
-        />
-
-        <TextField
-          id="standard-helperText"
-          name="description"
-          label="Description"
-          onChange={this.handleChange}
-          defaultValue={this.state.description}
-          inputProps={{style: {fontSize: 14}}}
-          InputLabelProps={{style: {fontSize: 14}}}
-        />
-
-        <TextField
-          id="standard-number"
-          name="price"
-          label="Price"
-          type="number"
-          onChange={this.handleChange}
-          defaultValue={this.state.price}
-          InputLabelProps={{
-            shrink: true,
-            style: {fontSize: 14},
+      <div
+        style={{
+          backgroundImage: `url("../resources/assets/img/all_v2.jpg")`,
+          marginBottom: '-5000x',
+        }}
+      >
+        <Grid
+          container
+          direction="row"
+          alignItems="center"
+          justify="center"
+          style={{
+            paddingTop: '150px',
+            paddingBottom: '100px',
           }}
-          inputProps={{style: {fontSize: 14}}}
-        />
+        >
+          <Paper elevation={3}>
+            <Box p={5}>
+              <Grid container direction="row">
+                <Grid item xs={12} sm={6}>
+                  <Typography
+                    variant="h5"
+                    className={classes.title}
+                    style={{fontWeight: 100}}
+                  >
+                    ADD PRODUCT
+                  </Typography>
+                  <form onSubmit={this.handleSubmit} className={classes.root}>
+                    <TextField
+                      name="name"
+                      label="Name"
+                      onChange={this.handleChange}
+                      value={this.state.name}
+                      InputProps={{className: classes.itemText}}
+                      InputLabelProps={{className: classes.itemText}}
+                    />
 
-        <TextField
-          id="standard-number"
-          name="inventory"
-          label="Inventory"
-          type="number"
-          onChange={this.handleChange}
-          defaultValue={this.state.inventory}
-          InputLabelProps={{
-            shrink: true,
-            style: {fontSize: 14},
-          }}
-          inputProps={{style: {fontSize: 14}}}
-        />
+                    <FormControl className={classes.formControl}>
+                      <InputLabel id="demo-simple-select-label">
+                        Style
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        name="style"
+                        label="Style"
+                        style={{fontSize: 12, fontWeight: 100}}
+                        onChange={this.handleChange}
+                        value={this.state.style}
+                        //TO DO: CHANGE FONT SIZE
+                      >
+                        <MenuItem value={'CASUAL'}>CASUAL</MenuItem>
+                        <MenuItem value={'BASKETBALL'}>BASKETBALL</MenuItem>
+                        <MenuItem value={'RUNNING'}>RUNNING</MenuItem>
+                        <MenuItem value={'VINTAGE'}>VINTAGE</MenuItem>
+                        <MenuItem value={'DESIGNER'}>DESIGNER</MenuItem>
+                      </Select>
+                    </FormControl>
 
-        <TextField
-          id="standard-helperText"
-          name="photos"
-          label="Photos"
-          onChange={this.handleChange}
-          defaultValue={this.state.photos}
-          helperText="Separate URLs with a comma"
-          inputProps={{style: {fontSize: 14}}}
-          InputLabelProps={{style: {fontSize: 14}}}
-        />
+                    <TextField
+                      id="standard-helperText"
+                      name="manufacturer"
+                      label="Manufacturer"
+                      onChange={this.handleChange}
+                      value={this.state.manufacturer}
+                      InputProps={{className: classes.itemText}}
+                      InputLabelProps={{className: classes.itemText}}
+                    />
 
-        <button type="submit">Submit</button>
-      </form>
+                    <TextField
+                      id="standard-helperText"
+                      name="description"
+                      label="Description"
+                      onChange={this.handleChange}
+                      value={this.state.description}
+                      InputProps={{className: classes.itemText}}
+                      InputLabelProps={{className: classes.itemText}}
+                    />
+
+                    <TextField
+                      id="standard-number"
+                      name="price"
+                      label="Price"
+                      type="number"
+                      onChange={this.handleChange}
+                      value={this.state.price}
+                      InputLabelProps={{
+                        shrink: true,
+                        className: classes.itemText,
+                      }}
+                      InputProps={{className: classes.itemText}}
+                    />
+
+                    <TextField
+                      id="standard-number"
+                      name="inventory"
+                      label="Inventory"
+                      type="number"
+                      onChange={this.handleChange}
+                      value={this.state.inventory}
+                      InputLabelProps={{
+                        shrink: true,
+                        className: classes.itemText,
+                      }}
+                      InputProps={{className: classes.itemText}}
+                    />
+
+                    <TextField
+                      id="standard-helperText"
+                      name="photos"
+                      label="Photos"
+                      onChange={this.handleChange}
+                      value={this.state.photos}
+                      helperText="Separate URLs with a comma"
+                      InputProps={{className: classes.itemText}}
+                      InputLabelProps={{className: classes.itemText}}
+                    />
+
+                    <Button type="submit" className="btn btn-danger btn-round">
+                      Submit
+                    </Button>
+                  </form>
+                </Grid>
+
+                <Grid item xs={12} sm={6}>
+                  <TableContainer style={{padding: '20px'}}>
+                    <Table stickyHeader aria-label="sticky table">
+                      <TableHead>
+                        <TableRow>
+                          {tableColumns.map((column) => (
+                            <TableCell
+                              key={column.id}
+                              align={column.align}
+                              className={classes.itemText}
+                            >
+                              {column.label}
+                            </TableCell>
+                          ))}
+                        </TableRow>
+                      </TableHead>
+
+                      <TableBody>
+                        {this.props.products.map((product) => {
+                          return (
+                            <TableRow key={product.id}>
+                              {tableColumns.map((column) => {
+                                const value = product[column.id]
+                                return (
+                                  <TableCell
+                                    key={product.id + column.id}
+                                    className={classes.itemText}
+                                  >
+                                    {column.id === 'price'
+                                      ? '$ ' + value
+                                      : value}
+                                  </TableCell>
+                                )
+                              })}
+                            </TableRow>
+                          )
+                        })}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </Grid>
+              </Grid>
+            </Box>
+          </Paper>
+        </Grid>
+      </div>
     )
   }
 }
 
+const mapState = (state) => {
+  return {products: state.products}
+}
+
 const mapDispatch = (dispatch) => {
   return {
+    getProducts: () => dispatch(fetchProducts()),
     addProduct: (newProduct) => dispatch(addProductThunk(newProduct)),
   }
 }
@@ -258,4 +375,4 @@ AddProduct.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default connect(null, mapDispatch)(withStyles(styles)(AddProduct))
+export default connect(mapState, mapDispatch)(withStyles(styles)(AddProduct))

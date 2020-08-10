@@ -226,7 +226,6 @@ class EditProduct extends React.Component {
   render() {
     const products = this.props.products
     const {classes} = this.props
-    console.log('CLASSES', classes)
 
     return (
       <div
@@ -278,7 +277,6 @@ class EditProduct extends React.Component {
                         style={{fontSize: 12, fontWeight: 100}}
                         onChange={this.handleChange}
                         value={this.state.style}
-                        //TO DO: CHANGE FONT SIZE
                       >
                         <MenuItem value={'CASUAL'}>CASUAL</MenuItem>
                         <MenuItem value={'BASKETBALL'}>BASKETBALL</MenuItem>
@@ -366,7 +364,6 @@ class EditProduct extends React.Component {
                             >
                               {column.label}
                             </TableCell>
-                            // <th key={column.id}>{column.label}</th>
                           ))}
                         </TableRow>
                       </TableHead>
