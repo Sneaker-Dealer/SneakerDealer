@@ -12,6 +12,7 @@ import {
   EditProduct,
   AllProducts,
   SingleProduct,
+  CheckoutPage,
 } from './components'
 import Cart from './components/cart'
 
@@ -35,6 +36,7 @@ class Routes extends Component {
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
           <Route path="/cart" component={Cart} />
+          <Route path="/checkout" component={CheckoutPage} />
           <Route exact path="/" component={AllProducts} />
           <Route exact path="/products/:id" component={SingleProduct} />
           {/*Remove before deploy for testing route when no user logged in */}
