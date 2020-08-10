@@ -8,13 +8,22 @@ import users from './all-users'
 import cart from './cart'
 import product from './single-product'
 import guestcart from './guest-cart'
+import {loadState, saveState} from './storage'
+
+const persistedState = loadState();
 
 const reducer = combineReducers({user, users, products, cart, product, guestcart})
 
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )
-const store = createStore(reducer, middleware)
+const store = createStore(reducer, persistedState, middleware)
+
+store.subscribe(() => {
+  saveState({
+    guestcart: store.getState().guestcart
+  });
+});
 
 export default store
 export * from './user'
