@@ -37,8 +37,9 @@ const randomUsers = Array(10) // number of generated ramdom users, - change upon
 
 const randomProducts = Array(30) // number of generated ramdom products, - change upon need
   .fill(undefined)
-  .map(() => ({
-    name: faker.commerce.productName(),
+  .map(() =>
+    ({
+    name: faker.commerce.productName().split(' ').slice(1).join().replace(',', ' '),
     style: randomStyle(),
     manufacturer: faker.company.companyName(),
     description: faker.lorem.paragraph(),

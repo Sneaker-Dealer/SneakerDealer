@@ -35,7 +35,13 @@ const AllProducts = (props) => {
       selectEmpty: {
         marginTop: theme.spacing(2),
       },
+
     }));
+    const imageStyle = (product) => ({
+      backgroundImage: `url(${product.photos[0]})`,
+      width: "100%",
+      height: "280px",
+    })
     const classes = useStyles();
     return (
       <div className="blog-posts">
@@ -83,36 +89,40 @@ const AllProducts = (props) => {
               <div className="row">
                 {products.filter(product => product.style === style || style === 'All').map((product) => {
                   return (
-                    <div className="col-md-4" key={product.id}>
-                      <div>
+                    <div className="col-md-4"  key={product.id}>
+                      <div className="card-block">
                         <div
                           className="card card-raised card-background"
-                          style={{ backgroundImage: `url(${product.photos[0]})` }}
+                          style={imageStyle(product)}
                         >
-                          <div className="card-content">
-                            <Link
+                          <div className="card-body ">
+                          <div className="card-content" style={{paddingTop: "0px"}}>
+                            {/* this wasn't showing due to typo */}
+                            {/* <Link
                               to={
                                 '/products/manufacturer/' + product.manufacturer
                               }
                             >
                               <h6 className="category text-info">
-                                {product.manufaturer}
+                                {product.manufacturer}
+                                 this wasnt showing due to typo
                               </h6>
-                            </Link>
+                            </Link> */}
 
-                            <h3 className="card-title">{product.name}</h3>
-
-                            <p className="card-description">
+                            <h3 className="card-title" style={{marginBottom: "0px"}}>{product.name}</h3>
+                            <h5 className="card-pricing" style={{color: "white"}}>${product.price}</h5>
+                            <div className="card-description" style={{paddingTop: "0px"}}>
                               {product.description.length < 50
                                 ? product.description
                                 : product.description.slice(0, 50) + '...'}
-                            </p>
+                            </div>
                             <Link
-                              className="btn btn-danger btn-round"
+                              className="btn btn-danger btn-round "
                               to={'/products/' + product.id}
                             >
                               View Product
                             </Link>
+                          </div>
                           </div>
                         </div>
                       </div>
