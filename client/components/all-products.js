@@ -107,11 +107,11 @@ const AllProducts = (props) => {
 
                             <h3 className="card-title" style={{marginBottom: "0px"}}>{product.name}</h3>
                             <h5 className="card-pricing" style={{color: "white"}}>${product.price}</h5>
-                            <p className="card-description" style={{paddingTop: "1.7em"}}>
+                            <div className="card-description" style={{paddingTop: "0px"}}>
                               {product.description.length < 50
                                 ? product.description
                                 : product.description.slice(0, 50) + '...'}
-                            </p>
+                            </div>
                             <Link
                               className="btn btn-danger btn-round "
                               to={'/products/' + product.id}
