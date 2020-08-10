@@ -30,23 +30,27 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
 
   const strategy = new GoogleStrategy(
     googleConfig,
-    (token, refreshToken, profile, done) => {
+    async (token, refreshToken, profile, done) => {
       const googleId = profile.id
       const email = profile.emails[0].value
       const firstName = profile.name.givenName
       const lastName = profile.name.familyName
       const name = profile.displayName
 
-      const user = User.findOrCreate({
-        where: {googleId},
-        defaults: {email, firstName, lastName, name}
-      })
-      // .then(() => {
-      //   const cart = Cart.create({status: 'CREATED'})
-      //   user.addCart(cart)
-      // })
-      .then(([newuser]) => done(null, newuser))
-        .catch(done)
+      try {
+        const existingUser = await User.findOne({ where: { googleId } })
+        if (existingUser) {
+          return done(null, existingUser);
+        }
+        const user = await User.create({
+          email, firstName, lastName, name, googleId
+        });
+        await Cart.create({status: 'CREATED', userId: user.id})
+
+        done(null, user);
+      } catch (error) {
+        console.log('Error ' + error);
+      }
     }
   )
 
