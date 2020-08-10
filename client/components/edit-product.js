@@ -1,37 +1,34 @@
 //Admins can add a new product
 import React from 'react'
 import {fetchProducts} from '../store'
+import {deleteProductThunk} from '../store/all-products'
 import {fetchSingleProduct, updateSingleProduct} from '../store/single-product'
 import {connect} from 'react-redux'
-
-import {Grid} from '@material-ui/core'
 import PropTypes from 'prop-types'
-import TextField from '@material-ui/core/TextField'
-import {withStyles} from '@material-ui/core/styles'
-import FormControl from '@material-ui/core/FormControl'
-import InputLabel from '@material-ui/core/InputLabel'
-import MenuItem from '@material-ui/core/MenuItem'
-import Select from '@material-ui/core/Select'
 
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import Typography from '@material-ui/core/Typography'
+import {
+  Grid,
+  TextField,
+  withStyles,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography,
+  IconButton,
+  Button,
+  Paper,
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from '@material-ui/core'
+
 import DeleteIcon from '@material-ui/icons/Delete'
-import Button from '@material-ui/core/Button'
-import IconButton from '@material-ui/core/IconButton'
 import EditIcon from '@material-ui/icons/Edit'
-import Paper from '@material-ui/core/Paper'
-import Box from '@material-ui/core/Box'
-
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableContainer from '@material-ui/core/TableContainer'
-import TableHead from '@material-ui/core/TableHead'
-import TablePagination from '@material-ui/core/TablePagination'
-import TableRow from '@material-ui/core/TableRow'
 
 const styles = (theme) => ({
   root: {
@@ -123,7 +120,6 @@ class EditProduct extends React.Component {
   async handleEditButton(id) {
     await this.props.getSingleProduct(id)
     this.setState({productId: id})
-    console.log('TESTING ---->', this.props.product)
 
     let product = this.props.product
     this.setState({
@@ -135,7 +131,11 @@ class EditProduct extends React.Component {
       inventory: product.inventory,
       photos: product.photos,
     })
-    console.log('new state', this.state)
+  }
+
+  async handleDeleteButton(id) {
+    await this.props.deleteProduct(id)
+    await this.props.getProducts()
   }
 
   // render() {
@@ -394,9 +394,9 @@ class EditProduct extends React.Component {
 
                                     {column.id === 'delete' && (
                                       <IconButton
-                                      // onClick={() =>
-                                      //   this.handleEditButton(product.id)
-                                      // }
+                                        onClick={() =>
+                                          this.handleDeleteButton(product.id)
+                                        }
                                       >
                                         <DeleteIcon />
                                       </IconButton>
@@ -433,6 +433,7 @@ const mapDispatch = (dispatch) => {
     getSingleProduct: (id) => dispatch(fetchSingleProduct(id)),
     updateSingleProduct: (id, updatedData) =>
       dispatch(updateSingleProduct(id, updatedData)),
+    deleteProduct: (id) => dispatch(deleteProductThunk(id)),
   }
 }
 

@@ -11,7 +11,6 @@ const DELETE_PRODUCT = 'DELETE_PRODUCT'
 //Action creators
 const getProducts = (products) => ({type: GET_PRODUCTS, products})
 const addProduct = (newProduct) => ({type: ADD_PRODUCT, newProduct})
-
 const setDeletedProduct = (id) => {
   return {
     type: DELETE_PRODUCT,
@@ -58,6 +57,8 @@ export default function (state = defaultProducts, action) {
       return action.products
     case ADD_PRODUCT:
       return [...state, action.newProduct]
+    case DELETE_PRODUCT:
+      return state.filter((product) => product.id !== action.id)
     default:
       return state
   }
