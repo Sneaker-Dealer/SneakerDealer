@@ -115,9 +115,15 @@ const Navbar = (props) => {
                   </a>
                   <ul className="dropdown-menu dropdown-with-icons">
                     <li>
-                      <Link to="/admin">
-                        <i className="material-icons">account_balance</i> Admin
-                        Panel
+                      <Link to="/add-product">
+                        <i className="material-icons">account_balance</i> Add
+                        Product
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/edit-product">
+                        <i className="material-icons">account_balance</i> Edit
+                        Product
                       </Link>
                     </li>
                     <li>

@@ -82,10 +82,14 @@ const staticProducts = [
 
 const staticCarts = [
   {status: 'CREATED'},
-  {status: 'PROCESSING'},
   {status: 'CREATED'},
-  {status: 'CANCELLED'},
-  {status: 'COMPLETED'},
+  {status: 'CREATED'},
+  {status: 'CREATED'},
+  {status: 'CREATED'},
+  // {status: 'PROCESSING'},
+  // {status: 'CREATED'},
+  // {status: 'CANCELLED'},
+  // {status: 'COMPLETED'},
 ]
 
 module.exports = {staticUsers, staticProducts, staticCarts}

@@ -45,7 +45,7 @@ export default function (state = defaultCart, action) {
         // case GET_CART:
         //     return action.guestcart
         case ADD_GUEST_PRODUCT:
-            return [...state.filter(product => product != action.product), action.product]
+            return [...state.filter(product => product.id != action.product.id), action.product]
         case UPDATE_GUEST_CART:
             return [...state.map(product => {
                 if (product == action.product) {
