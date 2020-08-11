@@ -19,7 +19,6 @@ class SingleProduct extends Component {
 
   handleClick(item, event) {
     event.preventDefault()
-
     if (this.props.userId) {
       this.props.addToCart(this.props.userId, this.props.cart.id, item.id)
     } else {
@@ -29,8 +28,7 @@ class SingleProduct extends Component {
           checkItem = this.props.guestcart[i]
         }
       }
-      console.log(Object.entries(checkItem).length === 0)
-      if (Object.entries(checkItem).length === 0) {
+      if (Object.entries(checkItem).length === 0){
         this.props.guestAddToCart(item)
       }
     }

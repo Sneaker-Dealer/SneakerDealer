@@ -17,26 +17,8 @@ import {
   TableRow,
 } from '@material-ui/core'
 
-const styles = (theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: '50ch',
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
-  },
-  demo: {
-    backgroundColor: theme.palette.background.paper,
-  },
-  title: {
-    margin: theme.spacing(4, 0, 2),
-  },
-  itemText: {
-    fontSize: '.9em',
-    fontWeight: 100,
-  },
-})
+//Material UI styling
+import styles from '../admin-styles'
 
 const tableColumns = [
   {id: 'id', label: 'ID', minWidth: 60},
@@ -48,26 +30,6 @@ export class AllUsers extends React.Component {
   componentDidMount() {
     this.props.getUsers()
   }
-
-  // render() {
-  //   let users = this.props.users
-
-  //   return (
-  //     <div>
-  //       <h3>All Users:</h3>
-  //       {users.length === 0 && <h3>No users available</h3>}
-
-  //       {users.map((user) => {
-  //         return (
-  //           <div key={user.id}>
-  //             <p>Name: {user.name}</p>
-  //             <p>Email: {user.email}</p>
-  //           </div>
-  //         )
-  //       })}
-  //     </div>
-  //   )
-  // }
 
   render() {
     const {classes} = this.props

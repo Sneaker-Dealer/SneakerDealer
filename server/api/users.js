@@ -30,7 +30,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.get('/:userId/cart' , async (req, res, next) => {
+router.get('/:userId/cart' , isSelf, async (req, res, next) => {
   try {
     const cart = await Cart.findOne({
       where: {userId: req.params.userId, status: 'CREATED'},
@@ -43,7 +43,7 @@ router.get('/:userId/cart' , async (req, res, next) => {
   }
 })
 
-router.post('/:userId/cart', async (req, res, next) => {
+router.post('/:userId/cart', isSelf , async (req, res, next) => {
   try {
     const cart = await ProductCart.create({
       cart_id: req.body.cart_id,
@@ -56,25 +56,16 @@ router.post('/:userId/cart', async (req, res, next) => {
   }
 })
 
-// router.post('/guest/cart', async (req, res, next) => {
-//   try {
-//     console.log(req.body)
-//     const cart = await Cart.create({
-//       status: 'PROCESSING',
-//       guestcart: req.body.guestcart
-//     })
-//     res.json(cart)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
-
-router.put('/:userId/cart/checkout', async (req, res, next) => {
+router.put('/:userId/cart/checkout', isSelf , async (req, res, next) => {
   try {
-    console.log(req.body.cart_id)
     const [, [cart]] = await Cart.update(
       {
         status: 'PROCESSING',
+        recipientName: req.body.recipientName,
+        confirmationEmail: req.body.confirmationEmail,
+        recipientAddress: req.body.recipientAddress, 
+        recipientPhone: req.body.recipientPhone, 
+        specialInstructions: req.body.specialInstructions
       },
       {
         returning: true,
@@ -87,7 +78,7 @@ router.put('/:userId/cart/checkout', async (req, res, next) => {
   }
 })
 
-router.post('/:userId/cart/new', async (req, res, next) => {
+router.post('/:userId/cart/new', isSelf , async (req, res, next) => {
   try {
     const cart = await Cart.create({
       status: "CREATED",
@@ -103,7 +94,7 @@ router.post('/:userId/cart/new', async (req, res, next) => {
   }
 })
 
-router.put('/:userId/cart', async (req, res, next) => {
+router.put('/:userId/cart', isSelf , async (req, res, next) => {
   try {
     const [, [cart]] = await ProductCart.update(
       {
@@ -120,7 +111,7 @@ router.put('/:userId/cart', async (req, res, next) => {
   }
 })
 
-router.delete('/:userId/cart', async (req, res, next) => {
+router.delete('/:userId/cart', isSelf , async (req, res, next) => {
   try {
     await ProductCart.destroy({
       where: {cart_id: req.body.cart_id, product_id: req.body.product_id},

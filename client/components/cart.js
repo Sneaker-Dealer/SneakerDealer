@@ -12,11 +12,8 @@ class Cart extends React.Component {
   constructor() {
     super()
     this.handleDelete = this.handleDelete.bind(this)
-    // this.handleChange = this.handleChange.bind(this)
-    // this.handleSubmit = this.handleSubmit.bind(this)
     this.handleMinus = this.handleMinus.bind(this)
     this.handlePlus = this.handlePlus.bind(this)
-    this.handleCheckout = this.handleCheckout.bind(this)
   }
 
   handleMinus(item, event) {
@@ -36,11 +33,8 @@ class Cart extends React.Component {
     }
   }
 
-  // this.props.changeCart(this.props.user.id,this.props.cart.id,item.id,newInventory);
-
 handlePlus(item, event) {
   event.preventDefault()
-  // this.props.changeCart(this.props.user.id,this.props.cart.id,item.id,newInventory);
   const newInventory = item.Product_Cart.quantity + 1
   if (newInventory <= item.inventory) {
     if (this.props.userId) {
@@ -52,99 +46,23 @@ handlePlus(item, event) {
   }
 }
 
-
-  // handleChange(item, event) {
-  //   event.preventDefault()
-  //   const newQuantity = parseInt(event.target.value, 10)
-  //   item.inventory = newQuantity
-  // }
-
-  // handleSubmit(item, event) {
-  //   event.preventDefault()
-  //   const newInventory = item.inventory
-  //   // this.props.changeCart(this.props.user.id,this.props.cart.id,item.id,newInventory);
-  //   this.props.changeCart(2, this.props.cart.id, item.id, newInventory)
-  //   console.log('Quantity updated')
-  // }
-
   handleDelete(item, event) {
     event.preventDefault()
-    console.log('Quantity changed')
-    // this.props.changeCart(this.props.user.id,this.props.cart.id,item.id,0);
     if (this.props.userId) {
-      // let result = this.props.cart.products_in_cart.filter((prod) => prod != item)
-      // this.props.cart.products_in_cart = result
       this.props.changeCart(this.props.userId, this.props.cart.id, item.id, 0)
     }
     else {
       this.props.guestChangeCart(item, 0)
     }
-
-    console.log(this.props.cart.products_in_cart)
-  }
-
-  handleCheckout(event) {
-    event.preventDefault()
-    if(this.props.userId){
-      this.props.newCart(this.props.userId,this.props.cart.id)
-    }
-    else{
-      console.log('please login')
-    }
-    
   }
 
   componentDidMount() {
-    console.log(this.props.user.id)
     if (this.props.userId) {
       this.props.fetchCart(this.props.userId)
     }
-    // this.props.fetchCart(2)
-
   }
 
   render() {
-    // return (
-    //   <div>
-    //     <h2>Cart:</h2>
-    //     {this.props.cart.products_in_cart ? (
-    //       this.props.cart.products_in_cart.map((item) => (
-    //         <div key={item.id}>
-    //           <Link to={`/products/${item.id}`}>
-    //             <img src={item.photos[0]} />
-    //             <div>{item.name}</div>
-    //           </Link>
-    //           <form onSubmit={(event) => this.handleSubmit(item, event)}>
-    //             <label htmlFor="quantity">Quantity:</label>
-    //             <input
-    //               name="quantity"
-    //               type="number"
-    //               defaultValue={item.Product_Cart.quantity}
-    //               onChange={(event) => this.handleChange(item, event)}
-    //             />
-    //             <button type="submit">Update</button>
-    //           </form>
-    //           <button
-    //             type="button"
-    //             className="remove"
-    //             onClick={(event) => this.handleClick(item, event)}
-    //           >
-    //             Remove
-    //           </button>
-    //           <hr />
-    //         </div>
-    //       ))
-    //     ) : (
-    //       <div>Cart is Empty</div>
-    //     )}
-    //   </div>
-    // )
-
-    //=========
-    console.log('cart props>>>', this.props)  // why props are empty? why it is not fetching....
-    //=========
-    ///
-    //
     let products
     if (this.props.userId) {
       products = this.props.cart.products_in_cart;
@@ -176,7 +94,7 @@ handlePlus(item, event) {
                           </tr>
                         </thead>
                         <tbody>
-                          {[] && products.map((item) => (
+                          {products.map((item) => (
                             <tr key={item.id}>
                               <td>
                                 <div className="img-container">
@@ -230,7 +148,6 @@ handlePlus(item, event) {
                                 </button>
                               </Link>
                             </td>
-
                           </tr>
                         </tbody>
                       </table>
@@ -243,15 +160,6 @@ handlePlus(item, event) {
         </div>
       </div>
     )
-
-
-
-
-
-
-
-
-
   }
 }
 

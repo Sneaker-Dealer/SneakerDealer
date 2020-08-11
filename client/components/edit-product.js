@@ -30,26 +30,8 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
 
-const styles = (theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: '50ch',
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
-  },
-  demo: {
-    backgroundColor: theme.palette.background.paper,
-  },
-  title: {
-    margin: theme.spacing(4, 0, 2),
-  },
-  itemText: {
-    fontSize: '.9em',
-    fontWeight: 100,
-  },
-})
+//Material UI styling
+import styles from '../admin-styles'
 
 const tableColumns = [
   {id: 'name', label: 'NAME', minWidth: 100},
@@ -135,96 +117,7 @@ class EditProduct extends React.Component {
     await this.props.getProducts()
   }
 
-  // render() {
-  //   const products = this.props.products
-  //   console.log('THIS PROPS >>>', this.props)
-
-  //   return (
-  //     <div>
-  //       <Grid container spacing={3} direction="row">
-  //         <Grid item xs={12}>
-  //           <form onSubmit={this.handleSubmit}>
-  //             <label htmlFor="name">Product Name:</label>
-  //             <input
-  //               onChange={this.handleChange}
-  //               name="name"
-  //               type="text"
-  //               value={this.state.name}
-  //             />
-
-  //             <label htmlFor="style">Style:</label>
-  //             <input
-  //               onChange={this.handleChange}
-  //               name="style"
-  //               type="text"
-  //               value={this.state.style}
-  //             />
-
-  //             <label htmlFor="manufacturer">Manufacturer:</label>
-  //             <input
-  //               onChange={this.handleChange}
-  //               name="manufacturer"
-  //               type="text"
-  //               value={this.state.manufacturer}
-  //             />
-
-  //             <label htmlFor="description">Description:</label>
-  //             <input
-  //               onChange={this.handleChange}
-  //               name="description"
-  //               type="textArea"
-  //               value={this.state.description}
-  //             />
-
-  //             <label htmlFor="price">Price:</label>
-  //             <input
-  //               onChange={this.handleChange}
-  //               name="price"
-  //               type="number"
-  //               value={this.state.price}
-  //             />
-
-  //             <label htmlFor="inventory">Inventory:</label>
-  //             <input
-  //               onChange={this.handleChange}
-  //               name="inventory"
-  //               type="number"
-  //               value={this.state.inventory}
-  //             />
-
-  //             <label htmlFor="photos">Image URL:</label>
-  //             <input
-  //               onChange={this.handleChange}
-  //               name="photos"
-  //               type="textArea"
-  //               value={this.state.photos}
-  //             />
-  //             <button type="submit">Submit</button>
-  //           </form>
-  //         </Grid>
-  //       </Grid>
-  //       <div>
-  //         {this.props.products.map((product) => {
-  //           return (
-  //             <div key={product.id}>
-  //               <p>{product.name}</p>
-
-  //               <button
-  //                 onClick={() => this.handleEditButton(product.id)}
-  //                 type="button"
-  //               >
-  //                 Edit
-  //               </button>
-  //             </div>
-  //           )
-  //         })}
-  //       </div>
-  //     </div>
-  //   )
-  // }
-
   render() {
-    const products = this.props.products
     const {classes} = this.props
 
     return (

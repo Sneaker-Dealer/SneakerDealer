@@ -24,26 +24,8 @@ import {
   TableRow,
 } from '@material-ui/core'
 
-const styles = (theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: '50ch',
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
-  },
-  demo: {
-    backgroundColor: theme.palette.background.paper,
-  },
-  title: {
-    margin: theme.spacing(4, 0, 2),
-  },
-  itemText: {
-    fontSize: '.9em',
-    fontWeight: 100,
-  },
-})
+//Material UI styling
+import styles from '../admin-styles'
 
 const tableColumns = [
   {id: 'id', label: 'ID', minWidth: 60},
@@ -117,70 +99,6 @@ class AddProduct extends React.Component {
 
     await this.props.getProducts()
   }
-
-  // render() {
-  //   return (
-  //     <form onSubmit={this.handleSubmit}>
-  //       <label htmlFor="name">Product Name:</label>
-  //       <input
-  //         onChange={this.handleChange}
-  //         name="name"
-  //         type="text"
-  //         value={this.state.name}
-  //       />
-
-  //       <label htmlFor="style">Style:</label>
-  //       <input
-  //         onChange={this.handleChange}
-  //         name="style"
-  //         type="text"
-  //         value={this.state.style}
-  //       />
-
-  //       <label htmlFor="manufacturer">Manufacturer:</label>
-  //       <input
-  //         onChange={this.handleChange}
-  //         name="manufacturer"
-  //         type="text"
-  //         value={this.state.manufacturer}
-  //       />
-
-  //       <label htmlFor="description">Description:</label>
-  //       <input
-  //         onChange={this.handleChange}
-  //         name="description"
-  //         type="textArea"
-  //         value={this.state.description}
-  //       />
-
-  //       <label htmlFor="price">Price:</label>
-  //       <input
-  //         onChange={this.handleChange}
-  //         name="price"
-  //         type="number"
-  //         value={this.state.price}
-  //       />
-
-  //       <label htmlFor="inventory">Inventory:</label>
-  //       <input
-  //         onChange={this.handleChange}
-  //         name="inventory"
-  //         type="number"
-  //         value={this.state.inventory}
-  //       />
-
-  //       <label htmlFor="photos">Image URL:</label>
-  //       <p>(Separate multiple URLs with a comma)</p>
-  //       <input
-  //         onChange={this.handleChange}
-  //         name="photos"
-  //         type="textArea"
-  //         value={this.state.photos}
-  //       />
-  //       <button type="submit">Submit</button>
-  //     </form>
-  //   )
-  // }
 
   render() {
     const {classes} = this.props

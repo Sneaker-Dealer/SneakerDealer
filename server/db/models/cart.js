@@ -21,9 +21,6 @@ const Cart = db.define('cart', {
   },
   specialInstructions: {
     type: Sequelize.STRING,
-  },
-  guestCart: {
-    type: Sequelize.ARRAY(Sequelize.JSON),
   }
 })
 
