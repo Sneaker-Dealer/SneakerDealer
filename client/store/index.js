@@ -21,9 +21,7 @@ const reducer = combineReducers({
   guestcart,
 })
 
-const middleware = composeWithDevTools(
-  applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
-)
+const middleware = composeWithDevTools(applyMiddleware(thunkMiddleware))
 const store = createStore(reducer, persistedState, middleware)
 
 store.subscribe(() => {
