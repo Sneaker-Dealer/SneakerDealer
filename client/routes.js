@@ -13,6 +13,7 @@ import {
   AllProducts,
   SingleProduct,
   CheckoutPage,
+  NotFound,
 } from './components'
 import Cart from './components/cart'
 
@@ -53,7 +54,7 @@ class Routes extends Component {
             </Switch>
           )}
           {/* Displays our Login component as a fallback */}
-          <Route component={Login} />
+          <Route component={NotFound} />
         </Switch>
       </div>
     )
