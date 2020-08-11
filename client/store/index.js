@@ -10,9 +10,16 @@ import product from './single-product'
 import guestcart from './guest-cart'
 import {loadState, saveState} from './storage'
 
-const persistedState = loadState();
+const persistedState = loadState()
 
-const reducer = combineReducers({user, users, products, cart, product, guestcart})
+const reducer = combineReducers({
+  user,
+  users,
+  products,
+  cart,
+  product,
+  guestcart,
+})
 
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
@@ -21,13 +28,12 @@ const store = createStore(reducer, persistedState, middleware)
 
 store.subscribe(() => {
   saveState({
-    guestcart: store.getState().guestcart
-  });
-});
+    guestcart: store.getState().guestcart,
+  })
+})
 
 export default store
 export * from './user'
 export * from './all-products'
 export * from './all-users'
 export * from './single-product'
-//
