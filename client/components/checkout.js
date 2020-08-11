@@ -4,7 +4,6 @@ import {fetchCart, newCart} from '../store/cart'
 import {newGuestCart} from '../store/guest-cart'
 
 class CheckoutPage extends React.Component {
-
   constructor() {
     super()
     this.handleCheckout = this.handleCheckout.bind(this)
@@ -22,7 +21,6 @@ class CheckoutPage extends React.Component {
     else{
       this.props.newGuestCart(this.props.guestcart,customerinfo)
     }
-    
   }
 
   componentDidMount() {
@@ -34,10 +32,9 @@ class CheckoutPage extends React.Component {
   render() {
     let cart
     if (this.props.userId) {
-      cart = this.props.cart.products_in_cart;
-    }
-    else {
-      cart = this.props.guestcart;
+      cart = this.props.cart.products_in_cart
+    } else {
+      cart = this.props.guestcart
     }
 
     return (
@@ -61,11 +58,7 @@ class CheckoutPage extends React.Component {
                     className="info info-horizontal icon icon-primary"
                   >
                     <div className="material-icons">
-                      <img
-                        src={element.photos[0]}
-                        alt="..."
-                        width="150"
-                      />
+                      <img src={element.photos[0]} alt="..." width="150" />
                     </div>
                     <div className="description">
                       <h4 className="info-title">{element.name}</h4>
@@ -73,7 +66,8 @@ class CheckoutPage extends React.Component {
                         Manufacturer: {element.manufacturer} <br />
                         Style: {element.style} <br />
                         Quantity: {element.Product_Cart.quantity} <br />
-                        Subtotal: ${element.price * element.Product_Cart.quantity}
+                        Subtotal: $
+                        {element.price * element.Product_Cart.quantity}
                       </p>
                     </div>
                   </div>
