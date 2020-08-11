@@ -1,12 +1,9 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
 import {fetchCart, newCart} from '../store/cart'
 import {newGuestCart} from '../store/guest-cart'
 
 class CheckoutPage extends React.Component {
-
   constructor() {
     super()
     this.handleCheckout = this.handleCheckout.bind(this)
@@ -14,13 +11,11 @@ class CheckoutPage extends React.Component {
 
   handleCheckout(event) {
     event.preventDefault()
-    if(this.props.userId){
-      this.props.newCart(this.props.userId,this.props.cart.id)
-    }
-    else{
+    if (this.props.userId) {
+      this.props.newCart(this.props.userId, this.props.cart.id)
+    } else {
       this.props.newGuestCart(this.props.guestcart)
     }
-    
   }
 
   componentDidMount() {
@@ -34,10 +29,9 @@ class CheckoutPage extends React.Component {
     // const cart = this.props.cart.products_in_cart
     let cart
     if (this.props.userId) {
-      cart = this.props.cart.products_in_cart;
-    }
-    else {
-      cart = this.props.guestcart;
+      cart = this.props.cart.products_in_cart
+    } else {
+      cart = this.props.guestcart
     }
 
     console.log(cart)
@@ -64,11 +58,7 @@ class CheckoutPage extends React.Component {
                     className="info info-horizontal icon icon-primary"
                   >
                     <div className="material-icons">
-                      <img
-                        src={element.photos[0]}
-                        alt="..."
-                        width="150"
-                      />
+                      <img src={element.photos[0]} alt="..." width="150" />
                     </div>
                     <div className="description">
                       <h4 className="info-title">{element.name}</h4>
@@ -76,7 +66,8 @@ class CheckoutPage extends React.Component {
                         Manufacturer: {element.manufacturer} <br />
                         Style: {element.style} <br />
                         Quantity: {element.Product_Cart.quantity} <br />
-                        Subtotal: ${element.price * element.Product_Cart.quantity}
+                        Subtotal: $
+                        {element.price * element.Product_Cart.quantity}
                       </p>
                     </div>
                   </div>
@@ -171,7 +162,7 @@ const mapDispatch = (dispatch) => {
   return {
     fetchCart: (id) => dispatch(fetchCart(id)),
     newGuestCart: (guestcart) => dispatch(newGuestCart(guestcart)),
-    newCart: (userid,cartid) => newCart(userid,cartid)
+    newCart: (userid, cartid) => newCart(userid, cartid),
   }
 }
 
