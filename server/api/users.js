@@ -32,7 +32,6 @@ router.post('/', async (req, res, next) => {
 
 router.get('/:userId/cart' , isSelf, async (req, res, next) => {
   try {
-    console.log(req.user.dataValues.id)
     const cart = await Cart.findOne({
       where: {userId: req.params.userId, status: 'CREATED'},
       include: [{model: Product, as: 'products_in_cart'}],
@@ -59,10 +58,14 @@ router.post('/:userId/cart', isSelf , async (req, res, next) => {
 
 router.put('/:userId/cart/checkout', isSelf , async (req, res, next) => {
   try {
-    console.log(req.body.cart_id)
     const [, [cart]] = await Cart.update(
       {
         status: 'PROCESSING',
+        recipientName: req.body.recipientName,
+        confirmationEmail: req.body.confirmationEmail,
+        recipientAddress: req.body.recipientAddress, 
+        recipientPhone: req.body.recipientPhone, 
+        specialInstructions: req.body.specialInstructions
       },
       {
         returning: true,

@@ -43,10 +43,10 @@ export const guestChangeCart = (product, quantity) => {
     }
 }
 
-export const newGuestCart = (guestcart) => {
+export const newGuestCart = (guestcart,customerinfo) => {
     return async (dispatch) => {
         try {
-            await axios.post(`/api/guest/cart`,{guestcart})
+            await axios.post(`/api/guest/cart`,{guestcart,...customerinfo})
             dispatch(newCart())
             history.push('/')
         } catch (error) {

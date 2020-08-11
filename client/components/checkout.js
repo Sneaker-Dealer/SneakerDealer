@@ -12,11 +12,15 @@ class CheckoutPage extends React.Component {
 
   handleCheckout(event) {
     event.preventDefault()
+    let customerinfo = {recipientName: this.recipientName.value,confirmationEmail: this.confirmationEmail.value,
+      recipientAddress: this.recipientAddress.value, recipientPhone: this.recipientPhone.value, 
+      specialInstructions: this.specialInstructions.value
+    }
     if(this.props.userId){
-      this.props.newCart(this.props.userId,this.props.cart.id)
+      this.props.newCart(this.props.userId,this.props.cart.id,customerinfo)
     }
     else{
-      this.props.newGuestCart(this.props.guestcart)
+      this.props.newGuestCart(this.props.guestcart,customerinfo)
     }
     
   }
@@ -78,7 +82,7 @@ class CheckoutPage extends React.Component {
 
               <div className="col-md-6 col-md-offset-2">
                 <p className="description">
-                  Please provide us delivery address
+                  Please provide us a delivery address
                   <br />
                 </p>
                 <form
@@ -88,37 +92,48 @@ class CheckoutPage extends React.Component {
                   method="post"
                 >
                   <div className="form-group label-floating">
-                    <label className="control-label">Recipient Name</label>
+                    <label className="control-label">Name</label>
                     <input
                       type="text"
                       name="recipientName"
                       className="form-control"
+                      ref = {name => this.recipientName = name}
+                      required
                     />
                   </div>
-                  
+
                   <div className="form-group label-floating">
-                    <label className="control-label">Confirmation Email</label>
+                    <label className="control-label">Email</label>
                     <input
                       type="email"
                       name="confirmationEmail"
                       className="form-control"
+                      ref = {email => this.confirmationEmail = email}
+                      required
                     />
                   </div>
                   <br />
                   <div className="form-group label-floating">
-                    <label className="control-label">Recipient Address</label>
+                    <label className="control-label">Address</label>
                     <input
                       type="text"
                       name="recipientAddress"
                       className="form-control"
+                      ref = {address => this.recipientAddress = address}
+                      required
                     />
                   </div>
                   <div className="form-group label-floating">
-                    <label className="control-label">Recipient Phone</label>
+                    <label className="control-label">Phone Number</label>
                     <input
-                      type="text"
+                      type="tel"
+                      pattern="[0-9]{10}" 
+                      maxLength="12"  
+                      title="Ten Digit Phone Number. Number Only. No Spaces. No Dashes."
                       name="recipientPhone"
                       className="form-control"
+                      ref = {phone => this.recipientPhone = phone}
+                      required
                     />
                   </div>
                   <br />
@@ -131,6 +146,7 @@ class CheckoutPage extends React.Component {
                       className="form-control"
                       id="message"
                       rows="3"
+                      ref = {special => this.specialInstructions = special}
                     ></textarea>
                   </div>
                   <br />
@@ -163,8 +179,8 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     fetchCart: (id) => dispatch(fetchCart(id)),
-    newGuestCart: (guestcart) => dispatch(newGuestCart(guestcart)),
-    newCart: (userid,cartid) => dispatch(newCart(userid,cartid))
+    newGuestCart: (guestcart,customerinfo) => dispatch(newGuestCart(guestcart,customerinfo)),
+    newCart: (userid,cartid,customerinfo) => dispatch(newCart(userid,cartid,customerinfo))
   }
 }
 

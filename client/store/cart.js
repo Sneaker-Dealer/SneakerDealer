@@ -67,10 +67,10 @@ export const changeCart = (id, cart_id, product_id, quantity) => {
   }
 }
 
-export const newCart = (id, cart_id) => {
+export const newCart = (id, cart_id,customerinfo) => {
   return async (dispatch) => {
     try {
-      await axios.put(`/api/users/${id}/cart/checkout`,{cart_id})
+      await axios.put(`/api/users/${id}/cart/checkout`,{cart_id,...customerinfo})
       await axios.post(`/api/users/${id}/cart/new`)
       const {data} = await axios.get(`/api/users/${id}/cart`)
       if (data) {
