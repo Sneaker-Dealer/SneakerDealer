@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleProduct} from '../store/single-product'
 import {fetchCart, addToCart} from '../store/cart'
-import { guestAddToCart } from '../store/guest-cart'
+import {guestAddToCart} from '../store/guest-cart'
 
 class SingleProduct extends Component {
   constructor() {
@@ -12,20 +12,19 @@ class SingleProduct extends Component {
 
   componentDidMount() {
     this.props.fetchSingleProduct(this.props.match.params.id)
-    if(this.props.userId){
+    if (this.props.userId) {
       this.props.fetchCart(this.props.userId)
     }
   }
 
   handleClick(item, event) {
     event.preventDefault()
-    if(this.props.userId){
+    if (this.props.userId) {
       this.props.addToCart(this.props.userId, this.props.cart.id, item.id)
-    }
-    else{
+    } else {
       let checkItem = {}
-      for (let i = 0; i < this.props.guestcart.length; i++){
-        if(this.props.guestcart[i].id == this.props.product.id){
+      for (let i = 0; i < this.props.guestcart.length; i++) {
+        if (this.props.guestcart[i].id == this.props.product.id) {
           checkItem = this.props.guestcart[i]
         }
       }
@@ -106,7 +105,7 @@ const mapStateToProps = (state) => {
     product: state.product,
     cart: state.cart,
     guestcart: state.guestcart,
-    userId: state.user.id
+    userId: state.user.id,
   }
 }
 
@@ -116,7 +115,7 @@ const mapDispatchToProps = (dispatch) => {
     fetchCart: (id) => dispatch(fetchCart(id)),
     addToCart: (userid, cartid, itemid) =>
       dispatch(addToCart(userid, cartid, itemid)),
-    guestAddToCart: (product) => dispatch(guestAddToCart(product))
+    guestAddToCart: (product) => dispatch(guestAddToCart(product)),
   }
 }
 
