@@ -110,7 +110,7 @@ const Navbar = (props) => {
                     className="dropdown-toggle"
                     data-toggle="dropdown"
                   >
-                    <i className="material-icons">view_carousel</i> Accounts
+                    <i className="material-icons">view_carousel</i> Admin Panel
                     <b className="caret" />
                   </a>
                   <ul className="dropdown-menu dropdown-with-icons">
@@ -128,7 +128,7 @@ const Navbar = (props) => {
                     </li>
                     <li>
                       <Link to="/users">
-                        <i className="material-icons">account_balance</i> All
+                        <i className="material-icons">account_balance</i> View
                         Users
                       </Link>
                     </li>

@@ -30,26 +30,8 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
 
-const styles = (theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: '50ch',
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
-  },
-  demo: {
-    backgroundColor: theme.palette.background.paper,
-  },
-  title: {
-    margin: theme.spacing(4, 0, 2),
-  },
-  itemText: {
-    fontSize: '.9em',
-    fontWeight: 100,
-  },
-})
+//Material UI styling
+import styles from '../admin-styles'
 
 const tableColumns = [
   {id: 'name', label: 'NAME', minWidth: 100},
