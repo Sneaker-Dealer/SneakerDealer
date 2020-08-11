@@ -48,7 +48,3 @@ const Product = db.define('product', {
 })
 
 module.exports = Product
-
-Product.prototype.decrementInventory = function (num) {
-  this.inventory = Math.max(this.inventory - num, 0)
-}

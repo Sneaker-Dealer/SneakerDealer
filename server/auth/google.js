@@ -4,28 +4,13 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
 const {User, Cart} = require('../db/models')
 module.exports = router
 
-
-/**
- * For OAuth keys and other secrets, your Node process will search
- * process.env to find environment variables. On your production server,
- * you will be able to set these environment variables with the appropriate
- * values. In development, a good practice is to keep a separate file with
- * these secrets that you only share with your team - it should NOT be tracked
- * by git! In this case, you may use a file called `secrets.js`, which will
- * set these environment variables like so:
- *
- * process.env.GOOGLE_CLIENT_ID = 'your google client id'
- * process.env.GOOGLE_CLIENT_SECRET = 'your google client secret'
- * process.env.GOOGLE_CALLBACK = '/your/google/callback'
- */
-
 if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
   console.log('Google client ID / secret not found. Skipping Google OAuth.')
 } else {
   const googleConfig = {
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.GOOGLE_CALLBACK
+    callbackURL: process.env.GOOGLE_CALLBACK,
   }
 
   const strategy = new GoogleStrategy(
@@ -38,18 +23,22 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
       const name = profile.displayName
 
       try {
-        const existingUser = await User.findOne({ where: { googleId } })
+        const existingUser = await User.findOne({where: {googleId}})
         if (existingUser) {
-          return done(null, existingUser);
+          return done(null, existingUser)
         }
         const user = await User.create({
-          email, firstName, lastName, name, googleId
-        });
+          email,
+          firstName,
+          lastName,
+          name,
+          googleId,
+        })
         await Cart.create({status: 'CREATED', userId: user.id})
 
-        done(null, user);
+        done(null, user)
       } catch (error) {
-        console.log('Error ' + error);
+        console.log('Error ' + error)
       }
     }
   )
@@ -65,7 +54,7 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
     '/callback',
     passport.authenticate('google', {
       successRedirect: '/',
-      failureRedirect: '/login'
+      failureRedirect: '/login',
     })
   )
 }
